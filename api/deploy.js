@@ -13,10 +13,12 @@ import { makeLocalAmountMath } from '../contract/node_modules/@agoric/ertp/src';
 // script ends, connections to any of its objects are severed.
 
 // The deployer's wallet's petname for the money issuer.
-const MONEY_ISSUER_PETNAME = process.env.MONEY_ISSUER_PETNAME || [
-  'FungibleFaucet',
-  'Token',
-];
+let MONEY_ISSUER_PETNAME_JSON;
+if (process.env.MONEY_ISSUER_PETNAME_JSON) {
+  MONEY_ISSUER_PETNAME_JSON = JSON.stringify(JSON.parse(process.env.MONEY_ISSUER_PETNAME_JSON));
+} else if (process.env.MONEY_ISSUER_PETNAME) {
+  MONEY_ISSUER_PETNAME_JSON = JSON.stringify(process.env.MONEY_ISSUER_PETNAME);
+}
 
 /**
  * @typedef {Object} DeployPowers The special powers that `agoric deploy` gives us
@@ -68,6 +70,10 @@ export default async function deployApi(
     // the ag-solo web server.
     http,
 
+    // This is a scratch pad specific to the current ag-solo and inaccessible
+    // from the chain.
+    uploads: scratch,
+
     // The board is an on-chain object that is used to make private
     // on-chain objects public to everyone else on-chain. These
     // objects get assigned a unique string id. Given the id, other
@@ -100,19 +106,30 @@ export default async function deployApi(
     installation,
   );
 
-  const issuersArray = await E(wallet).getIssuers();
-  const [_, moneyIssuer] = issuersArray.find(
-    ([issuerPetname]) =>
-      JSON.stringify(issuerPetname) === JSON.stringify(MONEY_ISSUER_PETNAME),
-  );
-
-  if (moneyIssuer === undefined) {
-    console.error(
-      'Cannot find MONEY_ISSUER_PETNAME',
-      MONEY_ISSUER_PETNAME,
-      'in home.wallet',
+  // Default to the deployed faucet token.
+  let moneyIssuer = await E(scratch).get('faucetTokenIssuer');
+  if (MONEY_ISSUER_PETNAME_JSON) {
+    // try to find the MONEY_ISSUER_PETNAME_JSON.
+    const issuersArray = await E(wallet).getIssuers();
+    let _moneyKey;
+    [_moneyKey, moneyIssuer] = issuersArray.find(
+      ([issuerPetname]) =>
+        JSON.stringify(issuerPetname) === MONEY_ISSUER_PETNAME_JSON,
     );
-    console.error('Have issuers:', [...issuersArray].join(', '));
+
+    if (moneyIssuer === undefined) {
+      console.error(
+        'Cannot find MONEY_ISSUER_PETNAME_JSON',
+        MONEY_ISSUER_PETNAME_JSON,
+        'in home.wallet',
+      );
+      console.error('Have issuers:', [...issuersArray].join(', '));
+      process.exit(1);
+    }
+  } else if (moneyIssuer === undefined) {
+    console.error(
+      'Cannot find faucetTokenIssuer in home.uploads',
+    );
     process.exit(1);
   }
 
