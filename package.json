@@ -1,0 +1,50 @@
+{
+  "name": "dapp-card-store",
+  "version": "0.0.1",
+  "private": true,
+  "useWorkspaces": true,
+  "main": "index.js",
+  "workspaces": [
+    "api",
+    "contract",
+    "_agstate/agoric-servers",
+    "ui"
+  ],
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-jessie": "^0.0.6",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.21.4",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "prettier": "^2.1.2"
+  },
+  "scripts": {
+    "preinstall": "node -e \"process.env.AGORIC_INSTALL && process.exit(0); console.warn('please use: agoric install . For details, see https://agoric.com/documentation/'); process.exit(1)\"",
+    "lint": "yarn workspaces run lint-fix",
+    "lint-check": "yarn workspaces run lint-check",
+    "test": "yarn workspaces run test",
+    "build": "yarn workspaces run build"
+  },
+  "dependencies": {
+    "agoric": "*",
+    "eslint-plugin-eslint-comments": "^3.1.2"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": [
+          "*.js",
+          "*.cjs",
+          "*.mjs"
+        ]
+      }
+    ]
+  }
+}
