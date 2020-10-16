@@ -13,7 +13,7 @@ const spawnHandler = (
           case 'cardStore/sendInvitation': {
             const { depositFacetId, offer } = obj.data;
             const depositFacet = E(board).getValue(depositFacetId);
-            const invitation = await E(creatorFacet).makeInvitation();
+            const invitation = await E(creatorFacet).makeBuyerInvitation();
             const invitationAmount = await E(invitationIssuer).getAmountOf(
               invitation,
             );
