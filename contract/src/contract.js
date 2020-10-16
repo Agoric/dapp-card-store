@@ -1,59 +1,68 @@
 // @ts-check
 import '@agoric/zoe/exported';
 
+import { makeIssuerKit, MathKind } from '@agoric/ertp';
+import { E } from '@agoric/eventual-send';
+
 /**
- * This is a very simple contract that creates a new issuer and mints payments
- * from it, in order to give an example of how that can be done.  This contract
- * sends new tokens to anyone who has an invitation.
- *
- * The expectation is that most contracts that want to do something similar
- * would use the ability to mint new payments internally rather than sharing
- * that ability widely as this one does.
- *
- * To pay others in tokens, the creator of the instance can make
- * invitations for them, which when used to make an offer, will payout
- * the specified amount of tokens.
+ * This contract mints non-fungible tokens (baseball cards) and creates a contract
+ * instance to sell the cards in exchange for some sort of money.
  *
  * @type {ContractStartFn}
  */
-const start = async (zcf) => {
-  // Create the internal token mint for a fungible digital asset. Note
-  // that 'Tokens' is both the keyword and the allegedName.
-  const zcfMint = await zcf.makeZCFMint('Tokens');
-  // AWAIT
+const start = zcf => {
+  // Create the internal baseball card mint
+  const { issuer, mint, amountMath: cardMath } = makeIssuerKit(
+    'baseball cards',
+    MathKind.STRING_SET,
+  );
 
-  // Now that ZCF has saved the issuer, brand, and local amountMath, they
-  // can be accessed synchronously.
-  const { amountMath, issuer } = zcfMint.getIssuerRecord();
+  const zoeService = zcf.getZoeService();
 
-  const mintPayment = (seat) => {
-    const amount = amountMath.make(1000);
-    // Synchronously mint and allocate amount to seat.
-    zcfMint.mintGains({ Token: amount }, seat);
-    // Exit the seat so that the user gets a payout.
-    seat.exit();
-    // Since the user is getting the payout through Zoe, we can
-    // return anything here. Let's return some helpful instructions.
-    return 'Offer completed. You should receive a payment from Zoe';
+  const sellCards = async (
+    newCardNames,
+    moneyIssuer,
+    sellItemsInstallation,
+    pricePerCard,
+  ) => {
+    const newCardsForSaleAmount = cardMath.make(
+      harden(newCardNames),
+    );
+    const allCardsForSalePayment = mint.mintPayment(newCardsForSaleAmount);
+    // Note that the proposal `want` is empty because we don't know
+    // how many cards will be sold, so we don't know how much money we
+    // will make in total.
+    // https://github.com/Agoric/agoric-sdk/issues/855
+    const proposal = harden({
+      give: { Items: newCardsForSaleAmount },
+    });
+    const paymentKeywordRecord = harden({ Items: allCardsForSalePayment });
+
+    const issuerKeywordRecord = harden({
+      Items: issuer,
+      Money: moneyIssuer,
+    });
+
+    const sellItemsTerms = harden({
+      pricePerItem: pricePerCard,
+    });
+    const { creatorInvitation, creatorFacet, instance, publicFacet } = await E(zoeService).startInstance(
+      sellItemsInstallation,
+      issuerKeywordRecord,
+      sellItemsTerms,
+    );
+    const sellItemsCreatorSeat = await E(zoeService).offer(creatorInvitation, proposal, paymentKeywordRecord);
+    return harden({
+      sellItemsCreatorSeat,
+      sellItemsCreatorFacet: creatorFacet,
+      sellItemsInstance: instance,
+      sellItemsPublicFacet: publicFacet,
+    });
   };
 
-  const creatorFacet = {
-    // The creator of the instance can send invitations to anyone
-    // they wish to.
-    makeInvitation: () => zcf.makeInvitation(mintPayment, 'mint a payment'),
-    getTokenIssuer: () => issuer,
-  };
+  const creatorFacet = harden({ sellCards, getIssuer: () => issuer });
 
-  const publicFacet = {
-    // Make the token issuer public. Note that only the mint can
-    // make new digital assets. The issuer is ok to make public.
-    getTokenIssuer: () => issuer,
-  };
-
-  // Return the creatorFacet to the creator, so they can make
-  // invitations for others to get payments of tokens. Publish the
-  // publicFacet.
-  return harden({ creatorFacet, publicFacet });
+  return harden({ creatorFacet });
 };
 
 harden(start);

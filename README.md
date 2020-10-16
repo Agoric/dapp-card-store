@@ -1,4 +1,6 @@
-# Fungible Faucet Dapp
+# Baseball Card Store Dapp
+
+Note: The instructions below need to be rewritten
 
 TL;DR:
 
