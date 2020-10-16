@@ -10,7 +10,7 @@ const spawnHandler = (
     harden({
       async onMessage(obj) {
         switch (obj.type) {
-          case 'fungibleFaucet/sendInvitation': {
+          case 'cardStore/sendInvitation': {
             const { depositFacetId, offer } = obj.data;
             const depositFacet = E(board).getValue(depositFacetId);
             const invitation = await E(creatorFacet).makeInvitation();
@@ -29,7 +29,7 @@ const spawnHandler = (
             await E(depositFacet).receive(invitation);
 
             send({
-              type: 'fungibleFaucet/sendInvitationResponse',
+              type: 'cardStore/sendInvitationResponse',
               data: { offer: updatedOffer },
             });
             return true;

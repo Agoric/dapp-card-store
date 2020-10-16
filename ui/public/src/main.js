@@ -101,7 +101,7 @@ export default async function main() {
    */
   const apiRecv = (obj) => {
     switch (obj.type) {
-      case 'fungibleFaucet/sendInvitationResponse': {
+      case 'cardStore/sendInvitationResponse': {
         // Once the invitation has been sent to the user, we update the
         // offer to include the invitationBoardId. Then we make a
         // request to the user's wallet to send the proposed offer for
@@ -160,7 +160,7 @@ export default async function main() {
     return walletSend;
   });
 
-  await connect('/api/fungible-faucet', apiRecv).then((apiSend) => {
+  await connect('/api/card-store', apiRecv).then((apiSend) => {
     $mintFungible.removeAttribute('disabled');
     $mintFungible.addEventListener('click', () => {
       const offer = {
@@ -180,7 +180,7 @@ export default async function main() {
         dappContext: true,
       };
       apiSend({
-        type: 'fungibleFaucet/sendInvitation',
+        type: 'cardStore/sendInvitation',
         data: {
           depositFacetId: zoeInvitationDepositFacetId,
           offer,

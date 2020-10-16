@@ -9,8 +9,8 @@ click the "Mint Fungible Tokens" button.
 
 Install the [prerequisites](https://agoric.com/documentation/getting-started/before-using-agoric.html). Then in a first terminal in the directory where you want to put your dapp, install the dapp:
 ```sh
-agoric init --dapp-template dapp-fungible-faucet my-fungible-faucet
-cd my-fungible-faucet
+agoric init --dapp-template dapp-card-store my-card-store
+cd my-card-store
 # Start the Agoric platform
 agoric install && agoric start --reset
 ```
@@ -72,4 +72,4 @@ opposed to using a framework).
 
 To learn more about how to build Agoric Dapps, please see the [Dapp Guide](https://agoric.com/documentation/dapps/).
 
-See the [Dapp Deployment Guide](https://github.com/Agoric/agoric-sdk/wiki/Dapp-Deployment-Guide) for how to deploy this Dapp on a public website, such as https://fungiblefaucet.testnet.agoric.com/
+See the [Dapp Deployment Guide](https://github.com/Agoric/agoric-sdk/wiki/Dapp-Deployment-Guide) for how to deploy this Dapp on a public website, such as https://cardstore.testnet.agoric.com/

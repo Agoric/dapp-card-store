@@ -130,9 +130,9 @@ export default async function deployApi(
       invitationIssuer,
     });
 
-    // Have our ag-solo wait on ws://localhost:8000/api/fungible-faucet for
+    // Have our ag-solo wait on ws://localhost:8000/api/card-store for
     // websocket connections.
-    await E(http).registerURLHandler(handler, '/api/fungible-faucet');
+    await E(http).registerURLHandler(handler, '/api/card-store');
   };
 
   await installURLHandler();
