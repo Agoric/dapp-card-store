@@ -9,7 +9,7 @@
     "build": "parcel build public/index.html",
     "lint-check": "eslint '**/*.{js,jsx}'",
     "lint-fix": "eslint --fix '**/*.{js,jsx}'",
-    "start": "parcel serve --host=127.0.0.1 --port=3000 public/index.html",
+    "start": "parcel serve --host=127.0.0.1 --port=3001 public/index.html",
     "test": "exit 0"
   },
   "browserslist": {
@@ -69,6 +69,9 @@
       {
         "staticPath": "public/lib",
         "staticOutDir": "lib"
+      },
+      {
+        "staticPath": "public/assets"
       }
     ],
     "excludeGlob": "**/*.js",

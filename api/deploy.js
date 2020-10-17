@@ -8,6 +8,8 @@ import '@agoric/zoe/exported';
 import installationConstants from '../ui/public/conf/installationConstants';
 import { makeLocalAmountMath } from '../contract/node_modules/@agoric/ertp/src';
 
+import { cards } from './cards';
+
 // deploy.js runs in an ephemeral Node.js outside of swingset. The
 // spawner runs within ag-solo, so is persistent.  Once the deploy.js
 // script ends, connections to any of its objects are severed.
@@ -15,7 +17,9 @@ import { makeLocalAmountMath } from '../contract/node_modules/@agoric/ertp/src';
 // The deployer's wallet's petname for the money issuer.
 let MONEY_ISSUER_PETNAME_JSON;
 if (process.env.MONEY_ISSUER_PETNAME_JSON) {
-  MONEY_ISSUER_PETNAME_JSON = JSON.stringify(JSON.parse(process.env.MONEY_ISSUER_PETNAME_JSON));
+  MONEY_ISSUER_PETNAME_JSON = JSON.stringify(
+    JSON.parse(process.env.MONEY_ISSUER_PETNAME_JSON),
+  );
 } else if (process.env.MONEY_ISSUER_PETNAME) {
   MONEY_ISSUER_PETNAME_JSON = JSON.stringify(process.env.MONEY_ISSUER_PETNAME);
 }
@@ -111,6 +115,7 @@ export default async function deployApi(
   if (MONEY_ISSUER_PETNAME_JSON) {
     // try to find the MONEY_ISSUER_PETNAME_JSON.
     const issuersArray = await E(wallet).getIssuers();
+    // eslint-disable-next-line no-underscore-dangle
     let _moneyKey;
     [_moneyKey, moneyIssuer] = issuersArray.find(
       ([issuerPetname]) =>
@@ -127,16 +132,14 @@ export default async function deployApi(
       process.exit(1);
     }
   } else if (moneyIssuer === undefined) {
-    console.error(
-      'Cannot find faucetTokenIssuer in home.uploads',
-    );
+    console.error('Cannot find faucetTokenIssuer in home.uploads');
     process.exit(1);
   }
 
   const moneyBrand = await E(moneyIssuer).getBrand();
   const moneyMath = await makeLocalAmountMath(moneyIssuer);
 
-  const allCardNames = harden(['Alice', 'Bob']);
+  const allCardNames = harden(cards);
   const pricePerCard = moneyMath.make(10);
 
   const {

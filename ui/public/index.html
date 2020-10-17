@@ -3,22 +3,44 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Fungible Token Faucet</title>
+    <title>Baseball Card Store</title>
 
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link href="index.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="conf/dappConstants.js"></script>
     <link rel="stylesheet"
     href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="index.css" rel="stylesheet" type="text/css" />
 
   </head>
   <body>
+    <!-- This template will be used to make all of the baseball cards -->
+    <template id="baseball-card-template">
+      <div class="mdc-layout-grid__cell
+      mdc-layout-grid__cell--span-2
+      mdc-layout-grid__cell--span-12-phone baseball-card hide">
+        <div class="mdc-card">
+          <div class="mdc-card__primary-action" tabindex="0">
+            <div class="mdc-card__media mdc-card__media--square">
+              <div class="mdc-card__media-content">
+                <div class="mdc-card__primary">
+                  <p class="mdc-card__title mdc-typography
+                  mdc-typography--headline6">Title</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+
     <header class="mdc-top-app-bar">
       <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-          <span class="mdc-top-app-bar__title">Fungible Token Faucet</span> </section>
+          <span class="mdc-top-app-bar__title">Baseball Card Store</span> </section>
         <section class="mdc-top-app-bar__section
         mdc-top-app-bar__section--align-end mdc-typography--body1">
         <span class="material-icons">
@@ -37,43 +59,27 @@
     <noscript>You need to enable JavaScript to run this
     app.</noscript>
 
+
+    <iframe width="0" height="0" src="https://www.youtube.com/embed/oymWAeqv_-c?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
     <div class="grid">
     <div class="mdc-layout-grid">
       <div class="mdc-layout-grid__inner">
-        <div class="mdc-layout-grid__cell--span-12">
-          
-        </div>
-        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12-tablet">
-          <div class="mdc-card mint-card">
-            
-              <div class="mdc-card__media mdc-card__media--16-9 mint-card__media" style="background-image: url(&quot;./assets/coins.jpeg&quot;);"></div>
-              <div class="mint-card__primary">
-                <h2 class="mint-card__title mdc-typography
-                mdc-typography--headline6">Fungible Faucet</h2>
-              </div>
-              <div class="mint-card__secondary mdc-typography
-              mdc-typography--body2">Mint 1000 fungible tokens and
-              send them to your wallet.</div>
-          </div>
-    
-        </div>
         <div class="mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--span-8-desktop" id="instructions">
-          <h1 class="mdc-typography--headline2">Fungible Token Faucet</h1>
+          <h1 class="mdc-typography--headline2">Baseball Card Store</h1>
           <div class="mdc-typography--headline6">Instructions</div>
           <div class="mdc-typography--body1">
             <p>First, please enable this dapp in your wallet. To open your
             wallet, enter `agoric open` in your terminal.</p>
     
-            <p>Then click on the button below to mint fungible tokens and send
-            the resulting payment to your wallet.</p>
+            <p>Then click on a card below to make an offer to buy the card.</p>
           </div>
-              <form id="fungibleTokenForm" onsubmit="return false">
-                <button class="mdc-button mdc-button--raised" type="submit" value="Mint Fungible Tokens" id="mintFungible" disabled="disabled">  <span
-                class="mdc-button__ripple"></span> Mint Fungible Tokens</button>
+              <form id="form" onsubmit="return false">
                 <span><iframe id="walletBridgeIFrame" width="100" height="21"></iframe></span>
               </form>
         </div>
       </div>
+      <div class="mdc-layout-grid__inner" id="cards-display"></div>
       <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell--span-12">
           <div id="debug-mode">
@@ -91,10 +97,7 @@
         </div>
       </div>
     </div>
-
   </div>
-
-
 
     <div class="mdc-snackbar" id="approve-offer">
       <div class="mdc-snackbar__surface">
@@ -111,8 +114,8 @@
         <div class="mdc-snackbar__label"
              role="status"
              aria-live="polite">
-          You just got 1000 more tokens! Check your token purse in
-          your wallet to see the current balance.
+          You just bought a baseball card! Check your Card purse in
+          your wallet to see the cards you own.
         </div>
       </div>
     </div>
@@ -125,13 +128,13 @@
           aria-labelledby="my-dialog-title"
           aria-describedby="my-dialog-content">
           <div class="mdc-dialog__title">
-            Enable the Fungible Faucet Dapp
+            Enable the Dapp
           </div>
           <div class="mdc-dialog__content" id="my-dialog-content">
             Before using the dapp, you must enable it. To enable the
             dapp, please open your wallet by using the `agoric open`
             command in your terminal. Then, under "Dapps", enable
-            FungibleFaucet.
+            CardStore.
             <img id="enable-dapp" src="./assets/enable-dapp.png" width="100%">
 
           </div>
