@@ -38,22 +38,8 @@ export default async function main() {
     document.querySelector('.mdc-switch'),
   );
 
-  const $cards = document.querySelectorAll('.baseball-card');
   const $cardsDisplay = document.getElementById('cards-display');
   const $cardTemplate = document.getElementById('baseball-card-template');
-
-  const updateCards = (cardsAvailable) => {
-    // disable all cards and reenable if on the list.
-    $cards.forEach((card) => card.classList.add('hide'));
-    cardsAvailable.forEach((cardStr) => {
-      const $card = document.getElementById(cardStr);
-      if ($card) {
-        console.log(cardStr);
-        $card.classList.remove('hide');
-      }
-    });
-    console.log('update cards');
-  };
 
   const makeCard = (playerName) => {
     const $card = $cardTemplate.content.firstElementChild.cloneNode(true);
@@ -62,7 +48,6 @@ export default async function main() {
     const $media = $card.querySelector('.mdc-card__media');
     $media.style.backgroundImage = `url("/cards/${playerName}.jpg")`;
     $title.textContent = playerName;
-    console.log($title);
     $cardsDisplay.appendChild($card);
     $card.addEventListener('click', () => {
       sendOffer(playerName);
@@ -144,6 +129,17 @@ export default async function main() {
     }
   };
 
+  const updateCards = ($cards, cardsAvailable) => {
+    // disable all cards and reenable if on the list.
+    $cards.forEach((card) => card.classList.add('hide'));
+    cardsAvailable.forEach((cardStr) => {
+      const $card = document.getElementById(cardStr);
+      if ($card) {
+        $card.classList.remove('hide');
+      }
+    });
+  };
+
   /**
    * @param {{ type: string; data: any; }} obj
    */
@@ -168,7 +164,10 @@ export default async function main() {
           makeCards(cardsAvailable);
           cardsMade = true;
         }
-        updateCards(cardsAvailable);
+        updateCards(
+          document.querySelectorAll('.baseball-card'),
+          cardsAvailable,
+        );
         break;
       }
       case 'CTP_DISCONNECT': {
