@@ -8,13 +8,14 @@ const {
   INVITE_BRAND_BOARD_ID,
   INSTANCE_BOARD_ID,
   INSTALLATION_BOARD_ID,
-  issuerBoardIds: { Token: TOKEN_ISSUER_BOARD_ID },
-  brandBoardIds: { Token: TOKEN_BRAND_BOARD_ID },
+  issuerBoardIds: { Token: TOKEN_ISSUER_BOARD_ID, Card: CARD_ISSUER_BOARD_ID },
+  brandBoardIds: { Token: TOKEN_BRAND_BOARD_ID, Card: CARD_BRAND_BOARD_ID },
 } = dappConstants;
 
 export default async function main() {
   let zoeInvitationDepositFacetId;
   let tokenPursePetname = ['FungibleFaucet', 'Token'];
+  let cardPursePetname = ['CardStore', 'Card'];
   let cardsMade = false;
 
   const approveOfferSB = mdc.snackbar.MDCSnackbar.attachTo(
@@ -37,29 +38,35 @@ export default async function main() {
     document.querySelector('.mdc-switch'),
   );
 
-  const $cards = document.querySelector('.baseball-card');
+  const $cards = document.querySelectorAll('.baseball-card');
   const $cardsDisplay = document.getElementById('cards-display');
   const $cardTemplate = document.getElementById('baseball-card-template');
 
   const updateCards = (cardsAvailable) => {
     // disable all cards and reenable if on the list.
-    // $cards.classList.add('hide');
-    // cardsAvailable.forEach((cardStr) => {
-    //   const $card = document.getElementById(cardStr);
-    //   if ($card) {
-    //     $card.classList.remove('hide');
-    //   }
-    // });
+    $cards.forEach((card) => card.classList.add('hide'));
+    cardsAvailable.forEach((cardStr) => {
+      const $card = document.getElementById(cardStr);
+      if ($card) {
+        console.log(cardStr);
+        $card.classList.remove('hide');
+      }
+    });
+    console.log('update cards');
   };
 
   const makeCard = (playerName) => {
     const $card = $cardTemplate.content.firstElementChild.cloneNode(true);
-    const $title = $card.querySelector('.mint-card__title');
+    $card.setAttribute('id', playerName);
+    const $title = $card.querySelector('.mdc-card__title');
     const $media = $card.querySelector('.mdc-card__media');
-    $media.style.backgroundImage = `url("/keith-johnston-PenZT_IMrV8-unsplash.f4b3d9ac.jpg")`;
+    $media.style.backgroundImage = `url("/cards/${playerName}.jpg")`;
     $title.textContent = playerName;
     console.log($title);
     $cardsDisplay.appendChild($card);
+    $card.addEventListener('click', () => {
+      sendOffer(playerName);
+    });
   };
 
   const makeCards = (playerNames) => {
@@ -76,7 +83,7 @@ export default async function main() {
         break;
       }
       case 'walletNeedDappApproval': {
-        approveDappDialog.open();
+        // approveDappDialog.open();
         break;
       }
       case 'walletURL': {
@@ -93,6 +100,14 @@ export default async function main() {
         if (tokenPurse && tokenPurse.pursePetname) {
           // If we got a petname for that purse, use it in the offers we create.
           tokenPursePetname = tokenPurse.pursePetname;
+        }
+        const cardPurse = purses.find(
+          // Does the purse's brand match our card brand?
+          ({ brandBoardId }) => brandBoardId === CARD_BRAND_BOARD_ID,
+        );
+        if (cardPurse && cardPurse.pursePetname) {
+          // If we got a petname for that purse, use it in the offers we create.
+          cardPursePetname = cardPurse.pursePetname;
         }
         break;
       }
@@ -118,6 +133,9 @@ export default async function main() {
       }
       case 'walletOfferResult': {
         gotPaymentSB.open();
+        apiSend({
+          type: 'cardStore/getAvailableItems',
+        });
         break;
       }
       default: {
@@ -163,17 +181,13 @@ export default async function main() {
     }
   };
 
-  const $mintFungible = /** @type {HTMLInputElement} */ (document.getElementById(
-    'mintFungible',
-  ));
-
   // All the "suggest" messages below are backward-compatible:
   // the new wallet will confirm them with the user, but the old
   // wallet will just ignore the messages and allow access immediately.
   const walletSend = await connect(
     'wallet',
     walletRecv,
-    '?suggestedDappPetname=FungibleFaucet',
+    '?suggestedDappPetname=CardStore',
     // eslint-disable-next-line no-shadow
   ).then((walletSend) => {
     walletSend({ type: 'walletGetPurses' });
@@ -193,40 +207,46 @@ export default async function main() {
     });
     walletSend({
       type: 'walletSuggestIssuer',
-      petname: 'Token',
-      boardId: TOKEN_ISSUER_BOARD_ID,
+      petname: 'Card',
+      boardId: CARD_ISSUER_BOARD_ID,
     });
     return walletSend;
   });
 
-  await connect('/api/card-store', apiRecv).then((apiSend) => {
-    $mintFungible.removeAttribute('disabled');
-    $mintFungible.addEventListener('click', () => {
-      const offer = {
-        // JSONable ID for this offer.  This is scoped to the origin.
-        id: Date.now(),
+  const sendOffer = (playerName = 'name') => {
+    const offer = {
+      // JSONable ID for this offer.  This is scoped to the origin.
+      id: Date.now(),
 
-        proposalTemplate: {
-          want: {
-            Token: {
-              pursePetname: tokenPursePetname,
-              value: 1000,
-            },
+      proposalTemplate: {
+        want: {
+          Items: {
+            pursePetname: cardPursePetname,
+            value: [playerName],
           },
         },
-
-        // Tell the wallet that we're handling the offer result.
-        dappContext: true,
-      };
-      apiSend({
-        type: 'cardStore/sendInvitation',
-        data: {
-          depositFacetId: zoeInvitationDepositFacetId,
-          offer,
+        give: {
+          Money: {
+            pursePetname: tokenPursePetname,
+            value: 10,
+          },
         },
-      });
-    });
+      },
 
+      // Tell the wallet that we're handling the offer result.
+      dappContext: true,
+    };
+    apiSend({
+      type: 'cardStore/sendInvitation',
+      data: {
+        depositFacetId: zoeInvitationDepositFacetId,
+        offer,
+      },
+    });
+  };
+
+  // eslint-disable-next-line no-shadow
+  const apiSend = await connect('/api/card-store', apiRecv).then((apiSend) => {
     apiSend({
       type: 'cardStore/getAvailableItems',
     });

@@ -17,16 +17,20 @@
   </head>
   <body>
 
+    <!-- This template will be used to make all of the baseball cards -->
     <template id="baseball-card-template">
       <div class="mdc-layout-grid__cell
       mdc-layout-grid__cell--span-2
-      mdc-layout-grid__cell--span-12-phone ">
-        <div class="mdc-card mint-card baseball-card">
-          <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-            <div class="mdc-card__media mdc-card__media--square mint-card__media"></div>
-            <div class="mint-card__primary">
-              <p class="mint-card__title mdc-typography
-              mdc-typography--body1">Title</p>
+      mdc-layout-grid__cell--span-12-phone baseball-card hide">
+        <div class="mdc-card">
+          <div class="mdc-card__primary-action" tabindex="0">
+            <div class="mdc-card__media mdc-card__media--square">
+              <div class="mdc-card__media-content">
+                <div class="mdc-card__primary">
+                  <p class="mdc-card__title mdc-typography
+                  mdc-typography--headline6">Title</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -58,24 +62,22 @@
 
     <div class="grid">
     <div class="mdc-layout-grid">
-      <div class="mdc-layout-grid__inner" id="cards-display">
-      </div>
-      <div class="mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--span-8-desktop" id="instructions">
-        <h1 class="mdc-typography--headline2">Baseball Card Store</h1>
-        <div class="mdc-typography--headline6">Instructions</div>
-        <div class="mdc-typography--body1">
-          <p>First, please enable this dapp in your wallet. To open your
-          wallet, enter `agoric open` in your terminal.</p>
-  
-          <p>Then click on the button below to mint fungible tokens and send
-          the resulting payment to your wallet.</p>
+      <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--span-8-desktop" id="instructions">
+          <h1 class="mdc-typography--headline2">Baseball Card Store</h1>
+          <div class="mdc-typography--headline6">Instructions</div>
+          <div class="mdc-typography--body1">
+            <p>First, please enable this dapp in your wallet. To open your
+            wallet, enter `agoric open` in your terminal.</p>
+    
+            <p>Then click on a card below to make an offer to buy the card.</p>
+          </div>
+              <form id="form" onsubmit="return false">
+                <span><iframe id="walletBridgeIFrame" width="100" height="21"></iframe></span>
+              </form>
         </div>
-            <form id="fungibleTokenForm" onsubmit="return false">
-              <button class="mdc-button mdc-button--raised" type="submit" value="Mint Fungible Tokens" id="mintFungible" disabled="disabled">  <span
-              class="mdc-button__ripple"></span> Mint Fungible Tokens</button>
-              <span><iframe id="walletBridgeIFrame" width="100" height="21"></iframe></span>
-            </form>
       </div>
+      <div class="mdc-layout-grid__inner" id="cards-display"></div>
       <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell--span-12">
           <div id="debug-mode">
@@ -110,8 +112,8 @@
         <div class="mdc-snackbar__label"
              role="status"
              aria-live="polite">
-          You just got 1000 more tokens! Check your token purse in
-          your wallet to see the current balance.
+          You just bought a baseball card! Check your Card purse in
+          your wallet to see the cards you own.
         </div>
       </div>
     </div>
@@ -124,13 +126,13 @@
           aria-labelledby="my-dialog-title"
           aria-describedby="my-dialog-content">
           <div class="mdc-dialog__title">
-            Enable the Fungible Faucet Dapp
+            Enable the Dapp
           </div>
           <div class="mdc-dialog__content" id="my-dialog-content">
             Before using the dapp, you must enable it. To enable the
             dapp, please open your wallet by using the `agoric open`
             command in your terminal. Then, under "Dapps", enable
-            FungibleFaucet.
+            CardStore.
             <img id="enable-dapp" src="./assets/enable-dapp.png" width="100%">
 
           </div>
