@@ -8,7 +8,7 @@ const {
   INVITE_BRAND_BOARD_ID,
   INSTANCE_BOARD_ID,
   INSTALLATION_BOARD_ID,
-  issuerBoardIds: { Token: TOKEN_ISSUER_BOARD_ID, Card: CARD_ISSUER_BOARD_ID },
+  issuerBoardIds: { Card: CARD_ISSUER_BOARD_ID },
   brandBoardIds: { Token: TOKEN_BRAND_BOARD_ID, Card: CARD_BRAND_BOARD_ID },
 } = dappConstants;
 
@@ -50,6 +50,7 @@ export default async function main() {
     $title.textContent = playerName;
     $cardsDisplay.appendChild($card);
     $card.addEventListener('click', () => {
+      // eslint-disable-next-line no-use-before-define
       sendOffer(playerName);
     });
   };
@@ -68,7 +69,7 @@ export default async function main() {
         break;
       }
       case 'walletNeedDappApproval': {
-        // approveDappDialog.open();
+        approveDappDialog.open();
         break;
       }
       case 'walletURL': {
@@ -118,6 +119,7 @@ export default async function main() {
       }
       case 'walletOfferResult': {
         gotPaymentSB.open();
+        // eslint-disable-next-line no-use-before-define
         apiSend({
           type: 'cardStore/getAvailableItems',
         });
@@ -235,6 +237,7 @@ export default async function main() {
       // Tell the wallet that we're handling the offer result.
       dappContext: true,
     };
+    // eslint-disable-next-line no-use-before-define
     apiSend({
       type: 'cardStore/sendInvitation',
       data: {

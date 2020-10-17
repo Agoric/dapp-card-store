@@ -17,7 +17,9 @@ import { cards } from './cards';
 // The deployer's wallet's petname for the money issuer.
 let MONEY_ISSUER_PETNAME_JSON;
 if (process.env.MONEY_ISSUER_PETNAME_JSON) {
-  MONEY_ISSUER_PETNAME_JSON = JSON.stringify(JSON.parse(process.env.MONEY_ISSUER_PETNAME_JSON));
+  MONEY_ISSUER_PETNAME_JSON = JSON.stringify(
+    JSON.parse(process.env.MONEY_ISSUER_PETNAME_JSON),
+  );
 } else if (process.env.MONEY_ISSUER_PETNAME) {
   MONEY_ISSUER_PETNAME_JSON = JSON.stringify(process.env.MONEY_ISSUER_PETNAME);
 }
@@ -113,6 +115,7 @@ export default async function deployApi(
   if (MONEY_ISSUER_PETNAME_JSON) {
     // try to find the MONEY_ISSUER_PETNAME_JSON.
     const issuersArray = await E(wallet).getIssuers();
+    // eslint-disable-next-line no-underscore-dangle
     let _moneyKey;
     [_moneyKey, moneyIssuer] = issuersArray.find(
       ([issuerPetname]) =>
@@ -129,9 +132,7 @@ export default async function deployApi(
       process.exit(1);
     }
   } else if (moneyIssuer === undefined) {
-    console.error(
-      'Cannot find faucetTokenIssuer in home.uploads',
-    );
+    console.error('Cannot find faucetTokenIssuer in home.uploads');
     process.exit(1);
   }
 
