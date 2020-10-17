@@ -5,9 +5,14 @@
 html, body {
   height: 100%;
   margin: 0;
+  --mdc-theme-primary: #0e515e;
 }
 
 #walletBridgeIFrame {
+  display: none;
+}
+
+.hide {
   display: none;
 }
 

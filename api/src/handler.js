@@ -34,7 +34,15 @@ const spawnHandler = (
             });
             return true;
           }
-
+          case 'cardStore/getAvailableItems': {
+            const itemsAmounts = await E(creatorFacet).getAvailableItems();
+            console.log(itemsAmounts);
+            send({
+              type: 'cardStore/getAvailableItemsResponse',
+              data: itemsAmounts.value,
+            });
+            return true;
+          }
           default:
             return undefined;
         }

@@ -8,6 +8,8 @@ import '@agoric/zoe/exported';
 import installationConstants from '../ui/public/conf/installationConstants';
 import { makeLocalAmountMath } from '../contract/node_modules/@agoric/ertp/src';
 
+import { cards } from './cards';
+
 // deploy.js runs in an ephemeral Node.js outside of swingset. The
 // spawner runs within ag-solo, so is persistent.  Once the deploy.js
 // script ends, connections to any of its objects are severed.
@@ -136,7 +138,7 @@ export default async function deployApi(
   const moneyBrand = await E(moneyIssuer).getBrand();
   const moneyMath = await makeLocalAmountMath(moneyIssuer);
 
-  const allCardNames = harden(['Alice', 'Bob']);
+  const allCardNames = harden(cards);
   const pricePerCard = moneyMath.make(10);
 
   const {

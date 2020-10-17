@@ -15,6 +15,7 @@ const {
 export default async function main() {
   let zoeInvitationDepositFacetId;
   let tokenPursePetname = ['FungibleFaucet', 'Token'];
+  let cardsMade = false;
 
   const approveOfferSB = mdc.snackbar.MDCSnackbar.attachTo(
     document.querySelector('#approve-offer'),
@@ -35,6 +36,35 @@ export default async function main() {
   const debugSwitch = new mdc.switchControl.MDCSwitch(
     document.querySelector('.mdc-switch'),
   );
+
+  const $cards = document.querySelector('.baseball-card');
+  const $cardsDisplay = document.getElementById('cards-display');
+  const $cardTemplate = document.getElementById('baseball-card-template');
+
+  const updateCards = (cardsAvailable) => {
+    // disable all cards and reenable if on the list.
+    // $cards.classList.add('hide');
+    // cardsAvailable.forEach((cardStr) => {
+    //   const $card = document.getElementById(cardStr);
+    //   if ($card) {
+    //     $card.classList.remove('hide');
+    //   }
+    // });
+  };
+
+  const makeCard = (playerName) => {
+    const $card = $cardTemplate.content.firstElementChild.cloneNode(true);
+    const $title = $card.querySelector('.mint-card__title');
+    const $media = $card.querySelector('.mdc-card__media');
+    $media.style.backgroundImage = `url("/keith-johnston-PenZT_IMrV8-unsplash.f4b3d9ac.jpg")`;
+    $title.textContent = playerName;
+    console.log($title);
+    $cardsDisplay.appendChild($card);
+  };
+
+  const makeCards = (playerNames) => {
+    playerNames.forEach((name) => makeCard(name));
+  };
 
   /**
    * @param {{ type: string; data: any; walletURL: string }} obj
@@ -114,6 +144,15 @@ export default async function main() {
         });
         break;
       }
+      case 'cardStore/getAvailableItemsResponse': {
+        const cardsAvailable = obj.data;
+        if (!cardsMade) {
+          makeCards(cardsAvailable);
+          cardsMade = true;
+        }
+        updateCards(cardsAvailable);
+        break;
+      }
       case 'CTP_DISCONNECT': {
         // TODO: handle this appropriately
         break;
@@ -186,6 +225,10 @@ export default async function main() {
           offer,
         },
       });
+    });
+
+    apiSend({
+      type: 'cardStore/getAvailableItems',
     });
 
     return apiSend;
