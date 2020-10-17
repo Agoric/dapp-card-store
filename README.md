@@ -1,18 +1,26 @@
 # Baseball Card Store Dapp
 
-Note: The instructions below need to be rewritten
-
 TL;DR:
 
-The Fungible Faucet Dapp sends tokens to a user's wallet when they
-click the "Mint Fungible Tokens" button.
+The Baseball Card Store Dapp sells baseball cards as NFT tokens in
+exchange for money.
 
-Install the [prerequisites](https://agoric.com/documentation/getting-started/before-using-agoric.html). Then in a first terminal in the directory where you want to put your dapp, install the dapp:
+*This dapp requires the
+[Fungible Faucet Dapp](https://github.com/Agoric/dapp-fungible-faucet)to be running, so
+please [follow the
+instructions](https://github.com/Agoric/dapp-fungible-faucet) to set
+up the Fungible Faucet Dapp first and give yourself some tokens. This
+dapp runs on port 3001, whereas the Fungible Faucet Dapp runs on port 3000.*
+
+Install the
+[prerequisites](https://agoric.com/documentation/getting-started/before-using-agoric.html).
+
+
+Then in a first terminal in the directory where you want to put your dapp, install the dapp:
 ```sh
 agoric init --dapp-template dapp-card-store my-card-store
 cd my-card-store
-# Start the Agoric platform
-agoric install && agoric start --reset
+# The Agoric platform should be already started so there is no need to run `agoric start`
 ```
 
 In a second terminal, deploy this contract and the API server
@@ -26,7 +34,7 @@ In a third terminal,
 # Navigate to the `ui` directory and start a local server
 cd ui && yarn start
 ```
-Then navigate to http://127.0.0.1:3000.
+Then navigate to http://127.0.0.1:3001.
 
 The Fungible Faucet Dapp is the simplest [Agoric
 Dapp](https://agoric.com/documentation/dapps/). It
@@ -45,30 +53,16 @@ opposed to using a framework).
 
 ## Using the Dapp
 
-1. Navigate to http://127.0.0.1:3000.
+1. Navigate to http://127.0.0.1:3001.
 2. Enter `agoric open` in your terminal
 3. A window for your wallet should open.
-4. Under "Dapps" in the wallet, enable the FungibleFaucet Dapp:
+4. Under "Dapps" in the wallet, enable the CardStore Dapp.
+5. Now you should be able to click on a card to make an offer to buy
+   it.
+6. Approve the offer in your wallet
+7. View the card in your wallet.
 
-![Enable Dapp](./readme-assets/enable-dapp.png)
-
-5. Back on the Fungible Faucet page, click the "Mint Fungible Tokens" button.
-
-![Mint Fungible Tokens](./readme-assets/mint-button.png)
-
-6. Go back to your wallet and approve the offer stating that you want
-   1000 tokens. 
-
-![Mint Fungible Tokens](./readme-assets/approve-offer.png) 
-
-7. Once the offer has been approved, your wallet makes an offer to Zoe
-   on your behalf, giving you tokens from the `mintPayments` contract.
-   You will receive a message that the offer was successful and should
-   see the tokens in your purses.
-
-![Offer Completed](./readme-assets/offer-completed.png) 
-
-![Tokens Received](./readme-assets/tokens-received.png) 
+![Card Store](./readme-assets/card-store.png)
 
 To learn more about how to build Agoric Dapps, please see the [Dapp Guide](https://agoric.com/documentation/dapps/).
 
