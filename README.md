@@ -20,6 +20,7 @@ Then in a first terminal in the directory where you want to put your dapp, insta
 ```sh
 agoric init --dapp-template dapp-card-store my-card-store
 cd my-card-store
+agoric install
 # The Agoric platform should be already started so there is no need to run `agoric start`
 ```
 
