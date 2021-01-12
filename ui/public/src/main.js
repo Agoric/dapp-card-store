@@ -9,13 +9,13 @@ const {
   INSTANCE_BOARD_ID,
   INSTALLATION_BOARD_ID,
   issuerBoardIds: { Card: CARD_ISSUER_BOARD_ID },
-  brandBoardIds: { Token: TOKEN_BRAND_BOARD_ID, Card: CARD_BRAND_BOARD_ID },
+  brandBoardIds: { Money: MONEY_BRAND_BOARD_ID, Card: CARD_BRAND_BOARD_ID },
 } = dappConstants;
 
 export default async function main() {
   let zoeInvitationDepositFacetId;
-  let tokenPursePetname = ['FungibleFaucet', 'Token'];
-  let cardPursePetname = ['CardStore', 'Card'];
+  let tokenPursePetname;
+  let cardPursePetname;
   let cardsMade = false;
 
   const approveOfferSB = mdc.snackbar.MDCSnackbar.attachTo(
@@ -80,8 +80,8 @@ export default async function main() {
         // We find the first purse that can accept our token.
         const purses = JSON.parse(obj.data);
         const tokenPurse = purses.find(
-          // Does the purse's brand match our token brand?
-          ({ brandBoardId }) => brandBoardId === TOKEN_BRAND_BOARD_ID,
+          // Does the purse's brand match our money brand?
+          ({ brandBoardId }) => brandBoardId === MONEY_BRAND_BOARD_ID,
         );
         if (tokenPurse && tokenPurse.pursePetname) {
           // If we got a petname for that purse, use it in the offers we create.

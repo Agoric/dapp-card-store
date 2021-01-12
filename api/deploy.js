@@ -110,8 +110,8 @@ export default async function deployApi(
     installation,
   );
 
-  // Default to the deployed faucet token.
-  let moneyIssuer = await E(scratch).get('faucetTokenIssuer');
+  // Default to the moeIssuer from scratch
+  let moneyIssuer = await E(scratch).get('moeIssuer');
   if (MONEY_ISSUER_PETNAME_JSON) {
     // try to find the MONEY_ISSUER_PETNAME_JSON.
     const issuersArray = await E(wallet).getIssuers();
@@ -132,7 +132,7 @@ export default async function deployApi(
       process.exit(1);
     }
   } else if (moneyIssuer === undefined) {
-    console.error('Cannot find faucetTokenIssuer in home.uploads');
+    console.error('Cannot find moneyIssuer in home.scratch');
     process.exit(1);
   }
 
