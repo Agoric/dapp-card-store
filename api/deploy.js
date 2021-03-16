@@ -5,8 +5,8 @@ import fs from 'fs';
 import { E } from '@agoric/eventual-send';
 import '@agoric/zoe/exported';
 
+import { makeLocalAmountMath } from '@agoric/ertp';
 import installationConstants from '../ui/public/conf/installationConstants';
-import { makeLocalAmountMath } from '../contract/node_modules/@agoric/ertp/src';
 
 import { cards } from './cards';
 
