@@ -47,4 +47,11 @@ jobs:
       run: yarn build
       working-directory: ./dapp
 
-
+    - name: Publish
+      uses: netlify/actions/cli@master
+      # https://github.com/netlify/actions/tree/master/cli
+      with:
+        args: deploy --dir=dapp/ui/dist
+      env:
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
