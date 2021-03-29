@@ -1,7 +1,7 @@
 // @ts-check
 import '@agoric/zoe/exported';
 
-import { makeIssuerKit, MathKind } from '@agoric/ertp';
+import { makeIssuerKit, MathKind, amountMath } from '@agoric/ertp';
 import { E } from '@agoric/eventual-send';
 
 /**
@@ -12,7 +12,7 @@ import { E } from '@agoric/eventual-send';
  */
 const start = (zcf) => {
   // Create the internal baseball card mint
-  const { issuer, mint, amountMath: cardMath } = makeIssuerKit(
+  const { issuer, mint, brand } = makeIssuerKit(
     'baseball cards',
     MathKind.STRING_SET,
   );
@@ -25,7 +25,7 @@ const start = (zcf) => {
     sellItemsInstallation,
     pricePerCard,
   ) => {
-    const newCardsForSaleAmount = cardMath.make(harden(newCardNames));
+    const newCardsForSaleAmount = amountMath.make(harden(newCardNames), brand);
     const allCardsForSalePayment = mint.mintPayment(newCardsForSaleAmount);
     // Note that the proposal `want` is empty because we don't know
     // how many cards will be sold, so we don't know how much money we

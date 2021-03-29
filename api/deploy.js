@@ -4,8 +4,8 @@
 import fs from 'fs';
 import { E } from '@agoric/eventual-send';
 import '@agoric/zoe/exported';
+import { amountMath } from '@agoric/ertp';
 
-import { makeLocalAmountMath } from '@agoric/ertp';
 import installationConstants from '../ui/public/conf/installationConstants';
 
 import { cards } from './cards';
@@ -137,10 +137,9 @@ export default async function deployApi(
   }
 
   const moneyBrand = await E(moneyIssuer).getBrand();
-  const moneyMath = await makeLocalAmountMath(moneyIssuer);
 
   const allCardNames = harden(cards);
-  const pricePerCard = moneyMath.make(10);
+  const pricePerCard = amountMath.make(10, moneyBrand);
 
   const {
     // TODO: implement exiting the creatorSeat and taking the earnings

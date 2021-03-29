@@ -6,7 +6,7 @@ import bundleSource from '@agoric/bundle-source';
 import { E } from '@agoric/eventual-send';
 import { makeFakeVatAdmin } from '@agoric/zoe/src/contractFacet/fakeVatAdmin';
 import { makeZoe } from '@agoric/zoe';
-import { makeLocalAmountMath, makeIssuerKit } from '@agoric/ertp';
+import { makeIssuerKit, amountMath } from '@agoric/ertp';
 
 const contractPath = `${__dirname}/../src/contract`;
 
@@ -24,7 +24,7 @@ test('zoe - sell baseball cards', async (t) => {
   const {
     mint: moolaMint,
     issuer: moolaIssuer,
-    amountMath: { make: moola },
+    brand: moolaBrand,
   } = makeIssuerKit('moola');
 
   // We will also install the sellItems contract from agoric-sdk
@@ -39,7 +39,7 @@ test('zoe - sell baseball cards', async (t) => {
 
   const allCardNames = harden(['Alice', 'Bob']);
   const moneyIssuer = moolaIssuer;
-  const pricePerCard = moola(10);
+  const pricePerCard = amountMath.make(10, moolaBrand);
 
   const {
     sellItemsCreatorSeat,
@@ -58,15 +58,16 @@ test('zoe - sell baseball cards', async (t) => {
   // Bob buys his own baseball card
 
   const cardIssuer = await E(sellItemsPublicFacet).getItemsIssuer();
-  const cardMath = await makeLocalAmountMath(cardIssuer);
+  const cardBrand = await cardIssuer.getBrand();
+  const makeCardMath = (value) => amountMath.make(value, cardBrand);
 
   const cardsForSale = await E(sellItemsPublicFacet).getAvailableItems();
-  t.deepEqual(cardsForSale, cardMath.make(harden(['Alice', 'Bob'])));
+  t.deepEqual(cardsForSale, makeCardMath(['Alice', 'Bob']));
 
   const terms = await E(zoe).getTerms(sellItemsInstance);
 
   // make the corresponding amount
-  const bobCardAmount = cardMath.make(harden(['Bob']));
+  const bobCardAmount = makeCardMath(['Bob']);
 
   const bobProposal = harden({
     give: { Money: terms.pricePerItem },
@@ -74,7 +75,7 @@ test('zoe - sell baseball cards', async (t) => {
   });
 
   const bobPaymentKeywordRecord = harden({
-    Money: moolaMint.mintPayment(moola(10)),
+    Money: moolaMint.mintPayment(amountMath.make(10, moolaBrand)),
   });
 
   const seat = await E(zoe).offer(
@@ -87,7 +88,7 @@ test('zoe - sell baseball cards', async (t) => {
 
   t.deepEqual(
     bobObtained,
-    cardMath.make(harden(['Bob'])),
+    makeCardMath(['Bob']),
     'Bob bought his own baseball card!',
   );
 
@@ -97,9 +98,9 @@ test('zoe - sell baseball cards', async (t) => {
 
   const moneyPayment = await E(sellItemsCreatorSeat).getPayout('Money');
   const moneyEarned = await E(moolaIssuer).getAmountOf(moneyPayment);
-  t.deepEqual(moneyEarned, moola(10));
+  t.deepEqual(moneyEarned, amountMath.make(10, moolaBrand));
 
   const cardInventory = await E(sellItemsCreatorSeat).getPayout('Items');
   const inventoryRemaining = await E(cardIssuer).getAmountOf(cardInventory);
-  t.deepEqual(inventoryRemaining, cardMath.make(harden(['Alice'])));
+  t.deepEqual(inventoryRemaining, makeCardMath(['Alice']));
 });
