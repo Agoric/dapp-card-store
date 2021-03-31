@@ -6,11 +6,12 @@
   "license": "Apache-2.0",
   "homepage": ".",
   "scripts": {
-    "build": "parcel build public/index.html",
+    "build": "react-scripts build",
     "lint-check": "eslint '**/*.{js,jsx}'",
     "lint-fix": "eslint --fix '**/*.{js,jsx}'",
-    "start": "parcel serve --host=127.0.0.1 --port=3001 public/index.html",
-    "test": "exit 0"
+    "start": "react-scripts start",
+    "test": "exit 0",
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [
@@ -27,13 +28,15 @@
   "eslintConfig": {
     "extends": [
       "airbnb-base",
-      "plugin:prettier/recommended"
+      "plugin:prettier/recommended",
+      "react-app"
     ],
     "env": {
-      "es6": true
+      "es2020": true
     },
     "globals": {
-      "harden": "readonly"
+      "harden": "readonly",
+      "BigInt": "readonly"
     },
     "rules": {
       "implicit-arrow-linebreak": "off",
@@ -80,9 +83,12 @@
   "dependencies": {
     "@agoric/captp": "*",
     "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.5.0",
-    "react": "^17.0.2"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-scripts": "4.0.3"
   },
   "devDependencies": {
     "eslint": "^7.11.0",
@@ -94,7 +100,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.4",
     "eslint-plugin-react-hooks": "^4.1.2",
-    "prettier": "^2.1.2",
+    "prettier": "^1.19.1",
     "rimraf": "^3.0.2"
   },
   "prettier": {

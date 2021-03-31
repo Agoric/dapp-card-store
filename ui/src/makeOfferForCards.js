@@ -1,7 +1,7 @@
 import { E } from '@agoric/eventual-send';
 import { assert, details } from '@agoric/assert';
 
-import dappConstants from '../lib/constants';
+import dappConstants from './lib/constants';
 
 const { INSTANCE_BOARD_ID } = dappConstants;
 

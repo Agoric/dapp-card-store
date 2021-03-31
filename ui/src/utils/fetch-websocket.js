@@ -1,5 +1,5 @@
 /* global process */
-import dappConstants from './constants';
+import dappConstants from '../lib/constants';
 
 const { API_URL, BRIDGE_URL, CONTRACT_NAME } = dappConstants;
 
@@ -8,7 +8,7 @@ const { API_URL, BRIDGE_URL, CONTRACT_NAME } = dappConstants;
 const endpointToSocket = new Map();
 
 function logMsg(obj, direction = 'send:') {
-  const type = obj.type;
+  const { type } = obj;
   switch (type) {
     case undefined:
       // Skip untyped objects.
@@ -51,7 +51,7 @@ function createSocket({ onConnect, onDisconnect, onMessage }, endpoint) {
       ifr.setAttribute('height', '0');
       ifr.setAttribute('style', 'display: none');
       document.body.appendChild(ifr);
-      window.addEventListener('message', ev => {
+      window.addEventListener('message', (ev) => {
         // console.log('dapp ui got', ev);
         logMsg(ev.data, 'recv');
         if (ev.data && ev.data.type === 'walletBridgeLoaded') {
@@ -120,7 +120,7 @@ function createSocket({ onConnect, onDisconnect, onMessage }, endpoint) {
         if (kind !== 'message') {
           throw Error(`Cannot bridge.addEventListener kind ${kind}`);
         }
-        const onmsg = data => cb({ data });
+        const onmsg = (data) => cb({ data });
         messageListeners.add(onmsg);
         messageSubscriptions.add(onmsg);
       },
@@ -189,7 +189,7 @@ export async function doFetch(req, endpoint = '/private/wallet-bridge') {
   }
 
   let resolve;
-  const p = new Promise(res => {
+  const p = new Promise((res) => {
     resolve = res;
   });
   socket.send(JSON.stringify(req));
