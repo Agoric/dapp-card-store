@@ -44,5 +44,5 @@ export const makeOfferForCards = async ({
     },
   };
 
-  E(walletP).addOffer(offerConfig);
+  return E(walletP).addOffer(offerConfig);
 };

@@ -6,6 +6,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
+import enableDappPng from '../assets/enable-dapp.png';
+
 const EnableAppDialog = ({ open, handleClose }) => {
   return (
     <Dialog open={open}>
@@ -17,7 +19,7 @@ const EnableAppDialog = ({ open, handleClose }) => {
           Then, under "Dapps", enable CardStore.
           <img
             id="enable-dapp"
-            src="./assets/enable-dapp.png"
+            src={enableDappPng}
             width="100%"
             alt="Enable dapp in wallet"
           />

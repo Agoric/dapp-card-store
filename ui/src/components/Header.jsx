@@ -6,22 +6,33 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((_theme) => {
+const useStyles = makeStyles((theme) => {
   return {
-    root: {},
-    status: {},
-    title: {},
-    icon: {},
+    root: {
+      paddingBottom: theme.spacing(3),
+    },
+    status: {
+      marginRight: theme.spacing(2),
+      textAlign: 'right',
+    },
+    title: {
+      marginRight: theme.spacing(3),
+    },
+    icon: {
+      marginRight: theme.spacing(1),
+      marginLeft: 'auto',
+    },
   };
 });
 
-const Header = ({ walletConnected }) => {
+const Header = ({ walletConnected, dappApproved }) => {
   const classes = useStyles();
 
   const walletStatus = walletConnected ? 'Connected' : 'Disconnected';
+  const dappStatus = dappApproved ? 'Approved' : 'Not approved';
   return (
     <div className={classes.root}>
-      <AppBar>
+      <AppBar position="sticky">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Baseball Card Store
@@ -30,6 +41,7 @@ const Header = ({ walletConnected }) => {
           <PowerSettingsNewIcon className={classes.icon} />
 
           <div className={classes.status}>Agoric wallet: {walletStatus}</div>
+          <div className={classes.status}>Dapp: {dappStatus}</div>
         </Toolbar>
       </AppBar>
     </div>

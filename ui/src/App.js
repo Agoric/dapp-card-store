@@ -18,6 +18,8 @@ import ApproveOfferSnackbar from './components/ApproveOfferSnackbar.jsx';
 import BoughtCardSnackbar from './components/BoughtCardSnackbar.jsx';
 import EnableAppDialog from './components/EnableAppDialog.jsx';
 
+import { makeOfferForCards } from './makeOfferForCards';
+
 import dappConstants from './lib/constants';
 
 const {
@@ -41,12 +43,11 @@ function App() {
   const [availableCards, setAvailableCards] = useState([]);
   const [cardPurse, setCardPurse] = useState(null);
   const [tokenPurse, setTokenPurse] = useState(null);
-  const [openEnableAppDialog, setOpenEnableAppDialog] = useState(false);
-  const [openApproveOfferSnackbar, setOpenApproveOfferSnackbar] = useState(
-    false,
-  );
-  const [openBoughtCardSnackbar, setOpenBoughtCardSnackbar] = useState(false);
+  const [openEnableAppDialog, setOpenEnableAppDialog] = useState(true);
+  const [needToApproveOffer, setNeedToApproveOffer] = useState(false);
+  const [boughtCard, setBoughtCard] = useState(false);
   const [walletP, setWalletP] = useState(null);
+  const [publicFacet, setPublicFacet] = useState(null);
 
   const handleDialogClose = () => setOpenEnableAppDialog(false);
 
@@ -72,7 +73,7 @@ function App() {
         dispatch: ctpDispatch,
         getBootstrap,
       } = makeCapTP(
-        'Treasury',
+        'Card Store',
         (obj) => socket.send(JSON.stringify(obj)),
         otherSide,
       );
@@ -112,6 +113,11 @@ function App() {
         E(internalWalletP).suggestInstance('Instance', INSTANCE_BOARD_ID),
         E(internalWalletP).suggestIssuer('Card', CARD_ISSUER_BOARD_ID),
       ]);
+
+      const zoe = E(walletP).getZoe();
+      const board = E(walletP).getBoard();
+      const instance = await E(board).getValue(INSTANCE_BOARD_ID);
+      setPublicFacet(E(zoe).getPublicFacet(instance));
     };
 
     const onDisconnect = () => {
@@ -130,39 +136,39 @@ function App() {
       onMessage,
     });
     return deactivateWebSocket;
-  }, []);
+  }, [walletP]);
 
-  // setAvailableCards
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const getAvailableItems = async () => {
+      if (publicFacet) {
+        const available = await E(publicFacet).getAvailableItems();
+        setAvailableCards(available);
+      }
+    };
+    getAvailableItems();
+  }, [walletP, needToApproveOffer, publicFacet]);
 
-  // setCardPurse and setTokenPurse
-  useEffect(() => {}, []);
-
-  // setOpenEnableAppDialog
-  useEffect(() => {}, []);
-
-  // setOpenApproveOfferSnackbar
-  useEffect(() => {}, []);
-
-  // setOpenBoughtCardSnackbar
-  useEffect(() => {}, []);
+  const handleClick = (name) => {
+    makeOfferForCards({
+      walletP,
+      cards: harden([name]),
+      cardPurse,
+      tokenPurse,
+      pricePerCard: 10n,
+    });
+    setNeedToApproveOffer(true);
+  };
 
   return (
     <div className="App">
-      <Header walletConnected={walletConnected} />
-      <CardDisplay
-        playerNames={availableCards}
-        walletP={walletP}
-        cardPurse={cardPurse}
-        tokenPurse={tokenPurse}
-        pricePerCard={10n}
-      />
+      <Header walletConnected={walletConnected} dappApproved={dappApproved} />
+      <CardDisplay playerNames={availableCards} handleClick={handleClick} />
       <EnableAppDialog
         open={openEnableAppDialog}
         handleClose={handleDialogClose}
       />
-      <ApproveOfferSnackbar open={openApproveOfferSnackbar} />
-      <BoughtCardSnackbar open={openBoughtCardSnackbar} />
+      <ApproveOfferSnackbar open={needToApproveOffer} />
+      <BoughtCardSnackbar open={boughtCard} />
     </div>
   );
 }

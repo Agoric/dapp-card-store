@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { makeOfferForCards } from '../makeOfferForCards';
-
 const useStyles = makeStyles((_theme) => {
   return {
     baseballCard: {},
@@ -17,28 +15,13 @@ const useStyles = makeStyles((_theme) => {
   };
 });
 
-const BaseballCard = ({
-  playerName,
-  walletP,
-  cardPurse,
-  tokenPurse,
-  pricePerCard,
-}) => {
+const BaseballCard = ({ playerName, handleClick }) => {
   const classes = useStyles();
-
-  const makeOffer = (name) =>
-    makeOfferForCards({
-      walletP,
-      cards: harden([name]),
-      cardPurse,
-      tokenPurse,
-      pricePerCard,
-    });
 
   return (
     <Grid item sm={12} md={2}>
       <Card className={classes.baseballCard}>
-        <CardActionArea onClick={() => makeOffer(playerName)}>
+        <CardActionArea onClick={() => handleClick(playerName)}>
           <CardMedia
             className={classes.media}
             image={`/cards/${playerName}.jpg`}
