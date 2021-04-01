@@ -6,7 +6,7 @@ import { E } from '@agoric/eventual-send';
 import '@agoric/zoe/exported';
 import { amountMath } from '@agoric/ertp';
 
-import installationConstants from '../ui/public/conf/installationConstants';
+import installationConstants from '../ui/src/conf/installationConstants';
 
 import { cards } from './cards';
 
@@ -45,10 +45,7 @@ const API_PORT = process.env.API_PORT || '8000';
  * A promise for the references available from REPL home
  * @param {DeployPowers} powers
  */
-export default async function deployApi(
-  homePromise,
-  { bundleSource, pathResolve },
-) {
+export default async function deployApi(homePromise, { pathResolve }) {
   // Let's wait for the promise to resolve.
   const home = await homePromise;
 
@@ -60,19 +57,12 @@ export default async function deployApi(
     // access to it. The wallet stores purses and handles transactions.
     wallet,
 
-    // The spawner persistently runs scripts within ag-solo, off-chain.
-    spawner,
-
     // *** ON-CHAIN REFERENCES ***
 
     // Zoe lives on-chain and is shared by everyone who has access to
     // the chain. In this demo, that's just you, but on our testnet,
     // everyone has access to the same Zoe.
     zoe,
-
-    // The http service allows registered handlers that are executed as part of
-    // the ag-solo web server.
-    http,
 
     // This is a scratch pad specific to the current ag-solo and inaccessible
     // from the chain.
@@ -139,13 +129,11 @@ export default async function deployApi(
   const moneyBrand = await E(moneyIssuer).getBrand();
 
   const allCardNames = harden(cards);
-  const pricePerCard = amountMath.make(10, moneyBrand);
+  const pricePerCard = amountMath.make(10n, moneyBrand);
 
   const {
     // TODO: implement exiting the creatorSeat and taking the earnings
     // eslint-disable-next-line no-unused-vars
-    sellItemsCreatorSeat: creatorSeat,
-    sellItemsCreatorFacet: creatorFacet,
     sellItemsPublicFacet: publicFacet,
     sellItemsInstance: instance,
   } = await E(baseballCardSellerFacet).sellCards(
@@ -163,8 +151,6 @@ export default async function deployApi(
 
   const cardIssuer = await E(publicFacet).getItemsIssuer();
   const cardBrand = await E(cardIssuer).getBrand();
-
-  const invitationIssuer = await invitationIssuerP;
 
   const [
     INSTANCE_BOARD_ID,
@@ -207,8 +193,9 @@ export default async function deployApi(
     },
     BRIDGE_URL: 'http://127.0.0.1:8000',
     API_URL,
+    CONTRACT_NAME,
   };
-  const defaultsFile = pathResolve(`../ui/public/conf/defaults.js`);
+  const defaultsFile = pathResolve(`../ui/src/conf/defaults.js`);
   console.log('writing', defaultsFile);
   const defaultsContents = `\
 // GENERATED FROM ${pathResolve('./deploy.js')}

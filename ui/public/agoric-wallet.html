@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Connect to Agoric bridge</title>
+  </head>
+  <body>
+    <p>Internal to this dApp.  No user-servicable parts.</p>
+    <iframe id="ifr"></iframe>
+    <script type="text/javascript">
+      const localAgoricURL = 'https://local.agoric.com/?append=/wallet-bridge.html';
+      const localAgoricOrigin = new URL(localAgoricURL).origin;
+      const walletQueue = [];
+      let walletOrigin;
+      let walletURL;
+      function fromFrame(ev) {
+        if (ev.origin === localAgoricOrigin) {
+          walletURL = `${ev.data}${location.search}`;
+
+          console.log('found Agoric wallet', walletURL);
+          walletOrigin = new URL(walletURL).origin;
+          console.log('Agoric wallet origin', walletOrigin);
+          ifr.src = walletURL;
+
+          ifr.onload = () => {
+            const loadedMessage = { type: 'walletBridgeLoaded' };
+            if (window.parent !== window) {
+              window.parent.postMessage(loadedMessage, window.origin);
+            }
+            while (walletQueue.length) {
+              ifr.contentWindow.postMessage(walletQueue.shift(), walletOrigin);
+            }
+          };
+        } else if (ev.origin === walletOrigin) {
+
+          if (window.parent !== window) {
+            window.parent.postMessage(ev.data, window.origin);
+          }
+        }
+      }
+
+      function fromDapp(ev) {
+        if (ev.origin !== window.origin) {
+          return;
+        }
+
+        // console.log('from dapp', ev.data);
+        if (walletOrigin === undefined || ifr.src !== walletURL) {
+          walletQueue.push(ev.data);
+        } else {
+          ifr.contentWindow.postMessage(ev.data, walletOrigin);
+        }
+      }
+
+      console.log('finding Agoric wallet from', localAgoricURL);
+      window.addEventListener('message', fromFrame);
+      ifr.src = localAgoricURL;
+
+      window.addEventListener('message', fromDapp);
+    </script>
+  </body>
+</html>

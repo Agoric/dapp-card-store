@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { makeCapTP, E } from '@agoric/captp';
 import { makeAsyncIterableFromNotifier as iterateNotifier } from '@agoric/notifier';
 
@@ -26,7 +26,7 @@ const {
   INSTANCE_BOARD_ID,
   INSTALLATION_BOARD_ID,
   issuerBoardIds: { Card: CARD_ISSUER_BOARD_ID },
-  brandBoardIds: { Token: TOKEN_BRAND_BOARD_ID, Card: CARD_BRAND_BOARD_ID },
+  brandBoardIds: { Money: MONEY_BRAND_BOARD_ID, Card: CARD_BRAND_BOARD_ID },
 } = dappConstants;
 
 function App() {
@@ -39,23 +39,27 @@ function App() {
   // }
 
   const [walletConnected, setWalletConnected] = useState(false);
-  const [dappApproved, setDappApproved] = useState(false);
+  const [dappApproved, setDappApproved] = useState(true);
   const [availableCards, setAvailableCards] = useState([]);
   const [cardPurse, setCardPurse] = useState(null);
   const [tokenPurse, setTokenPurse] = useState(null);
-  const [openEnableAppDialog, setOpenEnableAppDialog] = useState(true);
+  const [openEnableAppDialog, setOpenEnableAppDialog] = useState(false);
   const [needToApproveOffer, setNeedToApproveOffer] = useState(false);
   const [boughtCard, setBoughtCard] = useState(false);
-  const [walletP, setWalletP] = useState(null);
-  const [publicFacet, setPublicFacet] = useState(null);
+  // const [walletP, setWalletP] = useState(null);
+  // const [publicFacet, setPublicFacet] = useState(null);
 
   const handleDialogClose = () => setOpenEnableAppDialog(false);
+
+  const walletPRef = useRef(undefined);
+  const publicFacetRef = useRef(undefined);
 
   useEffect(() => {
     // Receive callbacks from the wallet connection.
     const otherSide = harden({
       needDappApproval(_dappOrigin, _suggestedDappPetname) {
         setDappApproved(false);
+        setOpenEnableAppDialog(true);
       },
       dappApproved(_dappOrigin) {
         setDappApproved(true);
@@ -79,25 +83,24 @@ function App() {
       );
       walletAbort = ctpAbort;
       walletDispatch = ctpDispatch;
-      const internalWalletP = getBootstrap();
-      setWalletP(internalWalletP);
+      const walletP = getBootstrap();
+      walletPRef.current = walletP;
 
       const processPurses = (purses) => {
         // We find the first purses for each brand for simplicity
-        setTokenPurse(
-          purses.find(
-            ({ brandBoardId }) => brandBoardId === TOKEN_BRAND_BOARD_ID,
-          ),
+        const newTokenPurse = purses.find(
+          ({ brandBoardId }) => brandBoardId === MONEY_BRAND_BOARD_ID,
         );
-        setCardPurse(
-          purses.find(
-            ({ brandBoardId }) => brandBoardId === CARD_BRAND_BOARD_ID,
-          ),
+        const newCardPurse = purses.find(
+          ({ brandBoardId }) => brandBoardId === CARD_BRAND_BOARD_ID,
         );
+
+        setTokenPurse(newTokenPurse);
+        setCardPurse(newCardPurse);
       };
 
       async function watchPurses() {
-        const pn = E(internalWalletP).getPursesNotifier();
+        const pn = E(walletP).getPursesNotifier();
         for await (const purses of iterateNotifier(pn)) {
           // dispatch(setPurses(purses));
           processPurses(purses);
@@ -106,18 +109,16 @@ function App() {
       watchPurses().catch((err) => console.error('got watchPurses err', err));
 
       await Promise.all([
-        E(internalWalletP).suggestInstallation(
-          'Installation',
-          INSTALLATION_BOARD_ID,
-        ),
-        E(internalWalletP).suggestInstance('Instance', INSTANCE_BOARD_ID),
-        E(internalWalletP).suggestIssuer('Card', CARD_ISSUER_BOARD_ID),
+        E(walletP).suggestInstallation('Installation', INSTALLATION_BOARD_ID),
+        E(walletP).suggestInstance('Instance', INSTANCE_BOARD_ID),
+        E(walletP).suggestIssuer('Card', CARD_ISSUER_BOARD_ID),
       ]);
 
       const zoe = E(walletP).getZoe();
       const board = E(walletP).getBoard();
       const instance = await E(board).getValue(INSTANCE_BOARD_ID);
-      setPublicFacet(E(zoe).getPublicFacet(instance));
+      const publicFacet = E(zoe).getPublicFacet(instance);
+      publicFacetRef.current = publicFacet;
     };
 
     const onDisconnect = () => {
@@ -136,27 +137,37 @@ function App() {
       onMessage,
     });
     return deactivateWebSocket;
-  }, [walletP]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const getAvailableItems = async () => {
-      if (publicFacet) {
-        const available = await E(publicFacet).getAvailableItems();
-        setAvailableCards(available);
+      if (publicFacetRef.current) {
+        const cardsAvailableAmount = await E(
+          publicFacetRef.current,
+        ).getAvailableItems();
+        setAvailableCards(cardsAvailableAmount.value);
       }
     };
     getAvailableItems();
-  }, [walletP, needToApproveOffer, publicFacet]);
+    setInterval(getAvailableItems, 3000);
+  }, []);
 
   const handleClick = (name) => {
     makeOfferForCards({
-      walletP,
+      walletP: walletPRef.current,
+      publicFacet: publicFacetRef.current,
       cards: harden([name]),
       cardPurse,
       tokenPurse,
       pricePerCard: 10n,
     });
     setNeedToApproveOffer(true);
+  };
+
+  const handleOnClose = () => {
+    setNeedToApproveOffer(false);
+    setBoughtCard(false);
   };
 
   return (
@@ -167,8 +178,8 @@ function App() {
         open={openEnableAppDialog}
         handleClose={handleDialogClose}
       />
-      <ApproveOfferSnackbar open={needToApproveOffer} />
-      <BoughtCardSnackbar open={boughtCard} />
+      <ApproveOfferSnackbar open={needToApproveOffer} onClose={handleOnClose} />
+      <BoughtCardSnackbar open={boughtCard} onClose={handleOnClose} />
     </div>
   );
 }

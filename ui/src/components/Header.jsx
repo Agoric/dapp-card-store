@@ -40,8 +40,9 @@ const Header = ({ walletConnected, dappApproved }) => {
 
           <PowerSettingsNewIcon className={classes.icon} />
 
-          <div className={classes.status}>Agoric wallet: {walletStatus}</div>
-          <div className={classes.status}>Dapp: {dappStatus}</div>
+          <div className={classes.status}>Wallet {walletStatus}</div>
+          <PowerSettingsNewIcon className={classes.icon} />
+          <div className={classes.status}>Dapp {dappStatus}</div>
         </Toolbar>
       </AppBar>
     </div>

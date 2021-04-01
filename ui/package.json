@@ -65,7 +65,8 @@
     }
   },
   "eslintIgnore": [
-    "dist/"
+    "dist/",
+    "conf/"
   ],
   "staticFiles": {
     "staticPath": [

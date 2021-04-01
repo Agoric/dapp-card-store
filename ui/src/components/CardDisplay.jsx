@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => {
     },
     paper: {
       padding: theme.spacing(3),
+      marginLeft: theme.spacing(2),
     },
   };
 });
@@ -22,22 +23,33 @@ const CardDisplay = ({ playerNames, handleClick }) => {
   const classes = useStyles();
 
   const cards = playerNames.map((playerName) => (
-    <BaseballCard playerName={playerName} handleClick={handleClick} />
+    <Grid item sm={5} md={3} key={playerName}>
+      <BaseballCard
+        playerName={playerName}
+        key={playerName}
+        handleClick={handleClick}
+      />
+    </Grid>
   ));
 
   return (
     <Container>
       <Grid container className={classes.root}>
-        <Paper className={classes.paper}>
-          <Typography>
-            First, please enable this dapp in your wallet. To open your wallet,
-            enter `agoric open` in your terminal.
-          </Typography>
-          <Typography>
-            Then click on a card below to make an offer to buy the card.
-          </Typography>
-        </Paper>
-        {cards}
+        <Grid item>
+          <Paper className={classes.paper} elevation={0}>
+            <Typography>
+              Click on a card below to make an offer to buy the card.
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid
+          container
+          alignItems="stretch"
+          direction="row"
+          justify="space-evenly"
+        >
+          {cards}
+        </Grid>
       </Grid>
     </Container>
   );

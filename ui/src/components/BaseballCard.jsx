@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -8,10 +7,22 @@ import Typography from '@material-ui/core/Typography';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((_theme) => {
+import { images } from '../images';
+
+const useStyles = makeStyles((theme) => {
   return {
-    baseballCard: {},
-    media: {},
+    baseballCard: {
+      fontWeight: 'bold',
+      position: 'relative',
+      margin: theme.spacing(2),
+      height: '360px',
+    },
+    media: {
+      height: 0,
+      paddingTop: '100%',
+    },
+    cardWrapper: {},
+    cardText: {},
   };
 });
 
@@ -19,22 +30,25 @@ const BaseballCard = ({ playerName, handleClick }) => {
   const classes = useStyles();
 
   return (
-    <Grid item sm={12} md={2}>
-      <Card className={classes.baseballCard}>
-        <CardActionArea onClick={() => handleClick(playerName)}>
-          <CardMedia
-            className={classes.media}
-            image={`/cards/${playerName}.jpg`}
-            title={playerName}
-          />
-        </CardActionArea>
+    <Card className={classes.baseballCard}>
+      <CardActionArea onClick={() => handleClick(playerName)}>
+        <CardMedia
+          className={classes.media}
+          image={images[playerName]}
+          title={playerName}
+        />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h2"
+            className={classes.cardText}
+          >
             {playerName}
           </Typography>
         </CardContent>
-      </Card>
-    </Grid>
+      </CardActionArea>
+    </Card>
   );
 };
 

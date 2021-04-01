@@ -1,12 +1,9 @@
 import { E } from '@agoric/eventual-send';
 import { assert, details } from '@agoric/assert';
 
-import dappConstants from './lib/constants';
-
-const { INSTANCE_BOARD_ID } = dappConstants;
-
 export const makeOfferForCards = async ({
   walletP,
+  publicFacet,
   cards,
   cardPurse,
   tokenPurse,
@@ -16,10 +13,6 @@ export const makeOfferForCards = async ({
     cards && cards.length > 0,
     details`At least one card must be chosen to purchase`,
   );
-  const zoe = E(walletP).getZoe();
-  const board = E(walletP).getBoard();
-  const instance = await E(board).getValue(INSTANCE_BOARD_ID);
-  const publicFacet = E(zoe).getPublicFacet(instance);
   const invitation = E(publicFacet).makeBuyerInvitation();
 
   const cost = BigInt(cards.length) * pricePerCard;
@@ -31,13 +24,13 @@ export const makeOfferForCards = async ({
     proposalTemplate: {
       want: {
         Items: {
-          pursePetname: cardPurse.petname,
+          pursePetname: cardPurse.pursePetname,
           value: cards,
         },
       },
       give: {
         Money: {
-          pursePetname: tokenPurse.petname,
+          pursePetname: tokenPurse.pursePetname,
           value: cost,
         },
       },
