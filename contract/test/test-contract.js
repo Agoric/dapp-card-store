@@ -1,3 +1,5 @@
+/* global __dirname require */
+
 // @ts-check
 import { test } from '@agoric/zoe/tools/prepare-test-env-ava';
 

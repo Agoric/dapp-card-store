@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* global setInterval */
 
 import React, { useState, useEffect, useRef } from 'react';
 import { makeCapTP, E } from '@agoric/captp';
@@ -46,8 +46,6 @@ function App() {
   const [openEnableAppDialog, setOpenEnableAppDialog] = useState(false);
   const [needToApproveOffer, setNeedToApproveOffer] = useState(false);
   const [boughtCard, setBoughtCard] = useState(false);
-  // const [walletP, setWalletP] = useState(null);
-  // const [publicFacet, setPublicFacet] = useState(null);
 
   const handleDialogClose = () => setOpenEnableAppDialog(false);
 
@@ -137,7 +135,6 @@ function App() {
       onMessage,
     });
     return deactivateWebSocket;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
