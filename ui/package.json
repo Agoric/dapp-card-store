@@ -25,14 +25,6 @@
       "last 1 safari version"
     ]
   },
-  "eslintConfig": {
-    "extends": [
-      "@agoric"
-    ],
-    "rules": {
-      "no-use-before-define": "off"
-    }
-  },
   "eslintIgnore": [
     "dist/",
     "conf/"
