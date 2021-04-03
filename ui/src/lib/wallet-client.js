@@ -22,6 +22,7 @@ let initializedIframe = false;
  * Make a new wallet bridge "socket", via postMessage to an iframe.
  *
  * @param {SocketHandler} handler
+ * @param {string} endpoint
  */
 function createSocket(
   { onConnect, onDisconnect, onMessage },
