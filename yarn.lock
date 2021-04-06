@@ -11508,6 +11508,15 @@ ses@^0.12.3, ses@^0.12.6:
     "@agoric/make-hardener" "^0.1.2"
     "@agoric/transform-module" "^0.4.1"
 
+ses@^0.12.7:
+  version "0.12.7"
+  resolved "https://registry.yarnpkg.com/ses/-/ses-0.12.7.tgz#b795b76a8672fc12659c363dd777e06878394638"
+  integrity sha512-o6eTkzKNqfEtmNfA3j2F6xdL6W/f+HwtXiRWF7ebx4seQBn+3AnFnEIxQTvxShGTGvFH6sDl78YiJeT9N7e9UA==
+  dependencies:
+    "@agoric/babel-standalone" "^7.9.5"
+    "@agoric/make-hardener" "^0.1.2"
+    "@agoric/transform-module" "^0.4.1"
+
 set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
