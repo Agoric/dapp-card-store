@@ -1,5 +1,4 @@
 // @ts-check
-/* globals window, WebSocket */
 
 import { registerSocket, closeSocket, getActiveSocket } from './socket';
 
@@ -17,7 +16,7 @@ function getWebSocketEndpoint(endpoint) {
 }
 
 /**
- * @typedef {Object} SocketHandler
+ * @typedef {object} SocketHandler
  * @property {() => void} [onConnect]
  * @property {(msg: string) => void} [onMessage]
  * @property {() => void} [onDisconnect]

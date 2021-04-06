@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @typedef {Object} Socket
+ * @typedef {object} Socket
  * @property {() => void} close
  * @property {(obj: { type: string }) => void} send
  * @property {(handler: (obj: { type: string }) => void) => void} addHandler

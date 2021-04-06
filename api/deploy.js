@@ -16,16 +16,6 @@ import { cards } from './cards';
 // spawner runs within ag-solo, so is persistent.  Once the deploy.js
 // script ends, connections to any of its objects are severed.
 
-// The deployer's wallet's petname for the money issuer.
-let MONEY_ISSUER_PETNAME_JSON;
-if (process.env.MONEY_ISSUER_PETNAME_JSON) {
-  MONEY_ISSUER_PETNAME_JSON = JSON.stringify(
-    JSON.parse(process.env.MONEY_ISSUER_PETNAME_JSON),
-  );
-} else if (process.env.MONEY_ISSUER_PETNAME) {
-  MONEY_ISSUER_PETNAME_JSON = JSON.stringify(process.env.MONEY_ISSUER_PETNAME);
-}
-
 /**
  * @typedef {Object} DeployPowers The special powers that `agoric deploy` gives us
  * @property {(path: string) => Promise<{ moduleFormat: string, source: string }>} bundleSource
@@ -42,7 +32,8 @@ if (process.env.MONEY_ISSUER_PETNAME_JSON) {
 const API_PORT = process.env.API_PORT || '8000';
 
 /**
- * @typedef {{ zoe: ZoeService, board: Board, spawner, wallet, uploads, http }} Home
+ * @typedef {{ zoe: ZoeService, board: Board, spawner, wallet,
+ * uploads, http, agoricNames }} Home
  * @param {Promise<Home>} homePromise
  * A promise for the references available from REPL home
  * @param {DeployPowers} powers
@@ -53,22 +44,12 @@ export default async function deployApi(homePromise, { pathResolve }) {
 
   // Unpack the references.
   const {
-    // *** LOCAL REFERENCES ***
-
-    // This wallet only exists on this machine, and only you have
-    // access to it. The wallet stores purses and handles transactions.
-    wallet,
-
     // *** ON-CHAIN REFERENCES ***
 
     // Zoe lives on-chain and is shared by everyone who has access to
     // the chain. In this demo, that's just you, but on our testnet,
     // everyone has access to the same Zoe.
     zoe,
-
-    // This is a scratch pad specific to the current ag-solo and inaccessible
-    // from the chain.
-    uploads: scratch,
 
     // The board is an on-chain object that is used to make private
     // on-chain objects public to everyone else on-chain. These
@@ -102,31 +83,7 @@ export default async function deployApi(homePromise, { pathResolve }) {
     installation,
   );
 
-  // Default to the deployed faucet token.
-  let moneyIssuer = await E(scratch).get('faucetTokenIssuer');
-  if (MONEY_ISSUER_PETNAME_JSON) {
-    // try to find the MONEY_ISSUER_PETNAME_JSON.
-    const issuersArray = await E(wallet).getIssuers();
-    // eslint-disable-next-line no-underscore-dangle
-    let _moneyKey;
-    [_moneyKey, moneyIssuer] = issuersArray.find(
-      ([issuerPetname]) =>
-        JSON.stringify(issuerPetname) === MONEY_ISSUER_PETNAME_JSON,
-    );
-
-    if (moneyIssuer === undefined) {
-      console.error(
-        'Cannot find MONEY_ISSUER_PETNAME_JSON',
-        MONEY_ISSUER_PETNAME_JSON,
-        'in home.wallet',
-      );
-      console.error('Have issuers:', [...issuersArray].join(', '));
-      process.exit(1);
-    }
-  } else if (moneyIssuer === undefined) {
-    console.error('Cannot find faucetTokenIssuer in home.uploads');
-    process.exit(1);
-  }
+  const moneyIssuer = await E(home.agoricNames).lookup('issuer', 'RUN');
 
   const moneyBrand = await E(moneyIssuer).getBrand();
 
