@@ -1,7 +1,7 @@
 # cribbed from test-dapp-card-store.yml from agoric-sdk
 # TODO: cache node modules
 
-name: Test Dapp Card Store
+name: Deploy Card Store Dapp
 
 # run CI on pushes to master, and on all PRs (even the ones that target other
 # branches)
