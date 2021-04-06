@@ -27,7 +27,7 @@ agoric install
 In a second terminal, deploy this contract and the API server
 ```sh
 agoric deploy contract/deploy.js
-MONEY_ISSUER_PETNAME_JSON='["FungibleFaucet","Token"]' agoric deploy api/deploy.js
+agoric deploy api/deploy.js
 ```
 
 In a third terminal, 
