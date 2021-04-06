@@ -52,7 +52,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-scripts": "4.0.3",
-    "ses": "^0.12.6"
+    "ses": "^0.12.7"
   },
   "devDependencies": {
     "agoric": "*",
