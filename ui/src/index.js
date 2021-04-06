@@ -1,5 +1,3 @@
-/* global document */
-
 import './install-ses-lockdown';
 import React from 'react';
 import ReactDOM from 'react-dom';

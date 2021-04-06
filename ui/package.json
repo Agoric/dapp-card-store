@@ -25,9 +25,52 @@
       "last 1 safari version"
     ]
   },
+  "eslintConfig": {
+    "ignorePatterns": [
+      "**/*.umd.js",
+      "**/generated/*"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react"
+    ],
+    "rules": {
+      "react/prop-types": "off"
+    },
+    "env": {
+      "browser": true
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      },
+      "react": {
+        "version": "detect"
+      }
+    },
+    "extends": [
+      "@agoric",
+      "plugin:react/recommended"
+    ]
+  },
   "eslintIgnore": [
     "dist/",
-    "conf/"
+    "conf/",
+    "build/",
+    ".cache",
+    "node_modules"
   ],
   "staticFiles": {
     "staticPath": [
@@ -66,7 +109,9 @@
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.2.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "@babel/eslint-plugin": "^7.12.1",
+    "babel-eslint": "^10.1.0"
   },
   "prettier": {
     "trailingComma": "all",
