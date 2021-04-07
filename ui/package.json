@@ -6,7 +6,8 @@
   "license": "Apache-2.0",
   "homepage": ".",
   "scripts": {
-    "build": "react-scripts build",
+    "build": "yarn build:react",
+    "build:react": "react-scripts build",
     "lint-check": "eslint '**/*.{js,jsx}'",
     "lint-fix": "eslint --fix '**/*.{js,jsx}'",
     "start": "react-scripts start",
