@@ -7,11 +7,15 @@
     <p>Internal to this dApp.  No user-servicable parts.</p>
     <iframe id="ifr"></iframe>
     <script type="text/javascript">
+      // This can be removed once the wallet-bridge.html sends a handshake.
+      // ({ type: 'walletBridgeLoaded' }).
+      const FIXME_ALLOW_FOR_NO_BRIDGE_ANNOUNCEMENT = true;
       const localAgoricURL = 'https://local.agoric.com/?append=/wallet-bridge.html';
       const localAgoricOrigin = new URL(localAgoricURL).origin;
       const walletQueue = [];
       let walletOrigin;
       let walletURL;
+      let definitelyLoaded = false;
       function fromFrame(ev) {
         if (ev.origin === localAgoricOrigin) {
           walletURL = `${ev.data}${location.search}`;
@@ -21,19 +25,32 @@
           console.log('Agoric wallet origin', walletOrigin);
           ifr.src = walletURL;
 
-          ifr.onload = () => {
-            const loadedMessage = { type: 'walletBridgeLoaded' };
-            if (window.parent !== window) {
-              window.parent.postMessage(loadedMessage, window.origin);
-            }
-            while (walletQueue.length) {
-              ifr.contentWindow.postMessage(walletQueue.shift(), walletOrigin);
-            }
-          };
+          if (FIXME_ALLOW_FOR_NO_BRIDGE_ANNOUNCEMENT) {
+            ifr.onload = () => {
+              const loadedMessage = { type: 'walletBridgeLoaded' };
+              if (window.parent !== window) {
+                window.parent.postMessage(loadedMessage, window.origin);
+              }
+              for (let i = 0; i < walletQueue.length; i += 1) {
+                ifr.contentWindow.postMessage(walletQueue[i], walletOrigin);
+              }
+            };
+          }
         } else if (ev.origin === walletOrigin) {
-
           if (window.parent !== window) {
             window.parent.postMessage(ev.data, window.origin);
+          }
+          if (!definitelyLoaded) {
+            definitelyLoaded = true;
+            if (FIXME_ALLOW_FOR_NO_BRIDGE_ANNOUNCEMENT) {
+              // We definitely got a response, so clear the walletQueue.
+              walletQueue.splice(0, walletQueue.length);
+            } else {
+              // Just send the queued messages upon the wallet bridge's announcement.
+              for (let i = 0; i < walletQueue.length; i += 1) {
+                ifr.contentWindow.postMessage(walletQueue[i], walletOrigin);
+              }
+            }
           }
         }
       }
@@ -44,11 +61,10 @@
         }
 
         // console.log('from dapp', ev.data);
-        if (walletOrigin === undefined || ifr.src !== walletURL) {
+        if (!definitelyLoaded) {
           walletQueue.push(ev.data);
-        } else {
-          ifr.contentWindow.postMessage(ev.data, walletOrigin);
         }
+        ifr.contentWindow.postMessage(ev.data, walletOrigin);
       }
 
       console.log('finding Agoric wallet from', localAgoricURL);
