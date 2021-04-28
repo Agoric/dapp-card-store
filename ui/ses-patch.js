@@ -57,7 +57,7 @@ async function main(args, { readFile, writeFile }) {
 
 if (require.main === module) {
   // eslint-disable-next-line global-require
-  main(process.argv.slice(2), require('fs').promises).catch(err =>
+  main(process.argv.slice(2), require('fs').promises).catch((err) =>
     console.error(err),
   );
 }
