@@ -1,7 +1,7 @@
 // @ts-check
 import '@agoric/zoe/exported';
 
-import { makeIssuerKit, MathKind, amountMath } from '@agoric/ertp';
+import { makeIssuerKit, AssetKind, amountMath } from '@agoric/ertp';
 import { E } from '@agoric/eventual-send';
 
 /**
@@ -12,7 +12,7 @@ import { E } from '@agoric/eventual-send';
  */
 const start = (zcf) => {
   // Create the internal baseball card mint
-  const { issuer, mint, brand } = makeIssuerKit('baseball cards', MathKind.SET);
+  const { issuer, mint, brand } = makeIssuerKit('baseball cards', AssetKind.SET);
 
   const zoeService = zcf.getZoeService();
 
