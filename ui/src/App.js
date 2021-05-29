@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeCapTP, E } from '@agoric/captp';
-import { makeAsyncIterableFromNotifier as iterateNotifier, observeIteration } from '@agoric/notifier';
+import { makeAsyncIterableFromNotifier as iterateNotifier } from '@agoric/notifier';
 
 import {
   activateWebSocket,
@@ -115,17 +115,6 @@ function App() {
       const instance = await E(board).getValue(INSTANCE_BOARD_ID);
       const publicFacet = E(zoe).getPublicFacet(instance);
       publicFacetRef.current = publicFacet;
-
-      const availableItemsNotifier = E(publicFacet).getAvailableItemsNotifier();
-      observeIteration(availableItemsNotifier, harden({
-        updateState: cardsAvailableAmount => setAvailableCards(cardsAvailableAmount.value),
-        finish:      cardsAvailableAmount => {
-          if (cardsAvailableAmount !== undefined) {
-            setAvailableCards(cardsAvailableAmount.value);
-          }
-        },
-        fail: reason => console.log('availableItemsNotifier failed with:' , reason)
-      }));
     };
 
     const onDisconnect = () => {
@@ -149,14 +138,16 @@ function App() {
   useEffect(() => {
     const getAvailableItems = async () => {
       if (publicFacetRef.current) {
-        const cardsAvailableAmount = await E(
+        const availableItemsNotifier = E(
           publicFacetRef.current,
-        ).getAvailableItems();
-        setAvailableCards(cardsAvailableAmount.value);
+        ).getAvailableItemsNotifier();
+
+        for await (const cardsAvailableAmount of iterateNotifier(availableItemsNotifier)) {
+          setAvailableCards(cardsAvailableAmount.value);
+        }
       }
     };
     getAvailableItems();
-    setInterval(getAvailableItems, 900000);
   }, []);
 
   const handleClick = (name) => {
