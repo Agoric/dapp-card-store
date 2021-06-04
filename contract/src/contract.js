@@ -12,7 +12,10 @@ import { E } from '@agoric/eventual-send';
  */
 const start = (zcf) => {
   // Create the internal baseball card mint
-  const { issuer, mint, brand } = makeIssuerKit('baseball cards', AssetKind.SET);
+  const { issuer, mint, brand } = makeIssuerKit(
+    'baseball cards',
+    AssetKind.SET,
+  );
 
   const zoeService = zcf.getZoeService();
 

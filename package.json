@@ -31,6 +31,9 @@
     "build": "yarn workspaces run build"
   },
   "dependencies": {},
+  "resolutions": {
+    "**/esm": "agoric-labs/esm#Agoric-built"
+  },
   "prettier": {
     "trailingComma": "all",
     "singleQuote": true,
