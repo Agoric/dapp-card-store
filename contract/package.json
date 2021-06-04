@@ -14,26 +14,26 @@
   },
   "devDependencies": {
     "agoric": "*",
+    "ava": "^3.13.0",
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1 ",
     "eslint-config-jessie": "^0.0.6",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
-    "prettier": "^2.2.1",
-    "ava": "^3.13.0"
+    "esm": "agoric-labs/esm#Agoric-built",
+    "prettier": "^2.2.1"
   },
   "dependencies": {
-    "@agoric/bundle-source": "*",
     "@agoric/assert": "*",
     "@agoric/babel-parser": "^7.6.4",
+    "@agoric/bundle-source": "*",
     "@agoric/ertp": "*",
     "@agoric/eventual-send": "*",
     "@agoric/install-ses": "*",
     "@agoric/notifier": "*",
     "@agoric/store": "*",
-    "@agoric/zoe": "*",
-    "esm": "^3.2.5"
+    "@agoric/zoe": "*"
   },
   "ava": {
     "files": [
