@@ -30,9 +30,6 @@
     "test": "yarn workspaces run test",
     "build": "yarn workspaces run build"
   },
-  "engines": { 
-    "node": ">=14.15.0",
-  },
   "dependencies": {},
   "resolutions": {
     "**/esm": "agoric-labs/esm#Agoric-built"
