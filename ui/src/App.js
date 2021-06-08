@@ -115,6 +115,16 @@ function App() {
       const instance = await E(board).getValue(INSTANCE_BOARD_ID);
       const publicFacet = E(zoe).getPublicFacet(instance);
       publicFacetRef.current = publicFacet;
+
+      const availableItemsNotifier = E(
+        publicFacetRef.current,
+      ).getAvailableItemsNotifier();
+
+      for await (const cardsAvailableAmount of iterateNotifier(
+        availableItemsNotifier,
+      )) {
+        setAvailableCards(cardsAvailableAmount.value);
+      }
     };
 
     const onDisconnect = () => {
@@ -133,19 +143,6 @@ function App() {
       onMessage,
     });
     return deactivateWebSocket;
-  }, []);
-
-  useEffect(() => {
-    const getAvailableItems = async () => {
-      if (publicFacetRef.current) {
-        const cardsAvailableAmount = await E(
-          publicFacetRef.current,
-        ).getAvailableItems();
-        setAvailableCards(cardsAvailableAmount.value);
-      }
-    };
-    getAvailableItems();
-    setInterval(getAvailableItems, 3000);
   }, []);
 
   const handleClick = (name) => {
