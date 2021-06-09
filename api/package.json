@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "description": "Agoric Dapp web server handler",
+  "parsers": {
+    "js": "mjs"
+  },
   "scripts": {
     "build": "exit 0",
     "test": "exit 0",

@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "description": "Contract for the Agoric Dapp",
+  "parsers": {
+    "js": "mjs"
+  },
   "scripts": {
     "build": "exit 0",
     "test": "ava --verbose",
