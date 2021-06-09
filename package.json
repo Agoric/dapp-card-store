@@ -10,6 +10,9 @@
     "_agstate/agoric-servers",
     "ui"
   ],
+  "parsers": {
+    "js": "mjs"
+  },
   "devDependencies": {
     "eslint": "^7.23.0",
     "eslint-config-airbnb": "^18.2.1",
