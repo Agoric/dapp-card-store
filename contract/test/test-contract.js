@@ -1,19 +1,21 @@
 /* global __dirname require */
 
 // @ts-check
-import { test } from '@agoric/zoe/tools/prepare-test-env-ava';
+import { test } from '@agoric/zoe/tools/prepare-test-env-ava.js';
 
 import bundleSource from '@agoric/bundle-source';
 
 import { E } from '@agoric/eventual-send';
-import { makeFakeVatAdmin } from '@agoric/zoe/tools/fakeVatAdmin';
-import { makeZoe } from '@agoric/zoe';
-import { makeIssuerKit, amountMath } from '@agoric/ertp';
+import { makeFakeVatAdmin } from '@agoric/zoe/tools/fakeVatAdmin.js';
+import { makeZoeKit } from '@agoric/zoe';
+import { makeIssuerKit, AmountMath } from '@agoric/ertp';
 
-const contractPath = `${__dirname}/../src/contract`;
+const contractPath = `${__dirname}/../src/contract.js`;
 
 test('zoe - sell baseball cards', async (t) => {
-  const zoe = makeZoe(makeFakeVatAdmin().admin);
+  const { zoeService } = makeZoeKit(makeFakeVatAdmin().admin);
+  const feePurse = E(zoeService).makeFeePurse();
+  const zoe = E(zoeService).bindDefaultFeePurse(feePurse);
 
   // pack the contract
   const bundle = await bundleSource(contractPath);
@@ -41,7 +43,7 @@ test('zoe - sell baseball cards', async (t) => {
 
   const allCardNames = harden(['Alice', 'Bob']);
   const moneyIssuer = moolaIssuer;
-  const pricePerCard = amountMath.make(10, moolaBrand);
+  const pricePerCard = AmountMath.make(moolaBrand, 10n);
 
   const {
     sellItemsCreatorSeat,
@@ -61,7 +63,7 @@ test('zoe - sell baseball cards', async (t) => {
 
   const cardIssuer = await E(sellItemsPublicFacet).getItemsIssuer();
   const cardBrand = await cardIssuer.getBrand();
-  const makeCardMath = (value) => amountMath.make(value, cardBrand);
+  const makeCardMath = (value) => AmountMath.make(value, cardBrand);
 
   const cardsForSale = await E(sellItemsPublicFacet).getAvailableItems();
   t.deepEqual(cardsForSale, makeCardMath(['Alice', 'Bob']));
@@ -77,7 +79,7 @@ test('zoe - sell baseball cards', async (t) => {
   });
 
   const bobPaymentKeywordRecord = harden({
-    Money: moolaMint.mintPayment(amountMath.make(10, moolaBrand)),
+    Money: moolaMint.mintPayment(AmountMath.make(moolaBrand, 10n)),
   });
 
   const seat = await E(zoe).offer(
@@ -100,7 +102,7 @@ test('zoe - sell baseball cards', async (t) => {
 
   const moneyPayment = await E(sellItemsCreatorSeat).getPayout('Money');
   const moneyEarned = await E(moolaIssuer).getAmountOf(moneyPayment);
-  t.deepEqual(moneyEarned, amountMath.make(10, moolaBrand));
+  t.deepEqual(moneyEarned, AmountMath.make(moolaBrand, 10n));
 
   const cardInventory = await E(sellItemsCreatorSeat).getPayout('Items');
   const inventoryRemaining = await E(cardIssuer).getAmountOf(cardInventory);
