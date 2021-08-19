@@ -1581,6 +1581,13 @@
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
   integrity sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==
 
+"@endo/eslint-plugin@^0.3.10":
+  version "0.3.10"
+  resolved "https://registry.yarnpkg.com/@endo/eslint-plugin/-/eslint-plugin-0.3.10.tgz#e51f4ef8dae474d396b6a98a9ea9bbc983e90c57"
+  integrity sha512-zr0S9NVxY+MiHKmc5m+O5mydm2owfkp15W9JP7EQvZ4qMDlOy30qns0o7dKrk4WGloQHfMqqLdOkCYeKUGKSAQ==
+  dependencies:
+    requireindex "~1.1.0"
+
 "@eslint/eslintrc@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.0.tgz#99cc0a0584d72f1df38b900fb062ba995f395547"
