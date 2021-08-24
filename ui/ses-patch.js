@@ -1,5 +1,8 @@
-/* global process, require, module */
+/* global process */
 // @ts-check
+
+import fsPowers from 'fs';
+
 const pagePatch = {
   target: '<link name="unprocessed-script" content="lockdown.umd.js"/>',
   replacement: `
@@ -55,9 +58,9 @@ async function main(args, { readFile, writeFile }) {
   }
 }
 
-if (require.main === module) {
-  // eslint-disable-next-line global-require
-  main(process.argv.slice(2), require('fs').promises).catch((err) =>
-    console.error(err),
-  );
+if (new URL(import.meta.url).pathname === process.argv[1]) {
+  main(process.argv.slice(2), fsPowers.promises).catch((err) => {
+    console.error(err);
+    process.exitCode = -1;
+  });
 }

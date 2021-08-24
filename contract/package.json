@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Contract for the Agoric Dapp",
-  "parsers": {
-    "js": "mjs"
-  },
+  "type": "module",
   "scripts": {
     "build": "exit 0",
     "test": "ava --verbose",
@@ -24,7 +22,6 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
-    "esm": "^3.2.5",
     "prettier": "^2.2.1"
   },
   "dependencies": {
@@ -36,14 +33,12 @@
     "@agoric/install-ses": "*",
     "@agoric/notifier": "*",
     "@agoric/store": "*",
-    "@agoric/zoe": "*"
+    "@agoric/zoe": "*",
+    "import-meta-resolve": "^1.1.1"
   },
   "ava": {
     "files": [
       "test/**/test-*.js"
-    ],
-    "require": [
-      "esm"
     ],
     "timeout": "10m"
   },

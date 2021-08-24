@@ -1,7 +1,6 @@
-/* global __dirname require */
-
 // @ts-check
 import { test } from '@agoric/zoe/tools/prepare-test-env-ava.js';
+import { resolve as importMetaResolve } from 'import-meta-resolve';
 
 import bundleSource from '@agoric/bundle-source';
 
@@ -10,7 +9,7 @@ import { makeFakeVatAdmin } from '@agoric/zoe/tools/fakeVatAdmin.js';
 import { makeZoeKit } from '@agoric/zoe';
 import { makeIssuerKit, AmountMath } from '@agoric/ertp';
 
-const contractPath = `${__dirname}/../src/contract.js`;
+const contractPath = new URL('../src/contract.js', import.meta.url).pathname;
 
 test('zoe - sell baseball cards', async (t) => {
   const { zoeService } = makeZoeKit(makeFakeVatAdmin().admin);
@@ -32,9 +31,12 @@ test('zoe - sell baseball cards', async (t) => {
   } = makeIssuerKit('moola');
 
   // We will also install the sellItems contract from agoric-sdk
-  const sellItemsBundle = await bundleSource(
-    require.resolve('@agoric/zoe/src/contracts/sellItems'),
+  const bundleUrl = await importMetaResolve(
+    '@agoric/zoe/src/contracts/sellItems.js',
+    import.meta.url,
   );
+  const bundlePath = new URL(bundleUrl).pathname;
+  const sellItemsBundle = await bundleSource(bundlePath);
   const sellItemsInstallation = await E(zoe).install(sellItemsBundle);
 
   const { creatorFacet: baseballCardSellerFacet } = await E(zoe).startInstance(

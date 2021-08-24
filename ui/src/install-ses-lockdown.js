@@ -1,5 +1,5 @@
 import 'ses/lockdown';
-import '@agoric/eventual-send/shim';
+import '@agoric/eventual-send/shim.js';
 
 // eslint-disable-next-line no-undef
 lockdown({

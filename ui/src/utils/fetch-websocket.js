@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 /* global process */
-import dappConstants from './constants';
+import dappConstants from './constants.js';
 
 const { API_URL, BRIDGE_URL, CONTRACT_NAME } = dappConstants;
 

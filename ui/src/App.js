@@ -6,7 +6,7 @@ import {
   activateWebSocket,
   deactivateWebSocket,
   getActiveSocket,
-} from './utils/fetch-websocket';
+} from './utils/fetch-websocket.js';
 
 import './App.css';
 
@@ -16,9 +16,9 @@ import ApproveOfferSnackbar from './components/ApproveOfferSnackbar.jsx';
 import BoughtCardSnackbar from './components/BoughtCardSnackbar.jsx';
 import EnableAppDialog from './components/EnableAppDialog.jsx';
 
-import { makeOfferForCards } from './makeOfferForCards';
+import { makeOfferForCards } from './makeOfferForCards.js';
 
-import dappConstants from './lib/constants';
+import dappConstants from './lib/constants.js';
 
 const {
   INSTANCE_BOARD_ID,

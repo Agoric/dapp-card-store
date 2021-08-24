@@ -5,12 +5,12 @@
 
 import fs from 'fs';
 import { E } from '@agoric/eventual-send';
-import '@agoric/zoe/exported';
+import '@agoric/zoe/exported.js';
 import { amountMath } from '@agoric/ertp';
 
-import installationConstants from '../ui/src/conf/installationConstants';
+import installationConstants from '../ui/src/conf/installationConstants.js';
 
-import { cards } from './cards';
+import { cards } from './cards.js';
 
 // deploy.js runs in an ephemeral Node.js outside of swingset. The
 // spawner runs within ag-solo, so is persistent.  Once the deploy.js

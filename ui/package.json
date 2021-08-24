@@ -5,14 +5,12 @@
   "author": "Agoric",
   "license": "Apache-2.0",
   "homepage": ".",
-  "parsers": {
-    "js": "mjs"
-  },
+  "type": "module",
   "scripts": {
     "build": "yarn build:ses; yarn build:react",
     "build:ses": "cp ../node_modules/ses/dist/lockdown.umd.js public/",
     "build:react": "react-scripts build; yarn build:post-patch",
-    "build:post-patch": "node -r esm ./ses-patch.js build/index.html",
+    "build:post-patch": "node ./ses-patch.js build/index.html",
     "lint-check": "eslint '**/*.{js,jsx}'",
     "lint-fix": "eslint --fix '**/*.{js,jsx}'",
     "start": "react-scripts start",
