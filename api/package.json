@@ -3,9 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "description": "Agoric Dapp web server handler",
-  "parsers": {
-    "js": "mjs"
-  },
+  "type": "module",
   "scripts": {
     "build": "exit 0",
     "test": "exit 0",
@@ -26,7 +24,6 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsdoc": "^32.3.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "esm": "^3.2.5",
     "prettier": "^2.2.1"
   },
   "dependencies": {

@@ -1,10 +1,9 @@
 // @ts-check
 
-/* global require */
-
 import fs from 'fs';
-import '@agoric/zoe/exported';
+import '@agoric/zoe/exported.js';
 import { E } from '@agoric/eventual-send';
+import { resolve as importMetaResolve } from 'import-meta-resolve';
 
 // This script takes our contract code, installs it on Zoe, and makes
 // the installation publicly available. Our backend API script will
@@ -64,9 +63,12 @@ export default async function deployContract(
 
   // We also need to bundle and install the sellItems contract, which
   // is provided by Zoe. We don't need to write it ourselves.
-  const sellItemsBundle = await bundleSource(
-    require.resolve('@agoric/zoe/src/contracts/sellItems'),
+  const bundleUrl = await importMetaResolve(
+    '@agoric/zoe/src/contracts/sellItems.js',
+    import.meta.url,
   );
+  const bundlePath = new URL(bundleUrl).pathname;
+  const sellItemsBundle = await bundleSource(bundlePath);
   const sellItemsInstallation = await E(zoe).install(sellItemsBundle);
 
   // Let's share this installation with other people, so that
