@@ -31,6 +31,7 @@
     "@agoric/ertp": "*",
     "@agoric/eventual-send": "*",
     "@agoric/install-ses": "*",
+    "@agoric/marshal": "*",
     "@agoric/notifier": "*",
     "@agoric/store": "*",
     "@agoric/zoe": "*",
