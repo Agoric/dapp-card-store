@@ -61,7 +61,10 @@ const start = (zcf) => {
     });
   };
 
-  const creatorFacet = Far('Card store creator', { sellCards, getIssuer: () => issuer });
+  const creatorFacet = Far('Card store creator', {
+    sellCards,
+    getIssuer: () => issuer,
+  });
 
   return harden({ creatorFacet });
 };

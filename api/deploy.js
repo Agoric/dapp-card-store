@@ -98,7 +98,8 @@ export default async function deployApi(homePromise, { pathResolve }) {
   ]);
 
   const allCardNames = harden(cards);
-  const moneyValue = PRICE_PER_CARD_IN_MONEY_UNITS * 10n ** BigInt(decimalPlaces);
+  const moneyValue =
+    PRICE_PER_CARD_IN_MONEY_UNITS * 10n ** BigInt(decimalPlaces);
   const pricePerCard = AmountMath.make(moneyBrand, moneyValue);
 
   const {
