@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeCapTP, E } from '@agoric/captp';
 import { makeAsyncIterableFromNotifier as iterateNotifier } from '@agoric/notifier';
+import { Far } from '@agoric/marshal';
 
 import {
   activateWebSocket,
@@ -53,7 +54,7 @@ function App() {
 
   useEffect(() => {
     // Receive callbacks from the wallet connection.
-    const otherSide = harden({
+    const otherSide = Far('cardStore Wallet Client', {
       needDappApproval(_dappOrigin, _suggestedDappPetname) {
         setDappApproved(false);
         setOpenEnableAppDialog(true);

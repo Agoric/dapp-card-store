@@ -93,6 +93,7 @@
     "@agoric/assert": "*",
     "@agoric/captp": "*",
     "@agoric/eventual-send": "*",
+    "@agoric/marshal": "*",
     "@agoric/notifier": "*",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
