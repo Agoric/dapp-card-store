@@ -2,6 +2,7 @@
 import '@agoric/zoe/exported';
 
 import { makeIssuerKit, AssetKind, amountMath } from '@agoric/ertp';
+import { Far } from '@agoric/marshal';
 import { E } from '@agoric/eventual-send';
 
 /**
@@ -60,7 +61,7 @@ const start = (zcf) => {
     });
   };
 
-  const creatorFacet = harden({ sellCards, getIssuer: () => issuer });
+  const creatorFacet = Far('Card store creator', { sellCards, getIssuer: () => issuer });
 
   return harden({ creatorFacet });
 };
