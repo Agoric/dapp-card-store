@@ -25,6 +25,7 @@ const {
   INSTALLATION_BOARD_ID,
   issuerBoardIds: { Card: CARD_ISSUER_BOARD_ID },
   brandBoardIds: { Money: MONEY_BRAND_BOARD_ID, Card: CARD_BRAND_BOARD_ID },
+  pricePerCard,
 } = dappConstants;
 
 function App() {
@@ -152,7 +153,7 @@ function App() {
       cards: harden([name]),
       cardPurse,
       tokenPurse,
-      pricePerCard: 10n,
+      pricePerCard: BigInt(pricePerCard),
     });
     setNeedToApproveOffer(true);
   };
