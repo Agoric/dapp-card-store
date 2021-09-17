@@ -86,9 +86,24 @@ function App() {
 
       const processPurses = (purses) => {
         // We find the first purses for each brand for simplicity
-        const newTokenPurse = purses.find(
-          ({ brandBoardId }) => brandBoardId === MONEY_BRAND_BOARD_ID,
-        );
+        // FIXME: AAAARGH!
+        const findBestPurse = (boardId, regexps) => {
+          for (const re of [...regexps, '']) {
+            const purse = purses.find(
+              ({ brandBoardId, pursePetname }) =>
+                brandBoardId === boardId && pursePetname.match(re),
+            );
+            if (purse) {
+              return purse;
+            }
+          }
+          return undefined;
+        };
+        const newTokenPurse = findBestPurse(MONEY_BRAND_BOARD_ID, [
+          /demo/i,
+          /agoric/i,
+        ]);
+        // console.log('FIGME!', newTokenPurse);
         const newCardPurse = purses.find(
           ({ brandBoardId }) => brandBoardId === CARD_BRAND_BOARD_ID,
         );
