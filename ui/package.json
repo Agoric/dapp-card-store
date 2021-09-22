@@ -7,21 +7,20 @@
   "homepage": ".",
   "type": "module",
   "scripts": {
-    "build": "yarn build:ses; yarn build:react",
+    "build": "yarn build:ses && yarn build:react",
     "build:ses": "cp ../node_modules/ses/dist/lockdown.umd.js public/",
-    "build:react": "react-scripts build; yarn build:post-patch",
-    "build:post-patch": "node ./ses-patch.js build/index.html",
+    "build:react": "react-scripts build",
     "lint-check": "eslint '**/*.{js,jsx}'",
     "lint-fix": "eslint --fix '**/*.{js,jsx}'",
-    "start": "react-scripts start",
+    "start": "yarn build:ses && react-scripts start",
     "test": "exit 0",
     "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ],
     "development": [
       "last 1 chrome version",
