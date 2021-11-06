@@ -1,7 +1,7 @@
 // @ts-check
 import '@agoric/zoe/exported';
 
-import { makeIssuerKit, AssetKind, amountMath } from '@agoric/ertp';
+import { makeIssuerKit, AssetKind, AmountMath } from '@agoric/ertp';
 import { Far } from '@agoric/marshal';
 import { E } from '@agoric/eventual-send';
 
@@ -26,7 +26,7 @@ const start = (zcf) => {
     sellItemsInstallation,
     pricePerCard,
   ) => {
-    const newCardsForSaleAmount = amountMath.make(newCardNames, brand);
+    const newCardsForSaleAmount = AmountMath.make(brand, newCardNames);
     const allCardsForSalePayment = mint.mintPayment(newCardsForSaleAmount);
     // Note that the proposal `want` is empty because we don't know
     // how many cards will be sold, so we don't know how much money we

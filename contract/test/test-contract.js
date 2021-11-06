@@ -65,7 +65,7 @@ test('zoe - sell baseball cards', async (t) => {
 
   const cardIssuer = await E(sellItemsPublicFacet).getItemsIssuer();
   const cardBrand = await cardIssuer.getBrand();
-  const makeCardMath = (value) => AmountMath.make(value, cardBrand);
+  const makeCardMath = (value) => AmountMath.make(cardBrand, harden(value));
 
   const cardsForSale = await E(sellItemsPublicFacet).getAvailableItems();
   t.deepEqual(cardsForSale, makeCardMath(['Alice', 'Bob']));
