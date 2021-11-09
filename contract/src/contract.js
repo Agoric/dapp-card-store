@@ -5,9 +5,11 @@ import { makeIssuerKit, AssetKind, AmountMath } from '@agoric/ertp';
 import { Far } from '@agoric/marshal';
 import { E } from '@agoric/eventual-send';
 
+import { FIRST_PRICE } from '@agoric/zoe/src/contracts/auction';
+
 /**
  * This contract mints non-fungible tokens (baseball cards) and creates a contract
- * instance to sell the cards in exchange for some sort of money.
+ * instance to auction the cards in exchange for some sort of money.
  *
  * @type {ContractStartFn}
  */
@@ -20,11 +22,13 @@ const start = (zcf) => {
 
   const zoeService = zcf.getZoeService();
 
-  const sellCards = async (
+  const auctionCards = async (
     newCardNames,
     moneyIssuer,
-    sellItemsInstallation,
-    pricePerCard,
+    auctionInstallation,
+    auctionItemsInstallation,
+    minBidPerCard,
+    timeAuthority,
   ) => {
     const newCardsForSaleAmount = AmountMath.make(brand, newCardNames);
     const allCardsForSalePayment = mint.mintPayment(newCardsForSaleAmount);
@@ -42,27 +46,40 @@ const start = (zcf) => {
       Money: moneyIssuer,
     });
 
-    const sellItemsTerms = harden({
-      pricePerItem: pricePerCard,
+    const auctionItemsTerms = harden({
+      bidDuration: 300n,
+      winnerPriceOption: FIRST_PRICE,
+      ...zcf.getTerms(),
+      auctionInstallation,
+      minimalBid: minBidPerCard,
+      timeAuthority,
     });
+
     const { creatorInvitation, creatorFacet, instance, publicFacet } = await E(
       zoeService,
-    ).startInstance(sellItemsInstallation, issuerKeywordRecord, sellItemsTerms);
-    const sellItemsCreatorSeat = await E(zoeService).offer(
+    ).startInstance(
+      auctionItemsInstallation,
+      issuerKeywordRecord,
+      auctionItemsTerms,
+    );
+
+    const shouldBeInvitationMsg = `The auctionItemsContract instance should return a creatorInvitation`;
+    assert(creatorInvitation, shouldBeInvitationMsg);
+
+    await E(zoeService).offer(
       creatorInvitation,
       proposal,
       paymentKeywordRecord,
     );
     return harden({
-      sellItemsCreatorSeat,
-      sellItemsCreatorFacet: creatorFacet,
-      sellItemsInstance: instance,
-      sellItemsPublicFacet: publicFacet,
+      auctionItemsCreatorFacet: creatorFacet,
+      auctionItemsInstance: instance,
+      auctionItemsPublicFacet: publicFacet,
     });
   };
 
   const creatorFacet = Far('Card store creator', {
-    sellCards,
+    auctionCards,
     getIssuer: () => issuer,
   });
 
