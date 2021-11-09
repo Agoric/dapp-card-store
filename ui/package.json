@@ -91,8 +91,11 @@
   "dependencies": {
     "@agoric/assert": "*",
     "@agoric/captp": "*",
+    "@agoric/ertp": "*",
     "@agoric/eventual-send": "*",
+    "@agoric/marshal": "*",
     "@agoric/notifier": "*",
+    "@agoric/ui-components": "*",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "react": "^16.8.0",
