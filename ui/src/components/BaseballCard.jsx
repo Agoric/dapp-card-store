@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => {
       fontWeight: 'bold',
       position: 'relative',
       margin: theme.spacing(2),
-      height: '360px',
     },
     media: {
       height: 0,
@@ -28,10 +27,16 @@ const useStyles = makeStyles((theme) => {
 
 const BaseballCard = ({ playerName, handleClick }) => {
   const classes = useStyles();
+  const CardContainer = handleClick ? CardActionArea : Fragment;
+  const containerProps = handleClick
+    ? {
+        onClick: () => handleClick(playerName),
+      }
+    : {};
 
   return (
     <Card className={classes.baseballCard}>
-      <CardActionArea onClick={() => handleClick(playerName)}>
+      <CardContainer {...containerProps}>
         <CardMedia
           className={classes.media}
           image={images[playerName]}
@@ -47,7 +52,7 @@ const BaseballCard = ({ playerName, handleClick }) => {
             {playerName}
           </Typography>
         </CardContent>
-      </CardActionArea>
+      </CardContainer>
     </Card>
   );
 };

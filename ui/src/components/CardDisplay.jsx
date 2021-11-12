@@ -3,6 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import BaseballCard from './BaseballCard.jsx';
@@ -14,13 +16,18 @@ const useStyles = makeStyles((theme) => {
     },
     paper: {
       padding: theme.spacing(3),
-      marginLeft: theme.spacing(2),
+      minWidth: '200px',
+    },
+    loading: {
+      marginBottom: theme.spacing(2),
     },
   };
 });
 
 const CardDisplay = ({ playerNames, handleClick }) => {
   const classes = useStyles();
+
+  const isReady = playerNames && playerNames.length > 0;
 
   const cards = playerNames.map((playerName) => (
     <Grid item sm={5} md={3} key={playerName}>
@@ -35,10 +42,15 @@ const CardDisplay = ({ playerNames, handleClick }) => {
   return (
     <Container>
       <Grid container className={classes.root}>
-        <Grid item>
+        <Grid container justify="space-evenly">
           <Paper className={classes.paper} elevation={0}>
+            {!isReady && (
+              <CircularProgress size="2rem" classes={classes.loading} />
+            )}
             <Typography>
-              Click on a card below to make an offer to buy the card.
+              {isReady
+                ? 'Click on a card below to make an offer to buy the card.'
+                : 'Fetching card list...'}
             </Typography>
           </Paper>
         </Grid>

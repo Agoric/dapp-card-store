@@ -61,15 +61,23 @@ export default async function deployContract(
   const bundle = await bundleSource(pathResolve(`./src/contract.js`));
   const installation = await E(zoe).install(bundle);
 
-  // We also need to bundle and install the sellItems contract, which
-  // is provided by Zoe. We don't need to write it ourselves.
+  // We also need to bundle and install the auctionItems contract
   const bundleUrl = await importMetaResolve(
-    '@agoric/zoe/src/contracts/sellItems.js',
+    './src/auctionItems.js',
     import.meta.url,
   );
   const bundlePath = new URL(bundleUrl).pathname;
-  const sellItemsBundle = await bundleSource(bundlePath);
-  const sellItemsInstallation = await E(zoe).install(sellItemsBundle);
+  const auctionItemsBundle = await bundleSource(bundlePath);
+  const auctionItemsInstallation = await E(zoe).install(auctionItemsBundle);
+
+  // Auction logic, hope that we can add this to Zoe later
+  const auctionBundleUrl = await importMetaResolve(
+    '@agoric/zoe/src/contracts/auction/index.js',
+    import.meta.url,
+  );
+  const auctionBundlePath = new URL(auctionBundleUrl).pathname;
+  const auctionBundle = await bundleSource(auctionBundlePath);
+  const auctionInstallation = await E(zoe).install(auctionBundle);
 
   // Let's share this installation with other people, so that
   // they can run our contract code by making a contract
@@ -82,21 +90,28 @@ export default async function deployContract(
   // strings to objects.
   const CONTRACT_NAME = 'cardStore';
   const INSTALLATION_BOARD_ID = await E(board).getId(installation);
-  const SELL_ITEMS_INSTALLATION_BOARD_ID = await E(board).getId(
-    sellItemsInstallation,
+  const AUCTION_ITEMS_INSTALLATION_BOARD_ID = await E(board).getId(
+    auctionItemsInstallation,
+  );
+  const AUCTION_INSTALLATION_BOARD_ID = await E(board).getId(
+    auctionInstallation,
   );
   console.log('- SUCCESS! contract code installed on Zoe');
   console.log(`-- Contract Name: ${CONTRACT_NAME}`);
   console.log(`-- Installation Board Id: ${INSTALLATION_BOARD_ID}`);
   console.log(
-    `-- Sell Items Installation Board Id: ${SELL_ITEMS_INSTALLATION_BOARD_ID}`,
+    `-- Auction Installation Board Id: ${AUCTION_INSTALLATION_BOARD_ID}`,
+  );
+  console.log(
+    `-- Auction Items Installation Board Id: ${AUCTION_ITEMS_INSTALLATION_BOARD_ID}`,
   );
 
   // Save the constants somewhere where the UI and api can find it.
   const dappConstants = {
     CONTRACT_NAME,
     INSTALLATION_BOARD_ID,
-    SELL_ITEMS_INSTALLATION_BOARD_ID,
+    AUCTION_INSTALLATION_BOARD_ID,
+    AUCTION_ITEMS_INSTALLATION_BOARD_ID,
   };
   const defaultsFolder = pathResolve(`../ui/src/conf`);
   const defaultsFile = pathResolve(`../ui/src/conf/installationConstants.js`);
