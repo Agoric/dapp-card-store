@@ -81,7 +81,7 @@ const start = (zcf) => {
       want && (want.Items || want.Money)
         ? want
         : sellerSeat.getCurrentAllocation();
-    seat.incrementBy(sellerSeat.decrementBy(amount));
+    seat.incrementBy(sellerSeat.decrementBy(harden(amount)));
     zcf.reallocate(sellerSeat, seat);
     seat.exit();
 
