@@ -21,13 +21,18 @@ Then in a first terminal in the directory where you want to put your dapp, insta
 agoric init --dapp-template dapp-card-store my-card-store
 cd my-card-store
 agoric install
-# The Agoric platform should be already started so there is no need to run `agoric start`
+# If the Agoric platform has not been started
+agoric start --reset --verbose
 ```
 
-In a second terminal, deploy this contract and the API server
+In a second terminal, enter `agoric open` in a terminal window to open a wallet.
+
+When the UI changes from gray to white (be patient), transfer some
+funds from the **Agoric RUN currency** purse to the **Zoe fees**
+purse.
+
 ```sh
-agoric deploy contract/deploy.js
-agoric deploy api/deploy.js
+agoric deploy contract/deploy.js api/deploy.js
 ```
 
 In a third terminal, 
@@ -35,27 +40,10 @@ In a third terminal,
 # Navigate to the `ui` directory and start a local server
 cd ui && yarn start
 ```
-Then navigate to http://127.0.0.1:3001.
-
-The Fungible Faucet Dapp is the simplest [Agoric
-Dapp](https://agoric.com/documentation/dapps/). It
-demonstrates the three important parts of
-a dapp and how they should be connected:
-1. the browser UI (the frontend)
-2. the API server (the backend)
-3. the on-chain contract
-
-This dapp starts a local
-blockchain on your computer, and deploys a basic contract to that
-blockchain. It does not currently deploy or connect to the Agoric testnet.
-
-This particular dapp UI is written in vanilla JS for simplicity (as
-opposed to using a framework).
 
 ## Using the Dapp
 
-1. Navigate to http://127.0.0.1:3001.
-2. Enter `agoric open` in your terminal
+1. `yarn start` will open a page at  http://127.0.0.1:3001.
 3. A window for your wallet should open.
 4. Under "Dapps" in the wallet, enable the CardStore Dapp.
 5. Now you should be able to click on a card to make an offer to buy
