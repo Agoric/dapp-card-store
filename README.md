@@ -5,13 +5,6 @@ TL;DR:
 The Baseball Card Store Dapp sells baseball cards as NFT tokens in
 exchange for money.
 
-*This dapp requires the
-[Fungible Faucet Dapp](https://github.com/Agoric/dapp-fungible-faucet)to be running, so
-please [follow the
-instructions](https://github.com/Agoric/dapp-fungible-faucet) to set
-up the Fungible Faucet Dapp first and give yourself some tokens. This
-dapp runs on port 3001, whereas the Fungible Faucet Dapp runs on port 3000.*
-
 Install the
 [prerequisites](https://agoric.com/documentation/getting-started/before-using-agoric.html).
 
