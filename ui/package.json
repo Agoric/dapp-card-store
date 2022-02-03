@@ -89,22 +89,22 @@
     "watcherGlob": "**/*.html"
   },
   "dependencies": {
-    "@agoric/assert": "*",
-    "@agoric/captp": "*",
-    "@agoric/ertp": "*",
-    "@agoric/eventual-send": "*",
-    "@agoric/marshal": "*",
-    "@agoric/notifier": "*",
-    "@agoric/ui-components": "*",
+    "@agoric/assert": "dev",
+    "@endo/captp": "^1.10.12",
+    "@agoric/ertp": "dev",
+    "@endo/eventual-send": "^0.14.4",
+    "@endo/marshal": "^0.5.4",
+    "@agoric/notifier": "dev",
+    "@agoric/ui-components": "dev",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-scripts": "4.0.3",
-    "ses": "^0.12.6"
+    "ses": "^0.15.7"
   },
   "devDependencies": {
-    "agoric": "*",
+    "agoric": "dev",
     "eslint": "^7.23.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",

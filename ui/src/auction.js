@@ -1,4 +1,4 @@
-import { E } from '@agoric/eventual-send';
+import { E } from '@endo/eventual-send';
 import { assert, details as X } from '@agoric/assert';
 
 const getCardAuctionDetail = async ({ publicFacet, card }) => {
