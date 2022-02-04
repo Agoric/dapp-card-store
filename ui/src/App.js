@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { makeCapTP, E } from '@agoric/captp';
+import { makeCapTP, E } from '@endo/captp';
 import { makeAsyncIterableFromNotifier as iterateNotifier } from '@agoric/notifier';
-import { Far } from '@agoric/marshal';
+import { Far } from '@endo/marshal';
 
 import {
   activateWebSocket,

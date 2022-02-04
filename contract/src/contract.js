@@ -2,8 +2,8 @@
 import '@agoric/zoe/exported';
 
 import { makeIssuerKit, AssetKind, AmountMath } from '@agoric/ertp';
-import { Far } from '@agoric/marshal';
-import { E } from '@agoric/eventual-send';
+import { Far } from '@endo/marshal';
+import { E } from '@endo/eventual-send';
 
 import { FIRST_PRICE } from '@agoric/zoe/src/contracts/auction';
 

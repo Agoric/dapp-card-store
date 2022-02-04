@@ -1,5 +1,5 @@
 /* global process */
-import '@agoric/eventual-send/shim.js';
+import '@endo/eventual-send/shim.js';
 
 // Lockdown must be handled differently between production and dev.
 // In dev, lockdown must be invoked here to let the framework bootstrapping

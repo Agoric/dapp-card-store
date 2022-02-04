@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 import '@agoric/zoe/exported.js';
-import { E } from '@agoric/eventual-send';
+import { E } from '@endo/eventual-send';
 import { resolve as importMetaResolve } from 'import-meta-resolve';
 
 // This script takes our contract code, installs it on Zoe, and makes
