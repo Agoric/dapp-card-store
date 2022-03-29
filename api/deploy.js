@@ -47,7 +47,7 @@ export default async function deployApi(homePromise, { pathResolve }) {
   // Unpack the references.
   const {
     // *** ON-CHAIN REFERENCES ***
-    chainTimerService,
+    chainTimerService: chainTimerServiceP,
 
     // Zoe lives on-chain and is shared by everyone who has access to
     // the chain. In this demo, that's just you, but on our testnet,
@@ -107,6 +107,7 @@ export default async function deployApi(homePromise, { pathResolve }) {
     PRICE_PER_CARD_IN_MONEY_UNITS * 10n ** BigInt(decimalPlaces);
   const minBidPerCard = AmountMath.make(moneyBrand, moneyValue);
 
+  const chainTimerService = await chainTimerServiceP;
   const {
     // TODO: implement exiting the creatorSeat and taking the earnings
     auctionItemsPublicFacet: publicFacet,
