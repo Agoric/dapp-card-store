@@ -12,6 +12,7 @@ Checkout the latest beta release for the sdk:
 ```sh
 cd agoric-sdk
 git checkout -b beta agoricdev-8
+yarn && yarn build
 ```
 
 Then in a first terminal in the directory where you want to put your dapp, install the dapp:
