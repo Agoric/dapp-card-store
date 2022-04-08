@@ -8,6 +8,11 @@ exchange for money.
 Install the
 [prerequisites](https://agoric.com/documentation/getting-started/before-using-agoric.html).
 
+Checkout the latest beta release for the sdk:
+```sh
+cd agoric-sdk
+git checkout -b beta agoricdev-8
+```
 
 Then in a first terminal in the directory where you want to put your dapp, install the dapp:
 ```sh
