@@ -11,13 +11,13 @@ Install the
 Checkout the latest beta release for the sdk:
 ```sh
 cd agoric-sdk
-git checkout -b beta agoricdev-8
+git checkout beta
 yarn && yarn build
 ```
 
 Then in a first terminal in the directory where you want to put your dapp, install the dapp:
 ```sh
-agoric init --dapp-template dapp-card-store my-card-store
+agoric init --dapp-template dapp-card-store --dapp-branch beta my-card-store
 cd my-card-store
 agoric install
 # If the Agoric platform has not been started
