@@ -4,7 +4,7 @@
 // Agoric Dapp api deployment script
 
 import fs from 'fs';
-import { E } from '@agoric/eventual-send';
+import { E } from '@endo/eventual-send';
 import '@agoric/zoe/exported.js';
 import { AmountMath } from '@agoric/ertp';
 
@@ -35,7 +35,7 @@ const API_PORT = process.env.API_PORT || '8000';
 
 /**
  * @typedef {{ zoe: ZoeService, board: Board, spawner, wallet,
- * uploads, http, agoricNames }} Home
+ * uploads, http, agoricNames, chainTimerService }} Home
  * @param {Promise<Home>} homePromise
  * A promise for the references available from REPL home
  * @param {DeployPowers} powers
@@ -47,6 +47,7 @@ export default async function deployApi(homePromise, { pathResolve }) {
   // Unpack the references.
   const {
     // *** ON-CHAIN REFERENCES ***
+    chainTimerService: chainTimerServiceP,
 
     // Zoe lives on-chain and is shared by everyone who has access to
     // the chain. In this demo, that's just you, but on our testnet,
@@ -67,12 +68,16 @@ export default async function deployApi(homePromise, { pathResolve }) {
   // in the public board.
   const {
     INSTALLATION_BOARD_ID,
-    SELL_ITEMS_INSTALLATION_BOARD_ID,
+    AUCTION_INSTALLATION_BOARD_ID,
+    AUCTION_ITEMS_INSTALLATION_BOARD_ID,
     CONTRACT_NAME,
   } = installationConstants;
   const installation = await E(board).getValue(INSTALLATION_BOARD_ID);
-  const sellItemsInstallation = await E(board).getValue(
-    SELL_ITEMS_INSTALLATION_BOARD_ID,
+  const auctionItemsInstallation = await E(board).getValue(
+    AUCTION_ITEMS_INSTALLATION_BOARD_ID,
+  );
+  const auctionInstallation = await E(board).getValue(
+    AUCTION_INSTALLATION_BOARD_ID,
   );
 
   // Second, we can use the installation to create a new instance of
@@ -100,18 +105,20 @@ export default async function deployApi(homePromise, { pathResolve }) {
   const allCardNames = harden(cards);
   const moneyValue =
     PRICE_PER_CARD_IN_MONEY_UNITS * 10n ** BigInt(decimalPlaces);
-  const pricePerCard = AmountMath.make(moneyBrand, moneyValue);
+  const minBidPerCard = AmountMath.make(moneyBrand, moneyValue);
 
+  const chainTimerService = await chainTimerServiceP;
   const {
     // TODO: implement exiting the creatorSeat and taking the earnings
-    // eslint-disable-next-line no-unused-vars
-    sellItemsPublicFacet: publicFacet,
-    sellItemsInstance: instance,
-  } = await E(baseballCardSellerFacet).sellCards(
+    auctionItemsPublicFacet: publicFacet,
+    auctionItemsInstance: instance,
+  } = await E(baseballCardSellerFacet).auctionCards(
     allCardNames,
     moneyIssuer,
-    sellItemsInstallation,
-    pricePerCard,
+    auctionInstallation,
+    auctionItemsInstallation,
+    minBidPerCard,
+    chainTimerService,
   );
 
   console.log('- SUCCESS! contract instance is running on Zoe');
@@ -154,9 +161,9 @@ export default async function deployApi(homePromise, { pathResolve }) {
   const dappConstants = {
     INSTANCE_BOARD_ID,
     INSTALLATION_BOARD_ID,
-    SELL_ITEMS_INSTALLATION_BOARD_ID,
+    AUCTION_ITEMS_INSTALLATION_BOARD_ID,
     INVITE_BRAND_BOARD_ID,
-    // BRIDGE_URL: 'agoric-lookup:https://local.agoric.com?append=/bridge',
+    BRIDGE_URL: 'agoric-lookup:https://local.agoric.com?append=/bridge',
     brandBoardIds: {
       Card: CARD_BRAND_BOARD_ID,
       Money: MONEY_BRAND_BOARD_ID,
@@ -165,8 +172,7 @@ export default async function deployApi(homePromise, { pathResolve }) {
       Card: CARD_ISSUER_BOARD_ID,
       Money: MONEY_ISSUER_BOARD_ID,
     },
-    pricePerCard: Number(moneyValue),
-    BRIDGE_URL: 'http://127.0.0.1:8000',
+    minBidPerCard: Number(moneyValue),
     API_URL,
     CONTRACT_NAME,
   };

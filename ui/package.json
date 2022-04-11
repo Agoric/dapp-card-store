@@ -7,21 +7,20 @@
   "homepage": ".",
   "type": "module",
   "scripts": {
-    "build": "yarn build:ses; yarn build:react",
+    "build": "yarn build:ses && yarn build:react",
     "build:ses": "cp ../node_modules/ses/dist/lockdown.umd.js public/",
-    "build:react": "react-scripts build; yarn build:post-patch",
-    "build:post-patch": "node ./ses-patch.js build/index.html",
+    "build:react": "react-scripts build",
     "lint-check": "eslint '**/*.{js,jsx}'",
     "lint-fix": "eslint --fix '**/*.{js,jsx}'",
-    "start": "react-scripts start",
+    "start": "yarn build:ses && react-scripts start",
     "test": "exit 0",
     "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ],
     "development": [
       "last 1 chrome version",
@@ -90,20 +89,22 @@
     "watcherGlob": "**/*.html"
   },
   "dependencies": {
-    "@agoric/assert": "*",
-    "@agoric/captp": "*",
-    "@agoric/eventual-send": "*",
-    "@agoric/marshal": "*",
-    "@agoric/notifier": "*",
+    "@agoric/assert": "dev",
+    "@endo/captp": "^1.10.12",
+    "@agoric/ertp": "dev",
+    "@endo/eventual-send": "^0.14.4",
+    "@endo/marshal": "^0.5.4",
+    "@agoric/notifier": "dev",
+    "@agoric/ui-components": "dev",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-scripts": "4.0.3",
-    "ses": "^0.12.6"
+    "ses": "^0.15.7"
   },
   "devDependencies": {
-    "agoric": "*",
+    "agoric": "dev",
     "eslint": "^7.23.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
