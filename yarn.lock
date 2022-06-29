@@ -1496,10 +1496,10 @@
     "@endo/zip" "^0.2.17"
     ses "^0.15.7"
 
-"@endo/eslint-plugin@^0.3.10", "@endo/eslint-plugin@^0.3.20":
-  version "0.3.20"
-  resolved "https://registry.yarnpkg.com/@endo/eslint-plugin/-/eslint-plugin-0.3.20.tgz#330436327127856f6c982c2bb46856398bb5095f"
-  integrity sha512-zKCMbfrNBEcfwgRBTM0MZYEovHK/T6URpyZ2KIepoWmL1AtrzxwUHO2zWbFVhQh5lUSsCTtus/MSTzQ5kvxMuw==
+"@endo/eslint-plugin@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@endo/eslint-plugin/-/eslint-plugin-0.4.1.tgz#013547f7be329e066d4c45ab695f8007c188e749"
+  integrity sha512-OeU4rBM8c/wFmyJe4ypegwXmH+UOYaK9F+Ju57gCyg2Lmomx14iYS/JI61NZIyP73pW7jnfUJfqlzTCTlS13Xg==
   dependencies:
     requireindex "~1.1.0"
 
@@ -1678,10 +1678,10 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.3.tgz#e45e384e4b8ec16bce2fd903af78450f6bf7ec98"
   integrity sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==
 
-"@jessie.js/eslint-plugin@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@jessie.js/eslint-plugin/-/eslint-plugin-0.1.3.tgz#4df87d639dbc8ffb4c0b0168de1311b7f522cc75"
-  integrity sha512-wyx/Wz/5gx87GRijQ3U6XGBYh9AnJdkw5pNgz0xZrLv6a6+l/t1p/7AeqYeolu5nDPuic/jSxfybkcWgYaP7UA==
+"@jessie.js/eslint-plugin@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@jessie.js/eslint-plugin/-/eslint-plugin-0.2.0.tgz#47e81ddacf909b68f484955f20f9bf0bf9de6f57"
+  integrity sha512-Llym/BGtFu1pq15U73Rkb+kflTCI8LRxGfCufN+jcIX00m1+nDIhcgqVqmVKrghrSte+UXwDEzb/EO/Zl9K7hA==
   dependencies:
     requireindex "~1.1.0"
 

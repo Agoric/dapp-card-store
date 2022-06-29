@@ -105,6 +105,8 @@
     "ses": "^0.15.7"
   },
   "devDependencies": {
+    "@endo/eslint-plugin": "^0.4.1",
+    "@jessie.js/eslint-plugin": "^0.2.0",
     "agoric": "dev",
     "eslint": "^7.23.0",
     "eslint-config-airbnb": "^18.2.1",

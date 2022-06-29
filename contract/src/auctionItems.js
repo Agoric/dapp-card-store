@@ -53,10 +53,8 @@ const start = (zcf) => {
 
   const { zcfSeat: sellerSeat } = zcf.makeEmptySeatKit();
 
-  const {
-    notifier: availableItemsNotifier,
-    updater: availableItemsUpdater,
-  } = makeNotifierKit();
+  const { notifier: availableItemsNotifier, updater: availableItemsUpdater } =
+    makeNotifierKit();
 
   const sell = (seat) => {
     sellerSeat.incrementBy(seat.decrementBy(seat.getCurrentAllocation()));

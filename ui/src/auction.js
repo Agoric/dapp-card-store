@@ -1,4 +1,3 @@
-/* global harden */
 import { E } from '@endo/eventual-send';
 import { assert, details as X } from '@agoric/assert';
 
