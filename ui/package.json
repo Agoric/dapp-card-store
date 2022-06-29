@@ -48,6 +48,7 @@
       "react/prop-types": "off"
     },
     "env": {
+      "es2020": true,
       "browser": true
     },
     "settings": {

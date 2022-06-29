@@ -1,4 +1,3 @@
-/* global process */
 import '@endo/eventual-send/shim.js';
 
 // Lockdown must be handled differently between production and dev.
