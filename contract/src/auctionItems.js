@@ -26,7 +26,6 @@ import '@agoric/zoe/exported.js';
  *  completedP: Promise,
  *  sellerSeatP: Promise<UserSeat>
  * }} AuctionSession
- *
  * @type {ContractStartFn}
  */
 const start = (zcf) => {
