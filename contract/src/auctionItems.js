@@ -143,7 +143,7 @@ const start = (zcf) => {
 
     const completedP = deposited.then(async () => {
       // get after match allocation
-      const sellerAllocation = await E(sellerSeatP).getCurrentAllocation();
+      const sellerAllocation = await E(sellerSeatP).getCurrentAllocationJig();
 
       // check Asset amount after the auction session
       const isAssetItemSold = AmountMath.isEmpty(sellerAllocation.Asset);
