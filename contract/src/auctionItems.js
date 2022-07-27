@@ -143,6 +143,8 @@ const start = (zcf) => {
 
     const completedP = deposited.then(async () => {
       // get after match allocation
+      // TODO Stop using getCurrentAllocationJig.
+      // See https://github.com/Agoric/agoric-sdk/issues/5833
       const sellerAllocation = await E(sellerSeatP).getCurrentAllocationJig();
 
       // check Asset amount after the auction session
