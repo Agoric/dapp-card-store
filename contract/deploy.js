@@ -10,11 +10,10 @@ import { resolve as importMetaResolve } from 'import-meta-resolve';
 // use this installation in a later step.
 
 /**
- * @typedef {Object} DeployPowers The special powers that agoric deploy gives us
+ * @typedef {object} DeployPowers The special powers that agoric deploy gives us
  * @property {(path: string) => { moduleFormat: string, source: string }} bundleSource
  * @property {(path: string) => string} pathResolve
- *
- * @typedef {Object} Board
+ * @typedef {object} Board
  * @property {(id: string) => any} getValue
  * @property {(value: any) => string} getId
  * @property {(value: any) => boolean} has
