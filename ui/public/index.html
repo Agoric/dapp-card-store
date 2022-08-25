@@ -7,7 +7,7 @@
       if ("%NODE_ENV%" === 'production') {
         const { pow: mathPow } = Math;
         Math.pow = (base, exp) => (typeof base === 'bigint' && typeof exp ==='bigint') ? base ** exp : mathPow(base, exp);
-        lockdown({ __allowUnsafeMonkeyPatching__: 'unsafe', errorTaming: 'unsafe', overrideTaming: 'severe' });
+        lockdown({ errorTaming: 'unsafe', overrideTaming: 'severe' });
         console.log("lockdown done.");
       }
     </script>
