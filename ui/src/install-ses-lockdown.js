@@ -6,7 +6,7 @@ import '@endo/eventual-send/shim.js';
 // code run first, else it breaks.
 // In prod, lockdown must be invoked directly in index.html, else the
 // transpiler breaks it.
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line no-undef
   lockdown({
     errorTaming: 'unsafe',
