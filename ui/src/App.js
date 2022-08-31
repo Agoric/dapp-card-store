@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { makeCapTP, E } from '@endo/captp';
 import { makeAsyncIterableFromNotifier as iterateNotifier } from '@agoric/notifier';
 import { Far } from '@endo/marshal';
-
+import { ThemeProvider } from '@mui/styles';
+import { createTheme } from '@mui/material';
 import {
   activateWebSocket,
   deactivateWebSocket,
@@ -28,6 +29,8 @@ const {
   issuerBoardIds: { Card: CARD_ISSUER_BOARD_ID },
   brandBoardIds: { Money: MONEY_BRAND_BOARD_ID, Card: CARD_BRAND_BOARD_ID },
 } = dappConstants;
+
+const theme = createTheme();
 
 function App() {
   const [walletConnected, setWalletConnected] = useState(false);
@@ -179,26 +182,34 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Header walletConnected={walletConnected} dappApproved={dappApproved} />
-      <CardDisplay playerNames={availableCards} handleClick={handleCardClick} />
-      <CardDetailModal
-        open={!!activeCard}
-        onClose={handleCardModalClose}
-        onGetCardDetail={handleGetCardDetail}
-        onBidCard={submitCardOffer}
-        playerName={activeCard}
-        tokenPurses={tokenPurses}
-        tokenPetname={tokenPetname}
-        tokenDisplayInfo={tokenDisplayInfo}
-      />
-      <EnableAppDialog
-        open={openEnableAppDialog}
-        handleClose={handleDialogClose}
-      />
-      <ApproveOfferSnackbar open={needToApproveOffer} onClose={handleOnClose} />
-      <BoughtCardSnackbar open={boughtCard} onClose={handleOnClose} />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Header walletConnected={walletConnected} dappApproved={dappApproved} />
+        <CardDisplay
+          playerNames={availableCards}
+          handleClick={handleCardClick}
+        />
+        <CardDetailModal
+          open={!!activeCard}
+          onClose={handleCardModalClose}
+          onGetCardDetail={handleGetCardDetail}
+          onBidCard={submitCardOffer}
+          playerName={activeCard}
+          tokenPurses={tokenPurses}
+          tokenPetname={tokenPetname}
+          tokenDisplayInfo={tokenDisplayInfo}
+        />
+        <EnableAppDialog
+          open={openEnableAppDialog}
+          handleClose={handleDialogClose}
+        />
+        <ApproveOfferSnackbar
+          open={needToApproveOffer}
+          onClose={handleOnClose}
+        />
+        <BoughtCardSnackbar open={boughtCard} onClose={handleOnClose} />
+      </div>
+    </ThemeProvider>
   );
 }
 
