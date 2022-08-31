@@ -4,6 +4,7 @@
   "description": "dapp Frontend",
   "author": "Agoric",
   "license": "Apache-2.0",
+  "type": "module",
   "homepage": ".",
   "scripts": {
     "build": "yarn build:ses && yarn build:react",
@@ -70,7 +71,7 @@
   },
   "eslintIgnore": [
     "dist/",
-    "conf/",
+    "src/conf/",
     "build/",
     ".cache",
     "node_modules"
@@ -96,12 +97,15 @@
     "@endo/marshal": "^0.5.4",
     "@agoric/notifier": "dev",
     "@agoric/ui-components": "dev",
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
+    "@mui/material": "5.10.3",
+    "@mui/icons-material": "5.10.3",
+    "@mui/styles": "5.10.3",
+    "@emotion/react": "11.10.4",
+    "@emotion/styled": "11.10.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "ses": "^0.15.7"
+    "ses": "^0.15.21"
   },
   "devDependencies": {
     "@endo/eslint-plugin": "^0.4.1",
