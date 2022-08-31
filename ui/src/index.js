@@ -1,5 +1,4 @@
 import '@endo/eventual-send/shim.js';
-import './install-ses-lockdown.js';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
