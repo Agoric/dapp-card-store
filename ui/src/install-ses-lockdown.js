@@ -1,18 +1,29 @@
-/* global process */
-import '@endo/eventual-send/shim.js';
+// Allow the React dev environment to extend the console for debugging
+// features.
+// eslint-disable-next-line no-constant-condition
+const consoleTaming = '%NODE_ENV%' === 'development' ? 'unsafe' : 'safe';
+// eslint-disable-next-line no-constant-condition
+const errorTaming = '%NODE_ENV%' === 'development' ? 'unsafe' : 'safe';
 
-// Lockdown must be handled differently between production and dev.
-// In dev, lockdown must be invoked here to let the framework bootstrapping
-// code run first, else it breaks.
-// In prod, lockdown must be invoked directly in index.html, else the
-// transpiler breaks it.
-if (process.env.NODE_ENV === 'development') {
-  // eslint-disable-next-line no-undef
-  lockdown({
-    errorTaming: 'unsafe',
-    overrideTaming: 'severe',
-  });
-}
+// eslint-disable-next-line no-restricted-properties
+const { pow: mathPow } = Math;
+// eslint-disable-next-line no-restricted-properties
+Math.pow = (base, exp) =>
+  typeof base === 'bigint' && typeof exp === 'bigint'
+    ? base ** exp
+    : mathPow(base, exp);
+
+lockdown({
+  errorTaming,
+  overrideTaming: 'severe',
+  consoleTaming,
+});
+
+console.log('lockdown done.');
+
+window.addEventListener('unhandledrejection', (ev) => {
+  ev.stopImmediatePropagation();
+});
 
 // Even on non-v8, we tame the start compartment's Error constructor so
 // this assignment is not rejected, even if it does nothing.

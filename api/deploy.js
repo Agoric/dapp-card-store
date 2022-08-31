@@ -92,7 +92,7 @@ export default async function deployApi(homePromise, { pathResolve }) {
   /**
    * @type {ERef<Issuer>}
    */
-  const moneyIssuerP = E(home.agoricNames).lookup('issuer', 'RUN');
+  const moneyIssuerP = E(home.agoricNames).lookup('issuer', 'IST');
 
   const moneyBrandP = E(moneyIssuerP).getBrand();
   const [moneyIssuer, moneyBrand, { decimalPlaces = 0 }] = await Promise.all([
