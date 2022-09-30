@@ -13,6 +13,7 @@ import { makeFakeVatAdmin } from '@agoric/zoe/tools/fakeVatAdmin.js';
 import { makeZoeKit } from '@agoric/zoe';
 import { makeIssuerKit, AmountMath } from '@agoric/ertp';
 import buildManualTimer from '@agoric/zoe/tools/manualTimer.js';
+import { eventLoopIteration } from '@agoric/zoe/tools/eventLoopIteration.js';
 
 const contractPath = new URL('../src/contract.js', import.meta.url).pathname;
 
@@ -279,6 +280,7 @@ test('zoe - after a failed auction session, key should be available for new one'
 
   // auction closed?
   timer.tick();
+  await eventLoopIteration();
 
   const bobCardPayout = await E(bobSeat).getPayout('Asset');
 
@@ -326,6 +328,7 @@ test('zoe - after a failed auction session, key should be available for new one'
 
   // next tick, session will be completed
   timer.tick();
+  await eventLoopIteration();
 
   const carolCardPayout = await E(carolSeat).getPayout('Asset');
   const carolObtained = await E(cardIssuer).getAmountOf(carolCardPayout);
