@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  --mdc-theme-primary: #0e515e;
+}
+
+#walletBridgeIFrame {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+.grid {
+  padding-top: 30px;
+}
+
+.mdc-card__primary, .mdc-card__secondary {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.mdc-card__secondary {
+  padding-bottom: 20px;
+}
+
+#enable-dapp {
+  padding-top: 20px;
+}
+
+#debug-mode {
+  padding: 20px;
+}
+
+.mdc-layout-grid__inner {
+  padding-top: 20px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  font-family: monospace;
+  padding-top: 20px;
+}
+
+.message {
+  word-wrap: break-word;
+  width: 100%;
+}
+
+.status {
+  padding: 10px;
+}
+
+.mdc-card__media {
+  position: relative;
+}
+.mdc-card__media-content {
+  background: rgba(0,0,0,0.3);
+}
+.mdc-card__primary {
+  color: white;
+  position: absolute;
+  bottom: 0;
+  font-weight: bold;
+  width: 100%;
+}
+
+

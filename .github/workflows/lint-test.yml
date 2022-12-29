@@ -1,0 +1,64 @@
+name: Lint and Test from Root
+
+# run CI on pushes to master, and on all PRs (even the ones that target other
+# branches)
+
+on:
+ push:
+   branches: [master]
+ pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - name: Checkout dapp
+      uses: actions/checkout@v2
+
+    # Select a branch on agoric-sdk to test against by adding text to the body of the
+    # pull request. For example: #agoric-sdk-branch: zoe-release-0.7.0
+    # The default is 'master'
+    - name: Get the appropriate agoric-sdk branch
+      id: get-branch
+      uses: actions/github-script@0.9.0
+      with:
+        result-encoding: string
+        script: |
+          const { body = '' } = context.payload.pull_request || {};
+          const regex = /.*\#agoric-sdk-branch:\s+(\S+)/;
+          const match = regex.exec(body);
+          const agoricSdkBranch = match && match[1] || 'master';
+          console.log(agoricSdkBranch);
+          return agoricSdkBranch;
+
+    - name: Checkout agoric-sdk
+      uses: actions/checkout@v2
+      with:
+        repository: Agoric/agoric-sdk
+        path: agoric-sdk
+        ref: ${{steps.get-branch.outputs.result}}
+  
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Setup and link agoric-sdk packages
+      run: |
+        yarn install
+        yarn build
+        yarn link-cli ~/bin/agoric
+        echo "/home/runner/bin" >> $GITHUB_PATH
+      working-directory: ./agoric-sdk
+
+    - name: agoric install
+      run: agoric install
+    - name: yarn build
+      run: yarn build
+    - name: yarn lint
+      run: yarn lint
+    - name: yarn test (everything)
+      run: yarn test

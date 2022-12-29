@@ -1,0 +1,135 @@
+{
+  "name": "agoric-assignment-6-ui",
+  "version": "0.0.1",
+  "description": "dapp Frontend",
+  "author": "Agoric",
+  "license": "Apache-2.0",
+  "homepage": ".",
+  "type": "module",
+  "scripts": {
+    "build": "yarn build:ses && yarn build:react",
+    "build:ses": "cp ../node_modules/ses/dist/lockdown.umd.js public/",
+    "build:react": "react-scripts build",
+    "lint-check": "eslint '**/*.{js,jsx}'",
+    "lint-fix": "eslint --fix '**/*.{js,jsx}'",
+    "start": "yarn build:ses && react-scripts start",
+    "test": "exit 0",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "ignorePatterns": [
+      "**/*.umd.js",
+      "**/generated/*"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react"
+    ],
+    "rules": {
+      "react/prop-types": "off"
+    },
+    "env": {
+      "browser": true
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      },
+      "react": {
+        "version": "detect"
+      }
+    },
+    "extends": [
+      "@agoric",
+      "plugin:react/recommended"
+    ]
+  },
+  "eslintIgnore": [
+    "dist/",
+    "conf/",
+    "build/",
+    ".cache",
+    "node_modules"
+  ],
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticPath": "public/lib",
+        "staticOutDir": "lib"
+      },
+      {
+        "staticPath": "public/assets"
+      }
+    ],
+    "excludeGlob": "**/*.js",
+    "watcherGlob": "**/*.html"
+  },
+  "dependencies": {
+    "@agoric/assert": "dev",
+    "@endo/captp": "^1.10.12",
+    "@agoric/ertp": "dev",
+    "@endo/eventual-send": "^0.14.4",
+    "@endo/marshal": "^0.5.4",
+    "@agoric/notifier": "dev",
+    "@agoric/ui-components": "dev",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-scripts": "4.0.3",
+    "ses": "^0.15.7"
+  },
+  "devDependencies": {
+    "agoric": "dev",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "@babel/eslint-plugin": "^7.12.1",
+    "babel-eslint": "^10.1.0"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": [
+          "*.js",
+          "*.cjs",
+          "*.mjs"
+        ]
+      }
+    ]
+  }
+}
