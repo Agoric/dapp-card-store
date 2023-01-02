@@ -13,6 +13,7 @@
     "lint-check": "eslint '**/*.{js,jsx}'",
     "lint-fix": "eslint --fix '**/*.{js,jsx}'",
     "start": "yarn build:ses && react-scripts start",
+    "raw-start": "react-scripts start",
     "test": "exit 0",
     "eject": "react-scripts eject"
   },
@@ -73,7 +74,8 @@
     "conf/",
     "build/",
     ".cache",
-    "node_modules"
+    "node_modules",
+    "src/"
   ],
   "staticFiles": {
     "staticPath": [
@@ -89,19 +91,21 @@
     "watcherGlob": "**/*.html"
   },
   "dependencies": {
-    "@agoric/assert": "dev",
-    "@endo/captp": "^1.10.12",
+    "@agoric/assert": "^0.5.1",
+    "@endo/captp": "^2.0.19",
     "@agoric/ertp": "dev",
-    "@endo/eventual-send": "^0.14.4",
-    "@endo/marshal": "^0.5.4",
+    "@endo/marshal": "^0.8.2",
     "@agoric/notifier": "dev",
     "@agoric/ui-components": "dev",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-scripts": "4.0.3",
-    "ses": "^0.15.7"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1",
+    "@endo/eventual-send": "^0.16.0",
+    "@endo/init": "^0.5.43",
+    "@endo/far": "^0.2.15",
+    "ses": "^0.18.1"
   },
   "devDependencies": {
     "agoric": "dev",
