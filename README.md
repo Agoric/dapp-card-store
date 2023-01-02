@@ -8,42 +8,55 @@ exchange for money.
 Install the
 [prerequisites](https://agoric.com/documentation/getting-started/before-using-agoric.html).
 
-Checkout the latest beta release for the sdk:
+### Execute every command below in a seperate terminal
+
+Install the sdk
 ```sh
 cd agoric-sdk
-git checkout beta
+git checkout 65d3f14c8102993168d2568eed5e6acbcba0c48a
 yarn && yarn build
 ```
 
-Then in a first terminal in the directory where you want to put your dapp, install the dapp:
+Install the dapp
 ```sh
-agoric init --dapp-template dapp-card-store --dapp-branch beta my-card-store
-cd my-card-store
+git clone https://github.com/Jorge-Lopes/agoric-assignment-6.git
+cd agoric-assignment-6
 agoric install
-# If the Agoric platform has not been started
-agoric start --reset --verbose
 ```
 
-In a second terminal, enter `agoric open` in a terminal window to open a wallet.
-
-When the UI changes from gray to white (be patient), transfer some
-funds from the **Agoric RUN currency** purse to the **Zoe fees**
-purse.
-
+Start your local-chain
 ```sh
+cd agoric-sdk/packages/cosmic-swingset
+make scenario2-setup && make scenario2-run-chain
+```
+
+Start `ag-solo`
+```sh
+cd agoric-sdk/packages/cosmic-swingset
+make scenario2-run-client
+```
+
+Open your wallet UI
+```sh
+cd agoric-sdk/packages/cosmic-swingset/t1
+agoric open --repl
+```
+
+Deploy the contract
+```sh
+cd agoric-assignment-6
 agoric deploy contract/deploy.js api/deploy.js
 ```
 
-In a third terminal, 
+Start UI, 
 ```sh
 # Navigate to the `ui` directory and start a local server
-cd ui && yarn start
+cd agoric-assignment-6/ui && yarn start
 ```
 
 ## Using the Dapp
 
-1. `yarn start` will open a page at  http://127.0.0.1:3001.
-3. A window for your wallet should open.
+1. A window for your wallet should open.
 4. Under "Dapps" in the wallet, enable the CardStore Dapp.
 5. Now you should be able to click on a card to make an offer to buy
    it.
