@@ -1,3 +1,4 @@
+/* global BigInt */
 import React, { useState, useEffect, useRef } from 'react';
 import { makeCapTP, E } from '@endo/captp';
 import { makeAsyncIterableFromNotifier as iterateNotifier } from '@agoric/notifier';

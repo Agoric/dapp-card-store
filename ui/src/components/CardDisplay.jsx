@@ -40,7 +40,7 @@ const CardDisplay = ({ playerNames, handleClick }) => {
   ));
 
   return (
-      <Container>
+    <Container>
       <Grid container className={classes.root}>
         <Grid container justifyContent={'center'}>
           <Paper className={classes.paper} elevation={0}>
@@ -54,14 +54,14 @@ const CardDisplay = ({ playerNames, handleClick }) => {
             </Typography>
           </Paper>
         </Grid>
-         <Grid
-           container
-           alignItems="stretch"
-           direction="row"
-           justifyContent={'center'}
-         >
-           {cards}
-         </Grid>
+        <Grid
+          container
+          alignItems="stretch"
+          direction="row"
+          justifyContent={'center'}
+        >
+          {cards}
+        </Grid>
       </Grid>
     </Container>
   );
