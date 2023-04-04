@@ -5,8 +5,7 @@
   </head>
   <body>
     <style>
-      html,
-      body {
+      html, body {
         height: 100%;
         padding: 0;
         margin: 0;
@@ -24,8 +23,7 @@
     </style>
     <iframe id="ifr" width="0" height="0"></iframe>
     <script type="text/javascript">
-      const localAgoricURL =
-        'https://wallet.agoric.app/locator/?append=/wallet';
+      const localAgoricURL = 'https://local.agoric.com/?append=/wallet';
       const localAgoricOrigin = new URL(localAgoricURL).origin;
       const walletQueue = [];
       let bridgeOrigin;
@@ -66,11 +64,7 @@
               ifr.contentWindow.postMessage(walletQueue.shift(), '*');
             }
           };
-        } else if (
-          !ev.data ||
-          !ev.data.type ||
-          !ev.data.type.startsWith('wallet')
-        ) {
+        } else if (!ev.data || !ev.data.type || !ev.data.type.startsWith('wallet')) {
           // console.log('not a wallet message', ev);
         } else if (ev.origin === bridgeOrigin) {
           if (window.parent !== window) {

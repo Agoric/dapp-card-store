@@ -1,11 +1,11 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Container from '@mui/material/Container';
-import CircularProgress from '@mui/material/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import BaseballCard from './BaseballCard.jsx';
 
@@ -40,12 +40,12 @@ const CardDisplay = ({ playerNames, handleClick }) => {
   ));
 
   return (
-    <Container>
+      <Container>
       <Grid container className={classes.root}>
-        <Grid container justify="space-evenly">
+        <Grid container justifyContent={'center'}>
           <Paper className={classes.paper} elevation={0}>
             {!isReady && (
-              <CircularProgress size="2rem" classes={classes.loading} />
+              <CircularProgress size="2rem" className={classes.loading} />
             )}
             <Typography>
               {isReady
@@ -54,14 +54,14 @@ const CardDisplay = ({ playerNames, handleClick }) => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid
-          container
-          alignItems="stretch"
-          direction="row"
-          justify="space-evenly"
-        >
-          {cards}
-        </Grid>
+         <Grid
+           container
+           alignItems="stretch"
+           direction="row"
+           justifyContent={'center'}
+         >
+           {cards}
+         </Grid>
       </Grid>
     </Container>
   );

@@ -19,11 +19,12 @@ const PRICE_PER_CARD_IN_MONEY_UNITS = 1n;
 // script ends, connections to any of its objects are severed.
 
 /**
- * @typedef {object} DeployPowers The special powers that `agoric deploy` gives us
+ * @typedef {Object} DeployPowers The special powers that `agoric deploy` gives us
  * @property {(path: string) => Promise<{ moduleFormat: string, source: string }>} bundleSource
  * @property {(path: string) => string} pathResolve
  * @property {(path: string, opts?: any) => Promise<any>} installUnsafePlugin
- * @typedef {object} Board
+ *
+ * @typedef {Object} Board
  * @property {(id: string) => any} getValue
  * @property {(value: any) => string} getId
  * @property {(value: any) => boolean} has

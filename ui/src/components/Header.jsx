@@ -1,9 +1,10 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import { makeStyles } from '@mui/styles';
+import Typography from '@material-ui/core/Typography';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => {
   return {

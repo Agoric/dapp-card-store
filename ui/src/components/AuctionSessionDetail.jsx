@@ -1,8 +1,8 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+import Box from '@material-ui/core/Box';
 
-import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import { stringifyValue } from '../utils/amount';
 
 const toDateString = (bigIntTs) => {

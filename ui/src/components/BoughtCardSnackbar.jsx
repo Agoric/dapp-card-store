@@ -1,5 +1,5 @@
 import React from 'react';
-import Snackbar from '@mui/material/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const BoughtCardSnackbar = ({ open, onClose }) => {
   return (

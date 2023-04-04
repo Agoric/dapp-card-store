@@ -1,5 +1,5 @@
 {
-  "name": "dapp-card-store-contract",
+  "name": "agoric-assignment-6-contract",
   "version": "0.1.0",
   "private": true,
   "description": "Contract for the Agoric Dapp",
@@ -15,14 +15,12 @@
   },
   "devDependencies": {
     "agoric": "dev",
-    "@endo/eslint-plugin": "^0.4.1",
-    "@jessie.js/eslint-plugin": "^0.2.0",
-    "ava": "^4.3.1",
+    "ava": "^3.13.0",
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1 ",
     "eslint-config-jessie": "^0.0.6",
     "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "prettier": "^2.2.1"
   },

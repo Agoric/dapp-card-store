@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/styles';
+import Box from '@material-ui/core/Box';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { makeValue, stringifyValue } from '../utils/amount';
 

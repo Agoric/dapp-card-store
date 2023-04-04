@@ -27,9 +27,9 @@ function createSocket(
   { onConnect, onDisconnect, onMessage },
   endpoint = '/private/wallet-bridge',
 ) {
-  let ifr = /** @type {HTMLIFrameElement} */ (
-    document.getElementById(walletBridgeId)
-  );
+  let ifr = /** @type {HTMLIFrameElement} */ (document.getElementById(
+    walletBridgeId,
+  ));
   if (!ifr) {
     ifr = document.querySelector(`#${walletBridgeId}`);
   }
@@ -102,9 +102,9 @@ function createSocket(
       for (const sub of messageListeners.keys()) {
         messageSubscriptions.delete(sub);
       }
-      ifr = /** @type {HTMLIFrameElement} */ (
-        document.getElementById(walletBridgeId)
-      );
+      ifr = /** @type {HTMLIFrameElement} */ (document.getElementById(
+        walletBridgeId,
+      ));
       if (ifr) {
         ifr.src = '';
       }

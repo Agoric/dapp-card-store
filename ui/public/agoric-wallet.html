@@ -4,14 +4,13 @@
     <title>Connect to Agoric bridge</title>
   </head>
   <body>
-    <p>Internal to this dApp. No user-servicable parts.</p>
+    <p>Internal to this dApp.  No user-servicable parts.</p>
     <iframe id="ifr"></iframe>
     <script type="text/javascript">
       // This can be removed once the wallet-bridge.html sends a handshake.
       // ({ type: 'walletBridgeLoaded' }).
       const FIXME_ALLOW_FOR_NO_BRIDGE_ANNOUNCEMENT = true;
-      const localAgoricURL =
-        'https://wallet.agoric.app/locator/?append=/wallet-bridge.html';
+      const localAgoricURL = 'https://local.agoric.com/?append=/wallet-bridge.html';
       const localAgoricOrigin = new URL(localAgoricURL).origin;
       const walletQueue = [];
       let walletOrigin;

@@ -1,9 +1,7 @@
 // @ts-check
 import '@endo/init/pre-bundle-source.js';
-import '@agoric/zoe/tools/prepare-test-env.js';
-// eslint-disable-next-line import/no-unresolved -- https://github.com/avajs/ava/issues/2951
-import test from 'ava';
 
+import { test } from '@agoric/zoe/tools/prepare-test-env-ava.js';
 import { resolve as importMetaResolve } from 'import-meta-resolve';
 
 import bundleSource from '@endo/bundle-source';
@@ -70,8 +68,12 @@ test('zoe - sell baseball cards, normal case', async (t) => {
     brand: moolaBrand,
   } = makeIssuerKit('moola');
 
-  const { zoe, installation, auctionInstallation, auctionItemsInstallation } =
-    await setupCardsContract();
+  const {
+    zoe,
+    installation,
+    auctionInstallation,
+    auctionItemsInstallation,
+  } = await setupCardsContract();
 
   const timer = buildManualTimer(console.log);
   const contractTerms = harden({
@@ -204,8 +206,12 @@ test('zoe - after a failed auction session, key should be available for new one'
     brand: moolaBrand,
   } = makeIssuerKit('moola');
 
-  const { zoe, installation, auctionInstallation, auctionItemsInstallation } =
-    await setupCardsContract();
+  const {
+    zoe,
+    installation,
+    auctionInstallation,
+    auctionItemsInstallation,
+  } = await setupCardsContract();
 
   const timer = buildManualTimer(console.log);
   const contractTerms = harden({
