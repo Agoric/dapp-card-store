@@ -1,5 +1,5 @@
 {
-  "name": "agoric-assignment-6-contract",
+  "name": "dapp-card-store-contract",
   "version": "0.1.0",
   "private": true,
   "description": "Contract for the Agoric Dapp",

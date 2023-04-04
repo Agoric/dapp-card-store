@@ -4439,7 +4439,7 @@ buffer@^5.5.0:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
 
-"bufferfromfile@github:agoric-labs/BufferFromFile#Agoric-built":
+bufferfromfile@agoric-labs/BufferFromFile#Agoric-built:
   version "0.4.360"
   resolved "https://codeload.github.com/agoric-labs/BufferFromFile/tar.gz/620ad350bfa6789b297ebab937e22d582fbd19ba"
   dependencies:
@@ -6255,7 +6255,7 @@ eslint@^8.3.0:
     strip-json-comments "^3.1.0"
     text-table "^0.2.0"
 
-"esm@github:agoric-labs/esm#Agoric-built":
+esm@agoric-labs/esm#Agoric-built:
   version "3.2.25"
   resolved "https://codeload.github.com/agoric-labs/esm/tar.gz/3603726ad4636b2f865f463188fcaade6375638e"
 
@@ -11005,7 +11005,7 @@ rollup@^2.43.1:
   optionalDependencies:
     fsevents "~2.3.2"
 
-"rollup@github:endojs/endo#rollup-2.7.1-patch-1":
+rollup@endojs/endo#rollup-2.7.1-patch-1:
   version "2.70.1-endo.1"
   resolved "https://codeload.github.com/endojs/endo/tar.gz/54060e784a4dbe77b6692f17344f4d84a198530d"
   optionalDependencies:

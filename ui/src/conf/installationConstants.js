@@ -1,7 +1,7 @@
-// GENERATED FROM /Users/samuelsiegart/bytepitch/contract/deploy.js
+// GENERATED FROM /Users/samuelsiegart/dapp-card-store/contract/deploy.js
 export default {
   "CONTRACT_NAME": "cardStore",
-  "INSTALLATION_BOARD_ID": "board00855",
-  "AUCTION_INSTALLATION_BOARD_ID": "board05557",
-  "AUCTION_ITEMS_INSTALLATION_BOARD_ID": "board02656"
+  "INSTALLATION_BOARD_ID": "board03773",
+  "AUCTION_INSTALLATION_BOARD_ID": "board02575",
+  "AUCTION_ITEMS_INSTALLATION_BOARD_ID": "board05674"
 };

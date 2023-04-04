@@ -1,5 +1,5 @@
 {
-  "name": "agoric-assignment-6-api",
+  "name": "dapp-card-store-api",
   "private": true,
   "version": "0.1.0",
   "description": "Agoric Dapp web server handler",
