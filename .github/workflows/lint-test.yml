@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
     steps:
     - name: Checkout dapp
       uses: actions/checkout@v2
@@ -30,7 +30,7 @@ jobs:
           const { body = '' } = context.payload.pull_request || {};
           const regex = /.*\#agoric-sdk-branch:\s+(\S+)/;
           const match = regex.exec(body);
-          const agoricSdkBranch = match && match[1] || 'master';
+          const agoricSdkBranch = match && match[1] || 'community-dev';
           console.log(agoricSdkBranch);
           return agoricSdkBranch;
 
