@@ -17,9 +17,9 @@ import buildManualTimer from '@agoric/zoe/tools/manualTimer.js';
 const contractPath = new URL('../src/contract.js', import.meta.url).pathname;
 
 const setupCardsContract = async () => {
-  const { zoeService } = makeZoeKit(makeFakeVatAdmin().admin);
-  const feePurse = E(zoeService).makeFeePurse();
-  const zoe = E(zoeService).bindDefaultFeePurse(feePurse);
+  const { zoeService: zoe } = makeZoeKit(makeFakeVatAdmin().admin);
+  // const feePurse = E(zoeService).makeFeePurse();
+  // const zoe = E(zoeService).bindDefaultFeePurse(feePurse);
 
   // pack the contract
   const bundle = await bundleSource(contractPath);

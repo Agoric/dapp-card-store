@@ -2,22 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <script src="%PUBLIC_URL%/lockdown.umd.js"></script>
+    <script src="lockdown.umd.js"></script>
     <script>
       const { pow: mathPow } = Math;
-      Math.pow = (base, exp) =>
-        typeof base === 'bigint' && typeof exp === 'bigint'
-          ? base ** exp
-          : mathPow(base, exp);
-
-      const safetyMode = '%NODE_ENV%' === 'development' ? 'unsafe' : 'safe';
-      lockdown({
-        errorTaming: safetyMode,
-        overrideTaming: 'severe',
-        consoleTaming: safetyMode,
-      });
-
-      console.log('lockdown done.');
+      Math.pow = (base, exp) => (typeof base === 'bigint' && typeof exp ==='bigint') ? base ** exp : mathPow(base, exp);
+      lockdown({ errorTaming: 'unsafe', overrideTaming: 'severe', consoleTaming: 'unsafe' });
+      console.log("lockdown done.");
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />

@@ -16,7 +16,7 @@
   "devDependencies": {
     "@endo/eslint-plugin": "^0.4.1",
     "@jessie.js/eslint-plugin": "^0.2.0",
-    "agoric": "dev",
+    "agoric": "community-dev",
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-jessie": "^0.0.6",
@@ -27,9 +27,9 @@
     "prettier": "^2.2.1"
   },
   "dependencies": {
-    "@agoric/ertp": "dev",
+    "@agoric/ertp": "community-dev",
     "@endo/eventual-send": "^0.14.4",
-    "@agoric/zoe": "dev",
+    "@agoric/zoe": "community-dev",
     "json5": "^2.2.0"
   },
   "eslintConfig": {

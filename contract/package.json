@@ -14,7 +14,7 @@
     "lint-check-jessie": "eslint -c '.eslintrc-jessie.js' '**/*.{js,jsx}'"
   },
   "devDependencies": {
-    "agoric": "dev",
+    "agoric": "community-dev",
     "@endo/eslint-plugin": "^0.4.1",
     "@jessie.js/eslint-plugin": "^0.2.0",
     "ava": "^4.3.1",
@@ -27,16 +27,16 @@
     "prettier": "^2.2.1"
   },
   "dependencies": {
-    "@agoric/assert": "dev",
+    "@agoric/assert": "community-dev",
+    "@endo/far": "0.2.15",
     "@agoric/babel-parser": "^7.6.4",
     "@endo/bundle-source": "^2.0.5",
-    "@agoric/ertp": "dev",
+    "@agoric/ertp": "community-dev",
     "@endo/eventual-send": "^0.14.4",
     "@endo/init": "^0.5.33",
-    "@endo/marshal": "^0.5.4",
-    "@agoric/notifier": "dev",
-    "@agoric/store": "dev",
-    "@agoric/zoe": "dev",
+    "@agoric/notifier": "community-dev",
+    "@agoric/store": "community-dev",
+    "@agoric/zoe": "community-dev",
     "import-meta-resolve": "^1.1.1"
   },
   "ava": {
