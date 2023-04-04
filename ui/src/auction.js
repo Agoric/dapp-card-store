@@ -1,4 +1,3 @@
-/* global harden */
 import { E } from '@endo/eventual-send';
 import { assert, details as X } from '@agoric/assert';
 
@@ -25,6 +24,7 @@ const makeBidOfferForCard = async ({
       want: {
         Asset: {
           pursePetname: cardPurse.pursePetname,
+          // eslint-disable-next-line no-undef
           value: harden([card]),
         },
       },

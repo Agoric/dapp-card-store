@@ -1,4 +1,3 @@
-/* global BigInt */
 import React, { useState, useEffect, useRef } from 'react';
 import { makeCapTP, E } from '@endo/captp';
 import { makeAsyncIterableFromNotifier as iterateNotifier } from '@agoric/notifier';
@@ -168,6 +167,7 @@ function App() {
       card: name,
       cardPurse,
       tokenPurse: selectedPurse || tokenPurses[0],
+      // eslint-disable-next-line no-undef
       price: BigInt(price),
     }).then(() => {
       setNeedToApproveOffer(true);
