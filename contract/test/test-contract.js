@@ -1,4 +1,5 @@
 // @ts-check
+/* global harden */
 import '@endo/init/pre-bundle-source.js';
 
 import { test } from '@agoric/zoe/tools/prepare-test-env-ava.js';
@@ -68,12 +69,8 @@ test('zoe - sell baseball cards, normal case', async (t) => {
     brand: moolaBrand,
   } = makeIssuerKit('moola');
 
-  const {
-    zoe,
-    installation,
-    auctionInstallation,
-    auctionItemsInstallation,
-  } = await setupCardsContract();
+  const { zoe, installation, auctionInstallation, auctionItemsInstallation } =
+    await setupCardsContract();
 
   const timer = buildManualTimer(console.log);
   const contractTerms = harden({
@@ -206,12 +203,8 @@ test('zoe - after a failed auction session, key should be available for new one'
     brand: moolaBrand,
   } = makeIssuerKit('moola');
 
-  const {
-    zoe,
-    installation,
-    auctionInstallation,
-    auctionItemsInstallation,
-  } = await setupCardsContract();
+  const { zoe, installation, auctionInstallation, auctionItemsInstallation } =
+    await setupCardsContract();
 
   const timer = buildManualTimer(console.log);
   const contractTerms = harden({

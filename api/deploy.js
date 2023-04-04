@@ -1,5 +1,5 @@
 // @ts-check
-/* global process */
+/* global harden, BigInt */
 
 // Agoric Dapp api deployment script
 
@@ -163,7 +163,8 @@ export default async function deployApi(homePromise, { pathResolve }) {
     INSTALLATION_BOARD_ID,
     AUCTION_ITEMS_INSTALLATION_BOARD_ID,
     INVITE_BRAND_BOARD_ID,
-    BRIDGE_URL: 'agoric-lookup:https://wallet.agoric.app/locator/?append=/bridge',
+    BRIDGE_URL:
+      'agoric-lookup:https://wallet.agoric.app/locator/?append=/bridge',
     brandBoardIds: {
       Card: CARD_BRAND_BOARD_ID,
       Money: MONEY_BRAND_BOARD_ID,

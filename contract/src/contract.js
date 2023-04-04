@@ -1,4 +1,6 @@
 // @ts-check
+/* global harden, assert */
+
 import '@agoric/zoe/exported';
 
 import { makeIssuerKit, AssetKind, AmountMath } from '@agoric/ertp';

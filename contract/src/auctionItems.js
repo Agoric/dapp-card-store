@@ -1,4 +1,5 @@
 // @ts-check
+/* global harden */
 
 import { assert, details as X } from '@agoric/assert';
 import { Far } from '@endo/marshal';
@@ -53,10 +54,8 @@ const start = (zcf) => {
 
   const { zcfSeat: sellerSeat } = zcf.makeEmptySeatKit();
 
-  const {
-    notifier: availableItemsNotifier,
-    updater: availableItemsUpdater,
-  } = makeNotifierKit();
+  const { notifier: availableItemsNotifier, updater: availableItemsUpdater } =
+    makeNotifierKit();
 
   const sell = (seat) => {
     sellerSeat.incrementBy(seat.decrementBy(seat.getCurrentAllocation()));
