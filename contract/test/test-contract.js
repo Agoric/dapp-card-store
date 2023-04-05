@@ -1,7 +1,7 @@
 // @ts-check
 import '@endo/init/pre-bundle-source.js';
 import '@agoric/zoe/tools/prepare-test-env.js';
-// eslint-disable-next-line import/no-unresolved -- https://github.com/avajs/ava/issues/2951
+
 import test from 'ava';
 
 import { resolve as importMetaResolve } from 'import-meta-resolve';
