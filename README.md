@@ -26,10 +26,6 @@ agoric start --reset --verbose
 
 In a second terminal, enter `agoric open` in a terminal window to open a wallet.
 
-When the UI changes from gray to white (be patient), transfer some
-funds from the **Agoric RUN currency** purse to the **Zoe fees**
-purse.
-
 ```sh
 agoric deploy contract/deploy.js api/deploy.js
 ```

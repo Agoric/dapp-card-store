@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/setup-node@v1
       with:
-        node-version: 14.x
+        node-version: 16.x
     - name: Checkout agoric-sdk
       uses: actions/checkout@v2
       with:
@@ -74,7 +74,7 @@ jobs:
     steps:
     - uses: actions/setup-node@v1
       with:
-        node-version: 14.x
+        node-version: 16.x
     - name: restore built files
       uses: actions/cache@v1
       with:

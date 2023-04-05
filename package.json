@@ -4,7 +4,7 @@
   "private": true,
   "useWorkspaces": true,
   "engines": {
-    "node": ">=14.15.0"
+    "node": ">=16.19.1"
   },
   "workspaces": [
     "api",
