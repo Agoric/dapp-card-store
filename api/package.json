@@ -32,11 +32,6 @@
     "@agoric/zoe": "community-dev",
     "json5": "^2.2.0"
   },
-  "eslintConfig": {
-    "extends": [
-      "@agoric"
-    ]
-  },
   "keywords": [],
   "repository": {
     "type": "git",

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
-import { stringifyValue } from '../utils/amount';
+import { stringifyValue } from '../utils/amount.js';
 
 const toDateString = (bigIntTs) => {
   const ts = parseInt(bigIntTs.toString(), 10);

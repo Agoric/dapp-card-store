@@ -56,11 +56,6 @@
     "url": "https://github.com/Agoric/agoric/issues"
   },
   "homepage": "https://github.com/Agoric/agoric#readme",
-  "eslintConfig": {
-    "extends": [
-      "@agoric"
-    ]
-  },
   "prettier": {
     "trailingComma": "all",
     "singleQuote": true
