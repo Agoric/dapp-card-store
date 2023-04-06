@@ -9,7 +9,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 
-import { makeValue, stringifyValue } from '../utils/amount';
+import { makeValue, stringifyValue } from '../utils/amount.js';
 
 const useStyles = makeStyles((theme) => {
   return {

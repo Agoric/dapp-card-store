@@ -1,7 +1,6 @@
 // @ts-check
 import '@endo/init/pre-bundle-source.js';
 import '@agoric/zoe/tools/prepare-test-env.js';
-// eslint-disable-next-line import/no-unresolved -- https://github.com/avajs/ava/issues/2951
 import test from 'ava';
 
 import { resolve as importMetaResolve } from 'import-meta-resolve';
@@ -17,9 +16,7 @@ import buildManualTimer from '@agoric/zoe/tools/manualTimer.js';
 const contractPath = new URL('../src/contract.js', import.meta.url).pathname;
 
 const setupCardsContract = async () => {
-  const { zoeService } = makeZoeKit(makeFakeVatAdmin().admin);
-  const feePurse = E(zoeService).makeFeePurse();
-  const zoe = E(zoeService).bindDefaultFeePurse(feePurse);
+  const { zoeService: zoe } = makeZoeKit(makeFakeVatAdmin().admin);
 
   // pack the contract
   const bundle = await bundleSource(contractPath);

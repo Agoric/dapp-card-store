@@ -42,10 +42,10 @@ const CardDisplay = ({ playerNames, handleClick }) => {
   return (
     <Container>
       <Grid container className={classes.root}>
-        <Grid container justify="space-evenly">
+        <Grid container justifyContent={'center'}>
           <Paper className={classes.paper} elevation={0}>
             {!isReady && (
-              <CircularProgress size="2rem" classes={classes.loading} />
+              <CircularProgress size="2rem" className={classes.loading} />
             )}
             <Typography>
               {isReady
@@ -58,7 +58,7 @@ const CardDisplay = ({ playerNames, handleClick }) => {
           container
           alignItems="stretch"
           direction="row"
-          justify="space-evenly"
+          justifyContent={'center'}
         >
           {cards}
         </Grid>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeCapTP, E } from '@endo/captp';
 import { makeAsyncIterableFromNotifier as iterateNotifier } from '@agoric/notifier';
-import { Far } from '@endo/marshal';
+import { Far } from '@endo/far';
 import { ThemeProvider } from '@mui/styles';
 import { createTheme } from '@mui/material';
 import {

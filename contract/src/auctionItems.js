@@ -1,7 +1,7 @@
 // @ts-check
 
 import { assert, details as X } from '@agoric/assert';
-import { Far } from '@endo/marshal';
+import { Far } from '@endo/far';
 import { E } from '@endo/eventual-send';
 import { AmountMath } from '@agoric/ertp';
 import { makeNotifierKit } from '@agoric/notifier';
@@ -144,7 +144,7 @@ const start = (zcf) => {
       // get after match allocation
       // TODO Stop using getCurrentAllocationJig.
       // See https://github.com/Agoric/agoric-sdk/issues/5833
-      const sellerAllocation = await E(sellerSeatP).getCurrentAllocationJig();
+      const sellerAllocation = await E(sellerSeatP).getFinalAllocation();
 
       // check Asset amount after the auction session
       const isAssetItemSold = AmountMath.isEmpty(sellerAllocation.Asset);

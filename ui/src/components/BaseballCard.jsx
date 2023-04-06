@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 
 import { makeStyles } from '@mui/styles';
 
-import { images } from '../images';
+import { images } from '../images.js';
 
 const useStyles = makeStyles((theme) => {
   return {
