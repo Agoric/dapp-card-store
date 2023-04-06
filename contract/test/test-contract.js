@@ -17,8 +17,6 @@ const contractPath = new URL('../src/contract.js', import.meta.url).pathname;
 
 const setupCardsContract = async () => {
   const { zoeService: zoe } = makeZoeKit(makeFakeVatAdmin().admin);
-  // const feePurse = E(zoeService).makeFeePurse();
-  // const zoe = E(zoeService).bindDefaultFeePurse(feePurse);
 
   // pack the contract
   const bundle = await bundleSource(contractPath);

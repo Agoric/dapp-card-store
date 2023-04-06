@@ -31,7 +31,7 @@
     "@agoric/cosmic-swingset": "community-dev"
   },
   "scripts": {
-    "preinstall": "node -e \"process.env.AGORIC_INSTALL && process.exit(0); console.warn('please use: agoric install . For details, see https://agoric.com/documentation/'); process.exit(1)\"",
+    "preinstall": "node -e \"process.env.AGORIC_INSTALL && process.exit(0); console.warn('please use: agoric install community-dev. For details, see https://agoric.com/documentation/'); process.exit(1)\"",
     "lint": "yarn workspaces run lint-fix",
     "lint-check": "yarn workspaces run lint-check",
     "test": "yarn workspaces run test",
