@@ -1983,10 +1983,10 @@
   dependencies:
     node-gyp-build "^4.5.0"
 
-"@datadog/native-iast-taint-tracking@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@datadog/native-iast-taint-tracking/-/native-iast-taint-tracking-1.1.1.tgz#cbeace022b6c1f3a0a40dc0000cc40079c6d4895"
-  integrity sha512-VkESVYpVlLHqw38UHqqEYsJaJTp3+JpKIJhfB9nlQO13dYBc3Sgq/QJZNdPViU73SVsCJtuw4D0SXRyjTXP1IA==
+"@datadog/native-iast-taint-tracking@1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@datadog/native-iast-taint-tracking/-/native-iast-taint-tracking-1.3.1.tgz#49b3befc3049370f4034babcf57c3d67e9f4d56b"
+  integrity sha512-KWKmK4/GANisxqVZ1TtGlBIOw2RIXdUO0r7361QJHiBVUxwNKmKNVDVuCTKGpRRH/0GZcxY0yVgl38ee/6HM3A==
   dependencies:
     node-gyp-build "^3.9.0"
 
@@ -2751,9 +2751,9 @@
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
 "@jridgewell/trace-mapping@^0.3.17":
-  version "0.3.17"
-  resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.17.tgz#793041277af9073b0951a7fe0f0d8c4c98c36985"
-  integrity sha512-MCNzAp77qzKca9+W/+I0+sEpaUnZoeasnghNeVc41VZCEKaCH73Vq3BZZ/SzWIgrqE4H4ceI+p+b6C0mHf9T4g==
+  version "0.3.18"
+  resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.18.tgz#25783b2086daf6ff1dcb53c9249ae480e4dd4cd6"
+  integrity sha512-w+niJYzMHdd7USdiH2U6869nqhD2nbfZXND5Yp93qIbEmnDNk7PD48o+YchRVpzMU7M6jVCbenTR7PA1FLQ9pA==
   dependencies:
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
@@ -5550,13 +5550,13 @@ date-time@^3.1.0:
     time-zone "^1.0.0"
 
 dd-trace@^3.3.0:
-  version "3.16.0"
-  resolved "https://registry.yarnpkg.com/dd-trace/-/dd-trace-3.16.0.tgz#baa76f9cfe047f16a995ace3d515d21d81944ed6"
-  integrity sha512-ogRsTotTF/dMzGVrULzEPShCf9MP6aHxNS5LQS0igvx7I/gJof0MTCXNGDhLY8X3KYRczolTkYTcJ3S4siiyGg==
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/dd-trace/-/dd-trace-3.17.0.tgz#8a2399e988f4fe1eaf6c51f9fcc81253f15038ed"
+  integrity sha512-YMJOpwY07D215uwguGLNOtVfapcIuTSJiVJh8G+ImsZe8fd5nyfZLjRwpoY74tA/sH/Rv7WPOdYgIDTgZh7Kag==
   dependencies:
     "@datadog/native-appsec" "2.0.0"
     "@datadog/native-iast-rewriter" "2.0.1"
-    "@datadog/native-iast-taint-tracking" "1.1.1"
+    "@datadog/native-iast-taint-tracking" "1.3.1"
     "@datadog/native-metrics" "^1.5.0"
     "@datadog/pprof" "^2.1.0"
     "@datadog/sketches-js" "^2.1.0"
@@ -9240,9 +9240,9 @@ no-case@^3.0.4:
     tslib "^2.0.3"
 
 node-abi@^3.3.0:
-  version "3.34.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.34.0.tgz#3bac9f69fda94ece1752515ed996ed409da4fa26"
-  integrity sha512-O5sNsdgxptez/bSXk2CfpTcVu4yTiFW1YcMHIVn2uAY8MksXWQeReMx63krFrj/QSyjRJ5/jIBkWvJ3/ZimdcA==
+  version "3.35.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.35.0.tgz#c7f171af995cc5286fa95612c4ca97b3910eaa79"
+  integrity sha512-jAlSOFR1Bls963NmFwxeQkNTzqjUF0NThm8Le7eRIRGzFUVJuMOFZDLv5Y30W/Oaw+KEebEJLAigwO9gQHoEmw==
   dependencies:
     semver "^7.3.5"
 

@@ -61,26 +61,31 @@ cd ui && yarn start
 ## Using the Dapp
 1. `agoric open` will have opened your wallet at http://127.0.0.1:8000/
 
-1. `yarn start` will open a the Dapp at http://127.0.0.1:3000.
+2. `yarn start` will open a the Dapp at http://127.0.0.1:3000.
 
-1. In the wallet, `Accept` the `Dapp Connection` between cardStore and the wallet.
+3. Open a new tab from your and go to https://wallet.agoric.app/locator/ and enter http://127.0.0.1:8000/ into the 
+dialog as shown below.
 
-   ![Accept Dapp Connection](./readme-assets/accept-dapp-connection.png)
+    <br/><img width="50%" src="./readme-assets/locator.png">
 
-1. In the dapp, you should be able to click on a baseball card to `BID` on it in an action. Enter `Bid ammount` to submit an offer to buy the card.
+4. In the wallet, `Accept` the `Dapp Connection` between cardStore and the wallet.
 
-   ![Bid on Card](./readme-assets/bid-on-card.png)
+    <br/><img width="50%" src="./readme-assets/accept-dapp-connection.png">
 
-1. In the wallet, `Approve` the `Proposed` offer to bid on a card.
+5. In the dapp, you should be able to click on a baseball card to `BID` on it in an action. Enter `Bid ammount` to submit an offer to buy the card.
 
-   ![Proposed Offer](./readme-assets/proposed-offer.png)
+   <br/><img width="60%" src="./readme-assets/bid-on-card.png">
 
-1. In the wallet, the offer will be in a `Pending` state while the auction for the card to complete. The auction takes up to 300 seconds.
+6. In the wallet, `Approve` the `Proposed` offer to bid on a card.
 
-   ![Pending Offer](./readme-assets/pending-offer.png)
+   <br/><img width="50%" src="./readme-assets/proposed-offer.png"> 
 
-1. In the wallet, your offer will transition to an `Accepted` state when the auction ends. Your `cardStore.Card` purse will now contain a card
+7. In the wallet, the offer will be in a `Pending` state while the auction for the card to complete. The auction takes up to 300 seconds.
 
-   ![Accepted Offer](./readme-assets/accepted-offer.png)
+   <br/><img width="50%" src="./readme-assets/pending-offer.png">
+
+8. In the wallet, your offer will transition to an `Accepted` state when the auction ends. Your `cardStore.Card` purse will now contain a card
+
+   <br/><img width="50%" src="./readme-assets/accepted-offer.png">
 
 To learn more about how to build Agoric Dapps, please see the [Dapp Guide](https://agoric.com/documentation/dapps/).
