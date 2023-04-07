@@ -68,27 +68,23 @@ dialog as shown below.
 
     <br/><img width="50%" src="./readme-assets/locator.png">
 
-4. Now go to http://127.0.0.1:3000 and make sure you've enabled cookies for https://wallet.agoric.app/ as shown below.
-
-   <br/><img width="60%" src="./readme-assets/allowCookies.png">
-
-5. In the wallet, `Accept` the `Dapp Connection` between cardStore and the wallet.
+4. In the wallet, `Accept` the `Dapp Connection` between cardStore and the wallet.
 
     <br/><img width="50%" src="./readme-assets/accept-dapp-connection.png">
 
-6. In the dapp, you should be able to click on a baseball card to `BID` on it in an action. Enter `Bid ammount` to submit an offer to buy the card.
+5. In the dapp, you should be able to click on a baseball card to `BID` on it in an action. Enter `Bid ammount` to submit an offer to buy the card.
 
    <br/><img width="60%" src="./readme-assets/bid-on-card.png">
 
-7. In the wallet, `Approve` the `Proposed` offer to bid on a card.
+6. In the wallet, `Approve` the `Proposed` offer to bid on a card.
 
    <br/><img width="50%" src="./readme-assets/proposed-offer.png"> 
 
-8. In the wallet, the offer will be in a `Pending` state while the auction for the card to complete. The auction takes up to 300 seconds.
+7. In the wallet, the offer will be in a `Pending` state while the auction for the card to complete. The auction takes up to 300 seconds.
 
    <br/><img width="50%" src="./readme-assets/pending-offer.png">
 
-9. In the wallet, your offer will transition to an `Accepted` state when the auction ends. Your `cardStore.Card` purse will now contain a card
+8. In the wallet, your offer will transition to an `Accepted` state when the auction ends. Your `cardStore.Card` purse will now contain a card
 
    <br/><img width="50%" src="./readme-assets/accepted-offer.png">
 
