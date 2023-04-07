@@ -14,14 +14,15 @@ const EnableAppDialog = ({ open, handleClose }) => {
       <DialogTitle>Enable the Dapp</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Before using the dapp, you must enable it. To enable the dapp, please
+          Before using this dapp, you must enable it. To enable the dapp, please
           open your wallet by using the `agoric open` command in your terminal.
-          Then, under Dapps, enable CardStore.
+          Then, in the Dashboard, accept the connection between the wallet and
+          cardStore dapp.
           <img
             id="enable-dapp"
             src={enableDappPng}
             width="100%"
-            alt="Enable dapp in wallet"
+            alt="Accept dapp connection in wallet"
           />
         </DialogContentText>
       </DialogContent>
