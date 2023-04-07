@@ -1,4 +1,4 @@
-// GENERATED FROM /Users/ivanleichtling/source/dapp-card-store/contract/deploy.js
+// GENERATED FROM /Users/anil/WebstormProjects/agoric-samples/dapp-card-store/contract/deploy.js
 export default {
   "CONTRACT_NAME": "cardStore",
   "INSTALLATION_BOARD_ID": "board01029",

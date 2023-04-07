@@ -1,4 +1,4 @@
-// GENERATED FROM /Users/ivanleichtling/source/dapp-card-store/api/deploy.js
+// GENERATED FROM /Users/anil/WebstormProjects/agoric-samples/dapp-card-store/api/deploy.js
 export default {
   "INSTANCE_BOARD_ID": "board05432",
   "INSTALLATION_BOARD_ID": "board01029",
