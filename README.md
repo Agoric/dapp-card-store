@@ -22,9 +22,14 @@ To run the dapp, you'll use 3 separate terminal windows
 # Terminal 1
 # Use the root directory of the dapp-card-store checkout
 cd dapp-card-store
+# Install the dapp into a directory named demo
+agoric init --dapp-template dapp-card-store demo
+# Use the new dapp's directory
+cd demo
 # Install the project dependencies
 agoric install community-dev
-# Start the Agoric VM. This will take a few minutes to complete.
+# Start the Agoric simulated blockchain & VM.
+# This will take a few minutes to complete. Wait for the output to settle.
 agoric start --reset --verbose
 ```
 
@@ -32,17 +37,18 @@ agoric start --reset --verbose
 
 ```sh
 # Terminal 2
-# Use the root directory of the dapp-card-store checkout
-cd dapp-card-store
-# Open the Agoric solo wallet and repl in a new browser window or tab
+# Use the demo directory in the dapp-card-store checkout
+cd dapp-card-store/demo
+# Open the Agoric solo wallet and repl
+# This should open a new browser tab to http://127.0.0.1:8000
 agoric open --repl
 ```
 
 ### Deploy the Contract and API
 ```sh
 # Terminal 2
-# Use the root directory of the dapp-card-store checkout
-cd dapp-card-store
+# Use the demo directory in the the dapp-card-store checkout
+cd dapp-card-store/demo
 # Deploy a new instance of the contract to the VM
 agoric deploy ./contract/deploy.js
 # Deploy a new instance of the API to the VM
@@ -52,8 +58,8 @@ agoric deploy ./api/deploy.js
 ### Start the Dapp UI
 ```sh
 # Terminal 3
-# Use the root directory of the dapp-card-store checkout
-cd dapp-card-store
+# Use the demo directory in the the dapp-card-store checkout
+cd dapp-card-store/demo
 # Start the user interface
 cd ui && yarn start
 ```
@@ -61,11 +67,12 @@ cd ui && yarn start
 ## Using the Dapp
 1. `agoric open` will have opened your wallet at http://127.0.0.1:8000/
 
-2. `yarn start` will open a the Dapp at http://127.0.0.1:3000.
+2. `yarn start` will open the dapp at http://127.0.0.1:3000. The dapp will ask you to switch to the wallet to `Accept` the `Dapp Connection`.
+
+   <br/><img width="50%" src="./readme-assets/must-enable-dapp.png">
 
 3. Open a new tab from your and go to https://wallet.agoric.app/locator/ and enter http://127.0.0.1:8000/ into the 
 dialog as shown below.
-
     <br/><img width="50%" src="./readme-assets/locator.png">
 
 4. In the wallet, `Accept` the `Dapp Connection` between cardStore and the wallet.
