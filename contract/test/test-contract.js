@@ -8,15 +8,14 @@ import { resolve as importMetaResolve } from 'import-meta-resolve';
 import bundleSource from '@endo/bundle-source';
 
 import { E } from '@endo/eventual-send';
-import { makeFakeVatAdmin } from '@agoric/zoe/tools/fakeVatAdmin.js';
-import { makeZoeKit } from '@agoric/zoe';
+import { makeZoeForTest } from '@agoric/zoe/tools/setup-zoe.js';
 import { makeIssuerKit, AmountMath } from '@agoric/ertp';
 import buildManualTimer from '@agoric/zoe/tools/manualTimer.js';
 
 const contractPath = new URL('../src/contract.js', import.meta.url).pathname;
 
 const setupCardsContract = async () => {
-  const { zoeService: zoe } = makeZoeKit(makeFakeVatAdmin().admin);
+  const zoe = makeZoeForTest();
 
   // pack the contract
   const bundle = await bundleSource(contractPath);
