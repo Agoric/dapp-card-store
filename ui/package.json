@@ -33,8 +33,14 @@
       "**/*.umd.js",
       "**/generated/*"
     ],
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
+      "requireConfigFile": false,
+      "babelOptions": {
+        "presets": [
+          "@babel/preset-react"
+        ]
+      },
       "ecmaFeatures": {
         "jsx": true
       },
@@ -90,11 +96,11 @@
     "watcherGlob": "**/*.html"
   },
   "dependencies": {
-    "@agoric/assert": "community-dev",
-    "@endo/captp": "^2.0.19",
-    "@agoric/ertp": "community-dev",
-    "@agoric/notifier": "community-dev",
-    "@agoric/ui-components": "community-dev",
+    "@agoric/assert": "getting-started-dev",
+    "@endo/captp": "^3.1.1",
+    "@agoric/ertp": "getting-started-dev",
+    "@agoric/notifier": "getting-started-dev",
+    "@agoric/ui-components": "getting-started-dev",
     "@mui/material": "5.10.3",
     "@mui/icons-material": "5.10.3",
     "@mui/styles": "5.10.3",
@@ -103,28 +109,26 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
-    "@endo/eventual-send": "^0.16.0",
-    "@endo/init": "^0.5.43",
-    "@endo/far": "0.2.16",
-    "ses": "^0.18.1"
+    "@endo/eventual-send": "^0.17.2",
+    "@endo/init": "^0.5.56",
+    "@endo/far": "0.2.18",
+    "ses": "^0.18.4"
   },
   "devDependencies": {
-    "@endo/eslint-plugin": "^0.4.1",
-    "@jessie.js/eslint-plugin": "^0.2.0",
-    "agoric": "community-dev",
-    "eslint": "^7.23.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^8.1.0",
+    "@agoric/eslint-config": "getting-started-dev",
+    "@endo/eslint-plugin": "^0.4.4",
+    "@jessie.js/eslint-plugin": "^0.3.0",
+    "agoric": "getting-started-dev",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "^7.23.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.2.1",
-    "rimraf": "^3.0.2",
-    "@babel/eslint-plugin": "^7.12.1",
-    "babel-eslint": "^10.1.0"
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.28.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "prettier": "^2.8.3",
+    "rimraf": "^3.0.2"
   },
   "prettier": {
     "trailingComma": "all",
