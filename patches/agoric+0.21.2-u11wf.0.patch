@@ -1,0 +1,13 @@
+diff --git a/node_modules/agoric/src/entrypoint.js b/node_modules/agoric/src/entrypoint.js
+index c90ac5f..942a040 100755
+--- a/node_modules/agoric/src/entrypoint.js
++++ b/node_modules/agoric/src/entrypoint.js
+@@ -6,7 +6,7 @@
+ import '@endo/init/pre.js';
+ import 'esm';
+ import '@agoric/casting/node-fetch-shim.js';
+-import '@endo/init/legacy.js';
++import '@endo/init';
+ 
+ import path from 'path';
+ import WebSocket from 'ws';

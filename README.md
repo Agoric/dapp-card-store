@@ -1,83 +1,75 @@
 # Baseball Card Store Dapp
+
 The Baseball Card Store Dapp sells baseball cards as NFT tokens in exchange for tokens.
 
-## Setup the Agoric SDK
-Install the [prerequisites](https://agoric.com/documentation/getting-started/before-using-agoric.html).
-
-Switch to the `community-dev` branch of the agoric-sdk:
-```sh
-# Use the root directory of the agoric-sdk checkout
-cd agoric-sdk
-# Switch the community-dev stable branch
-git checkout community-dev
-# Build the dependencies
-yarn && yarn build
-```
-
 ## Run the Dapp
+
 To run the dapp, you'll use 3 separate terminal windows
 
 ### Initialize the Agoric VM
+
 ```sh
 # Terminal 1
-# Use the root directory of the dapp-card-store checkout
-cd dapp-card-store
+cd $HOME
 # Install the dapp into a directory named demo
-agoric init --dapp-template dapp-card-store demo
+npx agoric@latest init --dapp-template dapp-card-store --dapp-branch mhofman/npm-latest demo
 # Use the new dapp's directory
 cd demo
 # Install the project dependencies
-agoric install community-dev
+yarn install
 # Start the Agoric simulated blockchain & VM.
 # This will take a few minutes to complete. Wait for the output to settle.
-agoric start --reset --verbose
+yarn start:chain --reset --verbose
 ```
 
 ### Open the Agoric Wallet and REPL UI
 
 ```sh
 # Terminal 2
-# Use the demo directory in the dapp-card-store checkout
-cd dapp-card-store/demo
+# Use the demo directory
+cd $HOME/demo
 # Open the Agoric solo wallet and repl
 # This should open a new browser tab to http://127.0.0.1:8000
-agoric open --repl
+yarn agoric open --repl
 ```
 
 ### Deploy the Contract and API
+
 ```sh
 # Terminal 2
-# Use the demo directory in the the dapp-card-store checkout
-cd dapp-card-store/demo
+# Use the demo directory
+cd $HOME/demo
 # Deploy a new instance of the contract to the VM
-agoric deploy ./contract/deploy.js
+yarn agoric deploy ./contract/deploy.js
 # Deploy a new instance of the API to the VM
-agoric deploy ./api/deploy.js
+yarn agoric deploy ./api/deploy.js
 ```
 
 ### Start the Dapp UI
+
 ```sh
 # Terminal 3
-# Use the demo directory in the the dapp-card-store checkout
-cd dapp-card-store/demo
+# Use the demo directory
+cd $HOME/demo
 # Start the user interface
-cd ui && yarn start
+yarn start:ui
 ```
 
 ## Using the Dapp
-1. `agoric open` will have opened your wallet at http://127.0.0.1:8000/
 
-2. `yarn start` will open the dapp at http://127.0.0.1:3000. The dapp will ask you to switch to the wallet to `Accept` the `Dapp Connection`.
+1. `yarn agoric open` will have opened your wallet at http://127.0.0.1:8000/
+
+2. `yarn start:ui` will open the dapp at http://127.0.0.1:3000. The dapp will ask you to switch to the wallet to `Accept` the `Dapp Connection`.
 
    <br/><img width="50%" src="./readme-assets/must-enable-dapp.png">
 
-3. Open a new tab from your and go to https://wallet.agoric.app/locator/ and enter http://127.0.0.1:8000/ into the 
-dialog as shown below.
-    <br/><img width="50%" src="./readme-assets/locator.png">
+3. Open a new tab from your and go to https://wallet.agoric.app/locator/ and enter http://127.0.0.1:8000/ into the
+   dialog as shown below.
+   <br/><img width="50%" src="./readme-assets/locator.png">
 
 4. In the wallet, `Accept` the `Dapp Connection` between cardStore and the wallet.
 
-    <br/><img width="50%" src="./readme-assets/accept-dapp-connection.png">
+   <br/><img width="50%" src="./readme-assets/accept-dapp-connection.png">
 
 5. In the dapp, you should be able to click on a baseball card to `BID` on it in an action. Enter `Bid ammount` to submit an offer to buy the card.
 
@@ -85,7 +77,7 @@ dialog as shown below.
 
 6. In the wallet, `Approve` the `Proposed` offer to bid on a card.
 
-   <br/><img width="50%" src="./readme-assets/proposed-offer.png"> 
+   <br/><img width="50%" src="./readme-assets/proposed-offer.png">
 
 7. In the wallet, the offer will be in a `Pending` state while the auction for the card to complete. The auction takes up to 300 seconds.
 
