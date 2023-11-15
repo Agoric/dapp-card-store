@@ -1,0 +1,17 @@
+diff --git a/node_modules/@babel/code-frame/node_modules/chalk/index.js b/node_modules/@babel/code-frame/node_modules/chalk/index.js
+index 1cc5fa8..7618fa4 100644
+--- a/node_modules/@babel/code-frame/node_modules/chalk/index.js
++++ b/node_modules/@babel/code-frame/node_modules/chalk/index.js
+@@ -39,7 +39,11 @@ function Chalk(options) {
+ 		Object.setPrototypeOf(chalk, Chalk.prototype);
+ 		Object.setPrototypeOf(chalk.template, chalk);
+ 
+-		chalk.template.constructor = Chalk;
++		Object.defineProperty(chalk.template, 'constructor', {
++			value: Chalk,
++			configurable: true,
++			writable: true,
++		});
+ 
+ 		return chalk.template;
+ 	}
