@@ -20,6 +20,7 @@
     "@agoric/solo": "getting-started-dev",
     "@endo/eslint-plugin": "^0.4.3",
     "@jessie.js/eslint-plugin": "^0.3.0",
+    "concurrently": "^8.2.2",
     "eslint": "^8.36.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-jessie": "^0.0.6",
@@ -39,9 +40,12 @@
     "lint-check": "yarn workspaces run lint-check",
     "test": "yarn workspaces run test",
     "build": "yarn workspaces run build",
-    "start:chain": "agoric start",
-    "start:ui": "yarn --cwd ui/ start",
-    "deploy": "agoric deploy ./contract/deploy.js  ./api/deploy.js"
+    "start:wallet": "agoric open",
+    "start:deploy": "agoric deploy ./contract/deploy.js ./api/deploy.js",
+    "start:sim": "agoric start -v",
+    "start:dapp": "npm run start:deploy && npm run start:wallet && npm run start:ui",
+    "start:ui": "cd ui && npm run start",
+    "start": "concurrently --kill-others -c \"bgBlue.bold,bgMagenta\" --names \"SIM,DAP\" \"npm run -- start:sim --reset\" npm:start:dapp"
   },
   "eslintConfig": {
     "parser": "@babel/eslint-parser",

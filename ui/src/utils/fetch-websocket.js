@@ -56,7 +56,7 @@ function createSocket({ onConnect, onDisconnect, onMessage }, endpoint) {
       window.addEventListener('message', ev => {
         // console.log('dapp ui got', ev);
         logMsg(ev.data, 'recv');
-        if (ev.data && ev.data.type === 'walletBridgeLoaded') {
+        if (ev.data && ev.data.type === 'walletBridgeOpened') {
           walletLoaded = true;
           for (const sub of connectSubscriptions.keys()) {
             sub();
