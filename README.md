@@ -2,12 +2,12 @@
 
 The Baseball Card Store Dapp sells baseball cards as NFT tokens in exchange for tokens.
 
-## Initialize the Dapp project
+## Creating a new Dapp project
 
 ```sh
 cd $HOME
 # Install the dapp into a directory named demo
-npm create @agoric/dapp -- --dapp-template dapp-card-store --dapp-branch mhofman/hack-getting-started demo
+npm create @agoric/dapp -- --dapp-template dapp-card-store --dapp-branch mfig-hack-getting-started demo
 # Use the new dapp's directory
 cd demo
 # Install the project dependencies
@@ -31,8 +31,6 @@ yarn start
 
 2. The dapp will ask you to switch to the Agoric Wallet tab to `Accept` the `Dapp Connection`.
    If the wallet is not open, you can run `yarn start:wallet` to interact with it.
-
-   <br/><img width="50%" src="./readme-assets/must-enable-dapp.png">
 
 3. In the wallet, `Accept` the `Dapp Connection` between cardStore and the wallet.
 
