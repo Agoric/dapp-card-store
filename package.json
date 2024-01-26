@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "useWorkspaces": true,
-  "engines": {
-    "node": ">=16.19.1"
-  },
   "workspaces": [
     "api",
     "contract",
