@@ -11,6 +11,7 @@ import { E } from '@endo/eventual-send';
 import { makeFakeVatAdmin } from '@agoric/zoe/tools/fakeVatAdmin.js';
 import { makeZoeKit } from '@agoric/zoe';
 import { makeIssuerKit, AmountMath } from '@agoric/ertp';
+import { eventLoopIteration } from '@agoric/internal/src/testing-utils.js';
 import buildManualTimer from '@agoric/zoe/tools/manualTimer.js';
 
 const contractPath = new URL('../src/contract.js', import.meta.url).pathname;
@@ -41,7 +42,7 @@ const setupCardsContract = async () => {
   const auctionBundle = await bundleSource(auctionBundlePath);
   const auctionInstallation = await E(zoe).install(auctionBundle);
 
-  const timer = buildManualTimer(console.log);
+  const timer = buildManualTimer(console.log, 0n, { eventLoopIteration });
   const contractTerms = harden({
     bidDuration: 1n,
     winnerPriceOption: 'first-price',
@@ -70,7 +71,7 @@ test('zoe - sell baseball cards, normal case', async (t) => {
   const { zoe, installation, auctionInstallation, auctionItemsInstallation } =
     await setupCardsContract();
 
-  const timer = buildManualTimer(console.log);
+  const timer = buildManualTimer(console.log, 0n, { eventLoopIteration });
   const contractTerms = harden({
     bidDuration: 1n,
     winnerPriceOption: 'first-price',
@@ -127,7 +128,7 @@ test('zoe - sell baseball cards, normal case', async (t) => {
   });
 
   // timer ticks before offering, nothing happens
-  timer.tick();
+  await timer.tick();
 
   const bobSeat = await E(zoe).offer(
     bobInvitation,
@@ -155,7 +156,7 @@ test('zoe - sell baseball cards, normal case', async (t) => {
     carolPaymentKeywordRecord,
   );
 
-  timer.tick();
+  await timer.tick();
 
   const bobCardPayout = await E(bobSeat).getPayout('Asset');
 
@@ -204,7 +205,7 @@ test('zoe - after a failed auction session, key should be available for new one'
   const { zoe, installation, auctionInstallation, auctionItemsInstallation } =
     await setupCardsContract();
 
-  const timer = buildManualTimer(console.log);
+  const timer = buildManualTimer(console.log, 0n, { eventLoopIteration });
   const contractTerms = harden({
     bidDuration: 1n,
     winnerPriceOption: 'first-price',
@@ -261,7 +262,7 @@ test('zoe - after a failed auction session, key should be available for new one'
   });
 
   // timer ticks before offering, nothing happens
-  timer.tick();
+  await timer.tick();
 
   const bobSeat = await E(zoe).offer(
     bobInvitation,
@@ -275,7 +276,7 @@ test('zoe - after a failed auction session, key should be available for new one'
   await E(bobSeat).tryExit();
 
   // auction closed?
-  timer.tick();
+  await timer.tick();
 
   const bobCardPayout = await E(bobSeat).getPayout('Asset');
 
@@ -322,7 +323,7 @@ test('zoe - after a failed auction session, key should be available for new one'
   await E(carolSeat).getOfferResult();
 
   // next tick, session will be completed
-  timer.tick();
+  await timer.tick();
 
   const carolCardPayout = await E(carolSeat).getPayout('Asset');
   const carolObtained = await E(cardIssuer).getAmountOf(carolCardPayout);
